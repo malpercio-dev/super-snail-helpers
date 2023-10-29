@@ -1,0 +1,1519 @@
+{
+  "realm": {
+    "white": [
+      {
+        "imagePath": "/media/gear/realm/white/66px-Khopesh.webp",
+        "name": "Khopesh"
+      },
+      {
+        "imagePath": "/media/gear/realm/white/69px-Tactical_Boots.webp",
+        "name": "Tactical Boots"
+      },
+      {
+        "imagePath": "/media/gear/realm/white/70px-Gentleman's_Staff.webp",
+        "name": "Gentleman's Staff"
+      },
+      {
+        "imagePath": "/media/gear/realm/white/70px-Iron_Helmet.webp",
+        "name": "Iron Helmet"
+      },
+      {
+        "imagePath": "/media/gear/realm/white/71px-Crowbar.webp",
+        "name": "Crowbar"
+      },
+      {
+        "imagePath": "/media/gear/realm/white/71px-Ice_Skates.webp",
+        "name": "Ice Skates"
+      },
+      {
+        "imagePath": "/media/gear/realm/white/71px-Light_Yamato_Armor.webp",
+        "name": "Light Yamato Armor"
+      },
+      {
+        "imagePath": "/media/gear/realm/white/72px-Smoothbore.webp",
+        "name": "Smoothbore"
+      },
+      {
+        "imagePath": "/media/gear/realm/white/73px-Royal_Underwear.webp",
+        "name": "Royal Underwear"
+      },
+      {
+        "imagePath": "/media/gear/realm/white/74px-Podao.webp",
+        "name": "Podao"
+      },
+      {
+        "imagePath": "/media/gear/realm/white/75px-Linen_Robe.webp",
+        "name": "Linen Robe"
+      },
+      {
+        "imagePath": "/media/gear/realm/white/75px-Top_Hat.webp",
+        "name": "Top Hat"
+      }
+    ],
+    "green": [
+      {
+        "imagePath": "/media/gear/realm/green/64px-Poisoned_Dagger.webp",
+        "name": "Poisoned Dagger"
+      },
+      {
+        "imagePath": "/media/gear/realm/green/65px-Royal_Guard_Bearskin_Hat.webp",
+        "name": "Royal Guard Bearskin Hat"
+      },
+      {
+        "imagePath": "/media/gear/realm/green/69px-Colt_Revolver.webp",
+        "name": "Colt Revolver"
+      },
+      {
+        "imagePath": "/media/gear/realm/green/69px-Lee_Enfield_Rifle.webp",
+        "name": "Lee Enfield Rifle"
+      },
+      {
+        "imagePath": "/media/gear/realm/green/70px-Tactical_Vest.webp",
+        "name": "Tactical Vest"
+      },
+      {
+        "imagePath": "/media/gear/realm/green/72px-Switchblade.webp",
+        "name": "Switchblade"
+      },
+      {
+        "imagePath": "/media/gear/realm/green/73px-Wu_Scimitar.webp",
+        "name": "Wu Scimitar"
+      },
+      {
+        "imagePath": "/media/gear/realm/green/74px-Golden_Yamato_Armor.webp",
+        "name": "Golden Yamato Armor"
+      },
+      {
+        "imagePath": "/media/gear/realm/green/74px-Heart-Protection_Mirror.webp",
+        "name": "Heart-Protection Mirror"
+      },
+      {
+        "imagePath": "/media/gear/realm/green/74px-Motorbike_Helmet.webp",
+        "name": "Motorbike Helmet"
+      },
+      {
+        "imagePath": "/media/gear/realm/green/74px-Ninjutsu_Armband.webp",
+        "name": "Ninjutsu Armband"
+      },
+      {
+        "imagePath": "/media/gear/realm/green/75px-Leather_Shield.webp",
+        "name": "Leather Shield"
+      }
+    ],
+    "blue": [
+      {
+        "imagePath": "/media/gear/realm/blue/69px-Tactical_Helmet.webp",
+        "name": "Tactical Helmet"
+      },
+      {
+        "imagePath": "/media/gear/realm/blue/70px-Ancient_Blade.webp",
+        "name": "Ancient Blade"
+      },
+      {
+        "imagePath": "/media/gear/realm/blue/70px-Diver.webp",
+        "name": "Diver"
+      },
+      {
+        "imagePath": "/media/gear/realm/blue/70px-Sword_Cane.webp",
+        "name": "Sword Cane"
+      },
+      {
+        "imagePath": "/media/gear/realm/blue/71px-Springfield_Rifle.webp",
+        "name": "Springfield Rifle"
+      },
+      {
+        "imagePath": "/media/gear/realm/blue/72px-Iron_Track.webp",
+        "name": "Iron Track"
+      },
+      {
+        "imagePath": "/media/gear/realm/blue/72px-Pirate.webp",
+        "name": "Pirate"
+      },
+      {
+        "imagePath": "/media/gear/realm/blue/72px-Servant_Spirit_Pendant.webp",
+        "name": "Servant Spirit Pendant"
+      },
+      {
+        "imagePath": "/media/gear/realm/blue/73px-Tuxedo.webp",
+        "name": "Tuxedo"
+      },
+      {
+        "imagePath": "/media/gear/realm/blue/75px-Assault_Rifle_Model_98.webp",
+        "name": "Assault Rifle Model 98"
+      },
+      {
+        "imagePath": "/media/gear/realm/blue/75px-Bulletproof_Vest.webp",
+        "name": "Bulletproof Vest"
+      },
+      {
+        "imagePath": "/media/gear/realm/blue/75px-Crimson_Haori_Jacket.webp",
+        "name": "Crimson Haori Jacket"
+      },
+      {
+        "imagePath": "/media/gear/realm/blue/75px-Duckbill_Axe.webp",
+        "name": "Duckbill Axe"
+      },
+      {
+        "imagePath": "/media/gear/realm/blue/75px-PASGT_Helmet.webp",
+        "name": "PASGT Helmet"
+      },
+      {
+        "imagePath": "/media/gear/realm/blue/75px-Rainbow_Tassel.webp",
+        "name": "Rainbow Tassel"
+      }
+    ],
+    "purple": [
+      {
+        "imagePath": "/media/gear/realm/purple/65px-Teslla.webp",
+        "name": "Teslla"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/67px-Gas_Mask.webp",
+        "name": "Gas Mask"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/69px-7-Star_Blade.webp",
+        "name": "7-Star Blade"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/70px-Genji_Gloves.webp",
+        "name": "Genji Gloves"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/70px-Golden_Assault_Rifle.webp",
+        "name": "Golden Assault Rifle"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/70px-Mechanical_Exoskeleton.webp",
+        "name": "Mechanical Exoskeleton"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/71px-Genji_Shield.webp",
+        "name": "Genji Shield"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/71px-Long_Range_Scope.webp",
+        "name": "Long Range Scope"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/71px-Powered_Glove.webp",
+        "name": "Powered Glove"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/71px-Royal_Banner.webp",
+        "name": "Royal Banner"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/72px-Iron_Track.webp",
+        "name": "Iron Track"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/72px-Pirate.webp",
+        "name": "Pirate"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/72px-Priestly_Robe.webp",
+        "name": "Priestly Robe"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/72px-Shotgun_Umbrella.webp",
+        "name": "Shotgun Umbrella"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/73px-Holographic_Tactical_Glasses.webp",
+        "name": "Holographic Tactical Glasses"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/74px-Arabic_Dagger.webp",
+        "name": "Arabic Dagger"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/74px-Blade_Muramasa.webp",
+        "name": "Blade Muramasa"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/74px-Britland_Crown.webp",
+        "name": "Britland Crown"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/75px-Genji_Helmet.webp",
+        "name": "Genji Helmet"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/75px-Golden_Bronze_Dagger.webp",
+        "name": "Golden Bronze Dagger"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/75px-Guardian's_Longsword.webp",
+        "name": "Guardian's Longsword"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/75px-M4_Carbine.webp",
+        "name": "M4 Carbine"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/75px-Pharaoh's_Scepter.webp",
+        "name": "Pharaoh's Scepter"
+      },
+      {
+        "imagePath": "/media/gear/realm/purple/75px-Silver_Lion.webp",
+        "name": "Silver Lion"
+      }
+    ],
+    "orange": [
+      {
+        "imagePath": "/media/gear/realm/orange/65px-Teslla.webp",
+        "name": "Teslla"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/68px-Genji_Armor.webp",
+        "name": "Genji Armor"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/70px-Blade_Murasame.webp",
+        "name": "Blade Murasame"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/70px-Diver.webp",
+        "name": "Diver"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/70px-Horse_Helmet.webp",
+        "name": "Horse Helmet"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/70px-Windsor's_Cape.webp",
+        "name": "Windsor's Cape"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/71px-Couple_Swords.webp",
+        "name": "Couple Swords"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/71px-Indv_Power_Armor.webp",
+        "name": "Indv Power Armor"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/72px-Gear_Ring.webp",
+        "name": "Gear Ring"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/72px-Indv_High-explosive_Rifle.webp",
+        "name": "Indv High-explosive Rifle"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/72px-Iron_Track.webp",
+        "name": "Iron Track"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/72px-Pirate.webp",
+        "name": "Pirate"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/72px-Virgo_Tech.webp",
+        "name": "Virgo Tech"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/73px-Curator's_Helmet.webp",
+        "name": "Curator's Helmet"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/73px-Lion's_Crown.webp",
+        "name": "Lion's Crown"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/74px-Damascus_Knife.webp",
+        "name": "Damascus Knife"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/75px-Conqueror_Spear.webp",
+        "name": "Conqueror Spear"
+      },
+      {
+        "imagePath": "/media/gear/realm/orange/75px-Jung-geun's_Gun.webp",
+        "name": "Jung-geun's Gun"
+      }
+    ],
+    "red": [
+      {
+        "imagePath": "/media/gear/realm/red/Bullet_Storm.webp",
+        "name": "t Storm"
+      },
+      {
+        "imagePath": "/media/gear/realm/red/Crown_of_Eternal_Daylight.webp",
+        "name": " of Eternal Daylight"
+      },
+      {
+        "imagePath": "/media/gear/realm/red/Deepsea_Helmet.webp",
+        "name": "ea Helmet"
+      },
+      {
+        "imagePath": "/media/gear/realm/red/Lion_King's_Sword.webp",
+        "name": "King's Sword"
+      },
+      {
+        "imagePath": "/media/gear/realm/red/Overlord's_Hook.webp",
+        "name": "ord's Hook"
+      },
+      {
+        "imagePath": "/media/gear/realm/red/Sky_Piercer.webp",
+        "name": "iercer"
+      },
+      {
+        "imagePath": "/media/gear/realm/red/Sword_Futsuno.webp",
+        "name": " Futsuno"
+      },
+      {
+        "imagePath": "/media/gear/realm/red/The_Great_Collector.webp",
+        "name": "reat Collector"
+      },
+      {
+        "imagePath": "/media/gear/realm/red/The_Great_Engineer.webp",
+        "name": "reat Engineer"
+      },
+      {
+        "imagePath": "/media/gear/realm/red/The_Great_Scientist.webp",
+        "name": "reat Scientist"
+      },
+      {
+        "imagePath": "/media/gear/realm/red/Tremendous_Support.webp",
+        "name": "ndous Support"
+      },
+      {
+        "imagePath": "/media/gear/realm/red/Warmongers_Gun.webp",
+        "name": "ngers Gun"
+      }
+    ],
+    "red+": [
+      {
+        "imagePath": "/media/gear/realm/red+/The_Great_Collector.webp",
+        "name": "reat Collector"
+      },
+      {
+        "imagePath": "/media/gear/realm/red+/The_Great_Engineer.webp",
+        "name": "reat Engineer"
+      },
+      {
+        "imagePath": "/media/gear/realm/red+/The_Great_Scientist.webp",
+        "name": "reat Scientist"
+      }
+    ]
+  },
+  "form": {
+    "white": [],
+    "green": [
+      {
+        "imagePath": "/media/gear/form/green/75px-Leather_Chest_Armor.webp",
+        "name": "Leather Chest Armor"
+      },
+      {
+        "imagePath": "/media/gear/form/green/75px-Lotus_Platform.webp",
+        "name": "Lotus Platform"
+      }
+    ],
+    "blue": [
+      {
+        "imagePath": "/media/gear/form/blue/63px-Prayer_Staff.webp",
+        "name": "Prayer Staff"
+      },
+      {
+        "imagePath": "/media/gear/form/blue/70px-Gauss_C14.webp",
+        "name": "Gauss C14"
+      },
+      {
+        "imagePath": "/media/gear/form/blue/70px-Undead_Staff.webp",
+        "name": "Undead Staff"
+      },
+      {
+        "imagePath": "/media/gear/form/blue/73px-Demon_Scythe.webp",
+        "name": "Demon Scythe"
+      },
+      {
+        "imagePath": "/media/gear/form/blue/73px-Mark_2.webp",
+        "name": "Mark II"
+      },
+      {
+        "imagePath": "/media/gear/form/blue/74px-The_Buried.webp",
+        "name": "The Buried"
+      },
+      {
+        "imagePath": "/media/gear/form/blue/75px-Dragon_Fang_Dagger.webp",
+        "name": "Dragon Fang Dagger"
+      },
+      {
+        "imagePath": "/media/gear/form/blue/75px-Leather_Chest_Armor.webp",
+        "name": "Leather Chest Armor"
+      },
+      {
+        "imagePath": "/media/gear/form/blue/75px-Lotus_Platform.webp",
+        "name": "Lotus Platform"
+      },
+      {
+        "imagePath": "/media/gear/form/blue/75px-Mind_Control_Dagger.webp",
+        "name": "Mind Control Dagger"
+      }
+    ],
+    "purple": [
+      {
+        "imagePath": "/media/gear/form/purple/63px-Prayer_Staff.webp",
+        "name": "Prayer Staff"
+      },
+      {
+        "imagePath": "/media/gear/form/purple/70px-Gauss_C14.webp",
+        "name": "Gauss C14"
+      },
+      {
+        "imagePath": "/media/gear/form/purple/70px-Undead_Staff.webp",
+        "name": "Undead Staff"
+      },
+      {
+        "imagePath": "/media/gear/form/purple/71px-Crimson_Dragon_Claw.webp",
+        "name": "Crimson Dragon Claw"
+      },
+      {
+        "imagePath": "/media/gear/form/purple/73px-Demon_Scythe.webp",
+        "name": "Demon Scythe"
+      },
+      {
+        "imagePath": "/media/gear/form/purple/73px-Mark_2.webp",
+        "name": "Mark II"
+      },
+      {
+        "imagePath": "/media/gear/form/purple/74px-The_Buried.webp",
+        "name": "The Buried"
+      },
+      {
+        "imagePath": "/media/gear/form/purple/75px-Dragon_Fang_Dagger.webp",
+        "name": "Dragon Fang Dagger"
+      },
+      {
+        "imagePath": "/media/gear/form/purple/75px-Leather_Chest_Armor.webp",
+        "name": "Leather Chest Armor"
+      },
+      {
+        "imagePath": "/media/gear/form/purple/75px-Lotus_Platform.webp",
+        "name": "Lotus Platform"
+      },
+      {
+        "imagePath": "/media/gear/form/purple/75px-Mind_Control_Dagger.webp",
+        "name": "Mind Control Dagger"
+      }
+    ],
+    "orange": [
+      {
+        "imagePath": "/media/gear/form/orange/63px-Prayer_Staff.webp",
+        "name": "Prayer Staff"
+      },
+      {
+        "imagePath": "/media/gear/form/orange/70px-Gauss_C14.webp",
+        "name": "Gauss C14"
+      },
+      {
+        "imagePath": "/media/gear/form/orange/70px-Undead_Staff.webp",
+        "name": "Undead Staff"
+      },
+      {
+        "imagePath": "/media/gear/form/orange/71px-Crimson_Dragon_Claw.webp",
+        "name": "Crimson Dragon Claw"
+      },
+      {
+        "imagePath": "/media/gear/form/orange/73px-Demon_Scythe.webp",
+        "name": "Demon Scythe"
+      },
+      {
+        "imagePath": "/media/gear/form/orange/73px-Mark_2.webp",
+        "name": "Mark II"
+      },
+      {
+        "imagePath": "/media/gear/form/orange/74px-The_Buried.webp",
+        "name": "The Buried"
+      },
+      {
+        "imagePath": "/media/gear/form/orange/75px-Azazel's_Curse.webp",
+        "name": "Azazel's Curse"
+      },
+      {
+        "imagePath": "/media/gear/form/orange/75px-Dragon_Fang_Dagger.webp",
+        "name": "Dragon Fang Dagger"
+      },
+      {
+        "imagePath": "/media/gear/form/orange/75px-Leather_Chest_Armor.webp",
+        "name": "Leather Chest Armor"
+      },
+      {
+        "imagePath": "/media/gear/form/orange/75px-Lotus_Platform.webp",
+        "name": "Lotus Platform"
+      },
+      {
+        "imagePath": "/media/gear/form/orange/75px-Mind_Control_Dagger.webp",
+        "name": "Mind Control Dagger"
+      }
+    ],
+    "red": [
+      {
+        "imagePath": "/media/gear/form/red/65px-Soul_Walking.webp",
+        "name": "Soul Walking"
+      },
+      {
+        "imagePath": "/media/gear/form/red/67px-Seraph's_Light.webp",
+        "name": "Seraph's Light"
+      },
+      {
+        "imagePath": "/media/gear/form/red/70px-Mark_4.webp",
+        "name": "Mark IV"
+      },
+      {
+        "imagePath": "/media/gear/form/red/71px-Lotus_Platform_XII.webp",
+        "name": "Lotus Platform XII"
+      },
+      {
+        "imagePath": "/media/gear/form/red/72px-Serket_Staff.webp",
+        "name": "Serket Staff"
+      },
+      {
+        "imagePath": "/media/gear/form/red/72px-Soul_Reaper.webp",
+        "name": "Soul Reaper"
+      },
+      {
+        "imagePath": "/media/gear/form/red/75px-Azazel's_Pact.webp",
+        "name": "Azazel's Pact"
+      },
+      {
+        "imagePath": "/media/gear/form/red/75px-Centaur_Armor.webp",
+        "name": "Centaur Armor"
+      },
+      {
+        "imagePath": "/media/gear/form/red/75px-Claw_of_Destruction.webp",
+        "name": "Claw of Destruction"
+      },
+      {
+        "imagePath": "/media/gear/form/red/75px-Fang_of_Tiamat.webp",
+        "name": "Fang of Tiamat"
+      },
+      {
+        "imagePath": "/media/gear/form/red/75px-Gauss_M72.webp",
+        "name": "Gauss M72"
+      },
+      {
+        "imagePath": "/media/gear/form/red/75px-Subspace_Blade.webp",
+        "name": "Subspace Blade"
+      }
+    ],
+    "red+": [
+      {
+        "imagePath": "/media/gear/form/red+/67px-Seraph's_Light.webp",
+        "name": "Seraph's Light"
+      },
+      {
+        "imagePath": "/media/gear/form/red+/72px-Serket_Staff.webp",
+        "name": "Serket Staff"
+      },
+      {
+        "imagePath": "/media/gear/form/red+/72px-Soul_Reaper.webp",
+        "name": "Soul Reaper"
+      },
+      {
+        "imagePath": "/media/gear/form/red+/75px-Fang_of_Tiamat.webp",
+        "name": "Fang of Tiamat"
+      },
+      {
+        "imagePath": "/media/gear/form/red+/75px-Gauss_M72.webp",
+        "name": "Gauss M72"
+      },
+      {
+        "imagePath": "/media/gear/form/red+/75px-Subspace_Blade.webp",
+        "name": "Subspace Blade"
+      }
+    ]
+  },
+  "instrument": {
+    "white": [],
+    "green": [
+      {
+        "imagePath": "/media/gear/instrument/green/67px-Shattered_Sky_Ribbon.webp",
+        "name": "Shattered Sky Ribbon"
+      },
+      {
+        "imagePath": "/media/gear/instrument/green/68px-Broken_Sagesinker.webp",
+        "name": "Broken Sagesinker"
+      },
+      {
+        "imagePath": "/media/gear/instrument/green/69px-Broken_Sagemurderer.webp",
+        "name": "Broken Sagemurderer"
+      },
+      {
+        "imagePath": "/media/gear/instrument/green/72px-Shattered_Fire_Spear.webp",
+        "name": "Shattered Fire Spear"
+      },
+      {
+        "imagePath": "/media/gear/instrument/green/72px-Strength_Sword.webp",
+        "name": "Strength Sword"
+      },
+      {
+        "imagePath": "/media/gear/instrument/green/73px-Shattered_Palm-Leaf_Fan.webp",
+        "name": "Shattered Palm-Leaf Fan"
+      },
+      {
+        "imagePath": "/media/gear/instrument/green/75px-Broken_Sageender.webp",
+        "name": "Broken Sageender"
+      },
+      {
+        "imagePath": "/media/gear/instrument/green/75px-Broken_Sagekiller.webp",
+        "name": "Broken Sagekiller"
+      },
+      {
+        "imagePath": "/media/gear/instrument/green/75px-Crystal_Lens.webp",
+        "name": "Crystal Lens"
+      },
+      {
+        "imagePath": "/media/gear/instrument/green/75px-Dwarf_Mask.webp",
+        "name": "Dwarf Mask"
+      },
+      {
+        "imagePath": "/media/gear/instrument/green/75px-Elegant_Gloves.webp",
+        "name": "Elegant Gloves"
+      },
+      {
+        "imagePath": "/media/gear/instrument/green/75px-Fresnal_Lens.webp",
+        "name": "Fresnal Lens"
+      },
+      {
+        "imagePath": "/media/gear/instrument/green/75px-Hannibel's_Scalpel.webp",
+        "name": "Hannibel's Scalpel"
+      },
+      {
+        "imagePath": "/media/gear/instrument/green/75px-Jack's_Gloves.webp",
+        "name": "Jack's Gloves"
+      },
+      {
+        "imagePath": "/media/gear/instrument/green/75px-Lizard_Belt.webp",
+        "name": "Lizard Belt"
+      },
+      {
+        "imagePath": "/media/gear/instrument/green/75px-Shattered_Windfire_Wheel.webp",
+        "name": "Shattered Windfire Wheel"
+      },
+      {
+        "imagePath": "/media/gear/instrument/green/75px-Slippers.webp",
+        "name": "Slippers"
+      }
+    ],
+    "blue": [
+      {
+        "imagePath": "/media/gear/instrument/blue/71px-Pulse_Rifle.webp",
+        "name": "Pulse Rifle"
+      },
+      {
+        "imagePath": "/media/gear/instrument/blue/72px-Broken_Sage_Killer.webp",
+        "name": "Broken Sage Killer"
+      },
+      {
+        "imagePath": "/media/gear/instrument/blue/72px-Jason's_Mask.webp",
+        "name": "Jason's Mask"
+      },
+      {
+        "imagePath": "/media/gear/instrument/blue/72px-Strength_Sword.webp",
+        "name": "Strength Sword"
+      },
+      {
+        "imagePath": "/media/gear/instrument/blue/74px-Broken_Palm-Leaf_Fan.webp",
+        "name": "Broken Palm-Leaf Fan"
+      },
+      {
+        "imagePath": "/media/gear/instrument/blue/75px-Broken_Fiend_Mirror.webp",
+        "name": "Broken Fiend Mirror"
+      },
+      {
+        "imagePath": "/media/gear/instrument/blue/75px-Broken_Godsmiter.webp",
+        "name": "Broken Godsmiter"
+      },
+      {
+        "imagePath": "/media/gear/instrument/blue/75px-Dwarf_Mask.webp",
+        "name": "Dwarf Mask"
+      },
+      {
+        "imagePath": "/media/gear/instrument/blue/75px-Elegant_Gloves.webp",
+        "name": "Elegant Gloves"
+      },
+      {
+        "imagePath": "/media/gear/instrument/blue/75px-Freddy's_Claw.webp",
+        "name": "Freddy's Claw"
+      },
+      {
+        "imagePath": "/media/gear/instrument/blue/75px-Infrared_Lens.webp",
+        "name": "Infrared Lens"
+      },
+      {
+        "imagePath": "/media/gear/instrument/blue/75px-Lizard_Belt.webp",
+        "name": "Lizard Belt"
+      },
+      {
+        "imagePath": "/media/gear/instrument/blue/75px-Multifunction_Goggles.webp",
+        "name": "Multifunction Goggles"
+      },
+      {
+        "imagePath": "/media/gear/instrument/blue/75px-Nun-chuck.webp",
+        "name": "Nun-chuck"
+      },
+      {
+        "imagePath": "/media/gear/instrument/blue/75px-Sakabato_Blade.webp",
+        "name": "Sakabato Blade"
+      },
+      {
+        "imagePath": "/media/gear/instrument/blue/75px-Slippers.webp",
+        "name": "Slippers"
+      },
+      {
+        "imagePath": "/media/gear/instrument/blue/75px-Walnut_Wand.webp",
+        "name": "Walnut Wand"
+      }
+    ],
+    "purple": [
+      {
+        "imagePath": "/media/gear/instrument/purple/69px-Cayako's_Charm.webp",
+        "name": "Cayako's Charm"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/70px-Dim_Rope_of_Truth.webp",
+        "name": "Dim Rope of Truth"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/71px-Hammer_of_Frenzy.webp",
+        "name": "Hammer of Frenzy"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/71px-Pulse_Rifle.webp",
+        "name": "Pulse Rifle"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/71px-Texan_Chainsaw.webp",
+        "name": "Texan Chainsaw"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/72px-Strength_Sword.webp",
+        "name": "Strength Sword"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/73px-Dim_Trident.webp",
+        "name": "Dim Trident"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/74px-Dim_Godsmiter.webp",
+        "name": "Dim Godsmiter"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/74px-Leviathan_Gloves.webp",
+        "name": "Leviathan Gloves"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/75px-Dim_Ironcutter.webp",
+        "name": "Dim Ironcutter"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/75px-Dwarf_Mask.webp",
+        "name": "Dwarf Mask"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/75px-Elegant_Gloves.webp",
+        "name": "Elegant Gloves"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/75px-Holographic_Lens.webp",
+        "name": "Holographic Lens"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/75px-Imitation_Vision.webp",
+        "name": "Imitation Vision"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/75px-Lizard_Belt.webp",
+        "name": "Lizard Belt"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/75px-Nun-chuck.webp",
+        "name": "Nun-chuck"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/75px-Peacock_Quill.webp",
+        "name": "Peacock Quill"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/75px-Sakabato_Blade.webp",
+        "name": "Sakabato Blade"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/75px-Scout_Goggles.webp",
+        "name": "Scout Goggles"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/75px-Slippers.webp",
+        "name": "Slippers"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/75px-Spring_Longsword.webp",
+        "name": "Spring Longsword"
+      },
+      {
+        "imagePath": "/media/gear/instrument/purple/75px-Walnut_Wand.webp",
+        "name": "Walnut Wand"
+      }
+    ],
+    "orange": [
+      {
+        "imagePath": "/media/gear/instrument/orange/68px-Electric_Hammer.webp",
+        "name": "Electric Hammer"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/71px-Anti-Strength_Saber.webp",
+        "name": "Anti-Strength Saber"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/71px-Hammer_of_Frenzy.webp",
+        "name": "Hammer of Frenzy"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/71px-Maze_Key.webp",
+        "name": "Maze Key"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/71px-Pulse_Rifle.webp",
+        "name": "Pulse Rifle"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/72px-Strength_Sword.webp",
+        "name": "Strength Sword"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/73px-Trident.webp",
+        "name": "Trident"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/74px-Excalibur.webp",
+        "name": "Excalibur"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/74px-Leviathan_Gloves.webp",
+        "name": "Leviathan Gloves"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/75px-B-Tadpole_Sword.webp",
+        "name": "B-Tadpole Sword"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/75px-Battle_Detector.webp",
+        "name": "Battle Detector"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/75px-Butcher's_Hook.webp",
+        "name": "Butcher's Hook"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/75px-Dragzul_Fang.webp",
+        "name": "Dragzul Fang"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/75px-Dwarf_Mask.webp",
+        "name": "Dwarf Mask"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/75px-Elegant_Gloves.webp",
+        "name": "Elegant Gloves"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/75px-Fossil.webp",
+        "name": "Fossil"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/75px-Imitation_Vision.webp",
+        "name": "Imitation Vision"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/75px-Lizard_Belt.webp",
+        "name": "Lizard Belt"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/75px-Nun-chuck.webp",
+        "name": "Nun-chuck"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/75px-Peacock_Quill.webp",
+        "name": "Peacock Quill"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/75px-Sakabato_Blade.webp",
+        "name": "Sakabato Blade"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/75px-Slippers.webp",
+        "name": "Slippers"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/75px-Spring_Longsword.webp",
+        "name": "Spring Longsword"
+      },
+      {
+        "imagePath": "/media/gear/instrument/orange/75px-Walnut_Wand.webp",
+        "name": "Walnut Wand"
+      }
+    ],
+    "red": [
+      {
+        "imagePath": "/media/gear/instrument/red/62px-Ancestral_Legacy.webp",
+        "name": "Ancestral Legacy"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/65px-Incredible_Key.webp",
+        "name": "Incredible Key"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/68px-Blair's_Curse.webp",
+        "name": "Blair's Curse"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/68px-Million_Volts.webp",
+        "name": "Million Volts"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/72px-True_Sakabato.webp",
+        "name": "True Sakabato"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/73px-W-Tadpole_Sword.webp",
+        "name": "W-Tadpole Sword"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/74px-Dark_Strength.webp",
+        "name": "Dark Strength"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/74px-Poseidon's_Trident.webp",
+        "name": "Poseidon's Trident"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/74px-Strength_Master's_Sword.webp",
+        "name": "Strength Master's Sword"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/75px-Big_Bounce.webp",
+        "name": "Big Bounce"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/75px-Cretaceous_Weapon.webp",
+        "name": "Cretaceous Weapon"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/75px-District_9.webp",
+        "name": "District 9"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/75px-Empress'_Slippers.webp",
+        "name": "Empress' Slippers"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/75px-Empress_Gloves.webp",
+        "name": "Empress Gloves"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/75px-Excalibur_EX.webp",
+        "name": "Excalibur EX"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/75px-Gilded_Belt.webp",
+        "name": "Gilded Belt"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/75px-Golden_Drazgul_Fang.webp",
+        "name": "Golden Drazgul Fang"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/75px-Hydra's_Gloves.webp",
+        "name": "Hydra's Gloves"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/75px-Know-It-All_Device.webp",
+        "name": "Know-It-All Device"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/75px-Norris-chuck.webp",
+        "name": "Norris-chuck"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/75px-Oldman_Wand.webp",
+        "name": "Oldman Wand"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/75px-Power_Spinach.webp",
+        "name": "Power Spinach"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/75px-Septreasure_Peacock_Quill.webp",
+        "name": "Septreasure Peacock Quill"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red/75px-Virtual_Vision.webp",
+        "name": "Virtual Vision"
+      }
+    ],
+    "red+": [
+      {
+        "imagePath": "/media/gear/instrument/red+/65px-Incredible_Key.webp",
+        "name": "Incredible Key"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red+/74px-Poseidon's_Trident.webp",
+        "name": "Poseidon's Trident"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red+/74px-Strength_Master's_Sword.webp",
+        "name": "Strength Master's Sword"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red+/75px-Big_Bounce.webp",
+        "name": "Big Bounce"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red+/75px-Excalibur_EX.webp",
+        "name": "Excalibur EX"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red+/75px-Golden_Drazgul_Fang.webp",
+        "name": "Golden Drazgul Fang"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red+/75px-Know-It-All_Device.webp",
+        "name": "Know-It-All Device"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red+/75px-Norris-chuck.webp",
+        "name": "Norris-chuck"
+      },
+      {
+        "imagePath": "/media/gear/instrument/red+/75px-Power_Spinach.webp",
+        "name": "Power Spinach"
+      }
+    ]
+  },
+  "armor": {
+    "white": [],
+    "green": [
+      {
+        "imagePath": "/media/gear/armor/green/66px-Sailor_Suit.webp",
+        "name": "Sailor Suit"
+      },
+      {
+        "imagePath": "/media/gear/armor/green/75px-Lifebuoy.webp",
+        "name": "Lifebuoy"
+      },
+      {
+        "imagePath": "/media/gear/armor/green/75px-Rock.webp",
+        "name": "Rock"
+      },
+      {
+        "imagePath": "/media/gear/armor/green/75px-Stage_Hat.webp",
+        "name": "Stage Hat"
+      },
+      {
+        "imagePath": "/media/gear/armor/green/75px-Static_Belt.webp",
+        "name": "Static Belt"
+      }
+    ],
+    "blue": [
+      {
+        "imagePath": "/media/gear/armor/blue/66px-Death_Shroud.webp",
+        "name": "Death Shroud"
+      },
+      {
+        "imagePath": "/media/gear/armor/blue/66px-Sailor_Suit.webp",
+        "name": "Sailor Suit"
+      },
+      {
+        "imagePath": "/media/gear/armor/blue/66px-Workout_Top.webp",
+        "name": "Workout Top"
+      },
+      {
+        "imagePath": "/media/gear/armor/blue/75px-Elven_Cape.webp",
+        "name": "Elven Cape"
+      },
+      {
+        "imagePath": "/media/gear/armor/blue/75px-Lifebuoy.webp",
+        "name": "Lifebuoy"
+      },
+      {
+        "imagePath": "/media/gear/armor/blue/75px-Rock.webp",
+        "name": "Rock"
+      },
+      {
+        "imagePath": "/media/gear/armor/blue/75px-Stage_Hat.webp",
+        "name": "Stage Hat"
+      },
+      {
+        "imagePath": "/media/gear/armor/blue/75px-Static_Belt.webp",
+        "name": "Static Belt"
+      },
+      {
+        "imagePath": "/media/gear/armor/blue/75px-Strong_Round_Shield.webp",
+        "name": "Strong Round Shield"
+      }
+    ],
+    "purple": [
+      {
+        "imagePath": "/media/gear/armor/purple/66px-Death_Shroud.webp",
+        "name": "Death Shroud"
+      },
+      {
+        "imagePath": "/media/gear/armor/purple/66px-Sailor_Suit.webp",
+        "name": "Sailor Suit"
+      },
+      {
+        "imagePath": "/media/gear/armor/purple/66px-Workout_Top.webp",
+        "name": "Workout Top"
+      },
+      {
+        "imagePath": "/media/gear/armor/purple/68px-Magician.webp",
+        "name": "Magician"
+      },
+      {
+        "imagePath": "/media/gear/armor/purple/72px-Saint's_Earring.webp",
+        "name": "Saint's Earring"
+      },
+      {
+        "imagePath": "/media/gear/armor/purple/75px-Crown_of_Power.webp",
+        "name": "Crown of Power"
+      },
+      {
+        "imagePath": "/media/gear/armor/purple/75px-Elven_Cape.webp",
+        "name": "Elven Cape"
+      },
+      {
+        "imagePath": "/media/gear/armor/purple/75px-Lifebuoy.webp",
+        "name": "Lifebuoy"
+      },
+      {
+        "imagePath": "/media/gear/armor/purple/75px-Ring_of_Stupor.webp",
+        "name": "Ring of Stupor"
+      },
+      {
+        "imagePath": "/media/gear/armor/purple/75px-Rock.webp",
+        "name": "Rock"
+      },
+      {
+        "imagePath": "/media/gear/armor/purple/75px-Stage_Hat.webp",
+        "name": "Stage Hat"
+      },
+      {
+        "imagePath": "/media/gear/armor/purple/75px-Static_Belt.webp",
+        "name": "Static Belt"
+      },
+      {
+        "imagePath": "/media/gear/armor/purple/75px-Strong_Round_Shield.webp",
+        "name": "Strong Round Shield"
+      },
+      {
+        "imagePath": "/media/gear/armor/purple/75px-Thorn.webp",
+        "name": "Thorn"
+      }
+    ],
+    "orange": [
+      {
+        "imagePath": "/media/gear/armor/orange/66px-Death_Shroud.webp",
+        "name": "Death Shroud"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/66px-Sailor_Suit.webp",
+        "name": "Sailor Suit"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/66px-Workout_Top.webp",
+        "name": "Workout Top"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/68px-Magician.webp",
+        "name": "Magician"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/69px-Gold_Outfit.webp",
+        "name": "Gold Outfit"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/72px-Saint's_Earring.webp",
+        "name": "Saint's Earring"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/72px-Time_Amulet.webp",
+        "name": "Time Amulet"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/74px-Power_Armor.webp",
+        "name": "Power Armor"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/75px-Alloy_Shield.webp",
+        "name": "Alloy Shield"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/75px-Chief.webp",
+        "name": "Chief"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/75px-Crown_of_Power.webp",
+        "name": "Crown of Power"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/75px-Elven_Cape.webp",
+        "name": "Elven Cape"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/75px-Lifebuoy.webp",
+        "name": "Lifebuoy"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/75px-Ring_of_Stupor.webp",
+        "name": "Ring of Stupor"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/75px-Rock.webp",
+        "name": "Rock"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/75px-Stage_Hat.webp",
+        "name": "Stage Hat"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/75px-Static_Belt.webp",
+        "name": "Static Belt"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/75px-Strong_Round_Shield.webp",
+        "name": "Strong Round Shield"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/75px-Thorn.webp",
+        "name": "Thorn"
+      },
+      {
+        "imagePath": "/media/gear/armor/orange/75px-Wisdom_Cloak.webp",
+        "name": "Wisdom Cloak"
+      }
+    ],
+    "red": [
+      {
+        "imagePath": "/media/gear/armor/red/59px-Fortress.webp",
+        "name": "Fortress"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/66px-Antimatter_Armor.webp",
+        "name": "Antimatter Armor"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/67px-Heart_of_Nature.webp",
+        "name": "Heart of Nature"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/69px-The_Great_Magician.webp",
+        "name": "The Great Magician"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/71px-Super_Warrior.webp",
+        "name": "Super Warrior"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/72px-Grandpire's_Robe.webp",
+        "name": "Grandpire's Robe"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/73px-Agamemnon_Outfit.webp",
+        "name": "Agamemnon Outfit"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/74px-Traveler_Outfit.webp",
+        "name": "Traveler Outfit"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/75px-Antimatter_Shield.webp",
+        "name": "Antimatter Shield"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/75px-Bedrock.webp",
+        "name": "Bedrock"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/75px-Caesar's_Crown.webp",
+        "name": "Caesar's Crown"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/75px-Dracula_Cape.webp",
+        "name": "Dracula Cape"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/75px-Eye_of_Akamoddo_Amulet.webp",
+        "name": "Eye of Akamoddo Amulet"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/75px-Michael's_Earrings.webp",
+        "name": "Michael's Earrings"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/75px-Ogma's_Cloak.webp",
+        "name": "Ogma's Cloak"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/75px-Poseidon's_Blessing.webp",
+        "name": "Poseidon's Blessing"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/75px-Ring_of_Paralysis.webp",
+        "name": "Ring of Paralysis"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/75px-Selene_Amulet.webp",
+        "name": "Selene Amulet"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/75px-The_Great_Entertainer.webp",
+        "name": "The Great Entertainer"
+      },
+      {
+        "imagePath": "/media/gear/armor/red/75px-Thunder_Belt.webp",
+        "name": "Thunder Belt"
+      }
+    ],
+    "red+": [
+      {
+        "imagePath": "/media/gear/armor/red+/59px-Fortress.webp",
+        "name": "Fortress"
+      },
+      {
+        "imagePath": "/media/gear/armor/red+/69px-The_Great_Magician.webp",
+        "name": "The Great Magician"
+      },
+      {
+        "imagePath": "/media/gear/armor/red+/73px-Agamemnon_Outfit.webp",
+        "name": "Agamemnon Outfit"
+      },
+      {
+        "imagePath": "/media/gear/armor/red+/74px-Traveler_Outfit.webp",
+        "name": "Traveler Outfit"
+      },
+      {
+        "imagePath": "/media/gear/armor/red+/75px-Antimatter_Shield.webp",
+        "name": "Antimatter Shield"
+      },
+      {
+        "imagePath": "/media/gear/armor/red+/75px-Dracula_Cape.webp",
+        "name": "Dracula Cape"
+      },
+      {
+        "imagePath": "/media/gear/armor/red+/75px-Ring_of_Paralysis.webp",
+        "name": "Ring of Paralysis"
+      },
+      {
+        "imagePath": "/media/gear/armor/red+/75px-The_Great_Entertainer.webp",
+        "name": "The Great Entertainer"
+      }
+    ]
+  },
+  "material": {
+    "white": [
+      {
+        "imagePath": "/media/gear/material/white/68px-Wooden_Ring.webp",
+        "name": "Wooden Ring"
+      },
+      {
+        "imagePath": "/media/gear/material/white/72px-Flower_Crown.webp",
+        "name": "Flower Crown"
+      },
+      {
+        "imagePath": "/media/gear/material/white/74px-Beast_Fang.webp",
+        "name": "Beast Fang"
+      },
+      {
+        "imagePath": "/media/gear/material/white/75px-Iron_Ring.webp",
+        "name": "Iron Ring"
+      }
+    ],
+    "green": [
+      {
+        "imagePath": "/media/gear/material/green/66px-Black_Pearl.webp",
+        "name": "Black Pearl"
+      },
+      {
+        "imagePath": "/media/gear/material/green/68px-Sorcerer_Ring.webp",
+        "name": "Sorcerer Ring"
+      },
+      {
+        "imagePath": "/media/gear/material/green/68px-Warrior_Ring.webp",
+        "name": "Warrior Ring"
+      },
+      {
+        "imagePath": "/media/gear/material/green/70px-White_Pearl.webp",
+        "name": "White Pearl"
+      }
+    ],
+    "blue": [
+      {
+        "imagePath": "/media/gear/material/blue/65px-Ruby_Brooch.webp",
+        "name": "Ruby Brooch"
+      },
+      {
+        "imagePath": "/media/gear/material/blue/68px-Wizard_Ring.webp",
+        "name": "Wizard Ring"
+      },
+      {
+        "imagePath": "/media/gear/material/blue/69px-Crusader_RIng.webp",
+        "name": "Crusader RIng"
+      },
+      {
+        "imagePath": "/media/gear/material/blue/69px-Sapphire_Brooch.webp",
+        "name": "Sapphire Brooch"
+      }
+    ],
+    "purple": [
+      {
+        "imagePath": "/media/gear/material/purple/68px-Heaven_Amulet.webp",
+        "name": "Heaven Amulet"
+      },
+      {
+        "imagePath": "/media/gear/material/purple/69px-Icy_Bracelet.webp",
+        "name": "Icy Bracelet"
+      },
+      {
+        "imagePath": "/media/gear/material/purple/70px-Abyss_Amulet.webp",
+        "name": "Abyss Amulet"
+      },
+      {
+        "imagePath": "/media/gear/material/purple/75px-Seething_Bracelet.webp",
+        "name": "Seething Bracelet"
+      }
+    ],
+    "orange": [
+      {
+        "imagePath": "/media/gear/material/orange/65px-Crystal_of_Will.webp",
+        "name": "Crystal of Will"
+      },
+      {
+        "imagePath": "/media/gear/material/orange/69px-Abyss_Wings.webp",
+        "name": "Abyss Wings"
+      },
+      {
+        "imagePath": "/media/gear/material/orange/69px-Heaven_Wings.webp",
+        "name": "Heaven Wings"
+      },
+      {
+        "imagePath": "/media/gear/material/orange/72px-Eye_of_Horus.webp",
+        "name": "Eye of Horus"
+      }
+    ],
+    "red": [
+      {
+        "imagePath": "/media/gear/material/red/67px-Amulet_of_Will.webp",
+        "name": "Amulet of Will"
+      }
+    ],
+    "red+": [
+      {
+        "imagePath": "/media/gear/material/red+/67px-Amulet_of_Will.webp",
+        "name": "Amulet of Will"
+      }
+    ]
+  }
+}
