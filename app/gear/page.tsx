@@ -18,6 +18,7 @@ import {
 import styles from "./styles.module.css";
 import { PressEvent } from "@react-types/shared";
 import { createParser, useQueryState } from "next-usequerystate";
+import Pako from "pako";
 
 interface Gear {
   imagePath: string;
@@ -52,16 +53,34 @@ const NoEquip: Gear = {
   color: "white",
 };
 
-const textEncoder = new TextEncoder();
-const textDecoder = new TextDecoder();
+function convertUint8ArrayToBinaryString(u8Array: Uint8Array) {
+  var i,
+    len = u8Array.length,
+    b_str = "";
+  for (i = 0; i < len; i++) {
+    b_str += String.fromCharCode(u8Array[i]);
+  }
+  return b_str;
+}
 
 const equippedGearParser = createParser<EquippedGear>({
   parse(value: string): EquippedGear {
-    const string = atob(value);
-    return JSON.parse(string);
+    let rawfile = (atob(value));
+    var bytes = [];
+    for (var fileidx = 0; fileidx < rawfile.length; fileidx++) {
+        var abyte = rawfile.charCodeAt(fileidx) & 0xff;
+        bytes.push(abyte);
+    }
+    var plain = Pako.inflate(new Uint8Array(bytes));
+    var enc = "";
+    for (var i = 0; i < plain.length; i++) {         
+         enc += String.fromCharCode(plain[i]);
+    }
+    return JSON.parse(enc);
   },
   serialize(value: EquippedGear): string {
-    const string = JSON.stringify(value);
+    const compress = Pako.deflate(JSON.stringify(value));
+    const string = convertUint8ArrayToBinaryString(compress);
     return btoa(string);
   },
 });
