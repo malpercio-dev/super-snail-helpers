@@ -87,7 +87,7 @@ const equippedGearParser = createParser<EquippedGear>({
 
 export default function Home() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [selectedGear, setSelectedGear] = useState<Gear>();
+  const [selectedSlot, setSelectedSlot] = useState<number>();
   const [equippedGear, setEquippedGear] = useQueryState(
     "equippedGear",
     equippedGearParser
@@ -129,20 +129,20 @@ export default function Home() {
     });
   }, []);
 
-  const openGearModal = (gear: Gear, category: string) => (e: PressEvent) => {
-    setSelectedGear({
-      color: category,
-      ...gear,
-    });
+  const openGearModal = (slot: number) => (e: PressEvent) => {
+    setSelectedSlot(slot);
     onOpen();
   };
 
   const putGearInSlot =
-    (onClose: () => void) => (gear: Gear, slot: number) => (e: PressEvent) => {
-      console.log(gear);
-      console.log(slot);
+    (onClose: () => void) =>
+    (gear: Gear, category: string, slot: number) =>
+    (e: PressEvent) => {
       const modifiedEquippedGear: EquippedGear = [...equippedGear];
-      modifiedEquippedGear[slot] = gear;
+      modifiedEquippedGear[slot] = {
+        color: category,
+        ...gear,
+      };
       setEquippedGear(modifiedEquippedGear);
       onClose();
     };
@@ -153,102 +153,95 @@ export default function Home() {
 
   return (
     <>
-      <div className="gap-2 grid grid-cols-6 grid-rows-2 mb-5">
+      <div className="gap-2 grid grid-cols-6 grid-rows-2">
         {equippedGear.map((item, index) => {
           return (
-            <div key={`${index}-${item.name}`}>
-              <Image
-                shadow="sm"
-                radius="lg"
-                removeWrapper
-                alt={item.name}
-                className={`object-cover place-self-center ${
-                  item.color ? styles[item.color] : ""
-                }`}
-                src={item.imagePath}
-              />
+            <div
+              key={`${index}-${item.name}`}
+              className={`mb-10 h-[50px] w-[50px] h-[75px] md:w-[75px] ${
+                item.color ? styles[item.color] : ""
+              }`}
+            >
+              <Button
+                onPress={openGearModal(index)}
+                className="h-[50px] w-[50px] md:h-[75px] md:w-[75px]"
+                isIconOnly
+              >
+                <Image
+                  shadow="none"
+                  radius="none"
+                  alt={item.name}
+                  className={`object-cover place-self-center ${
+                    item.color ? styles[item.color] : ""
+                  }`}
+                  src={item.imagePath}
+                />
+              </Button>
             </div>
           );
         })}
       </div>
-      <Tabs aria-label="Categories" className="grid">
-        {Object.keys(data).map((gd) => (
-          <Tab key={gd} title={gd}>
-            <Card>
-              <CardBody>
-                <Tabs aria-label="Rarities">
-                  {Object.keys(data[gd]).map((category) => {
-                    if (data[gd][category].length === 0) {
-                      return;
-                    }
-                    return (
-                      <Tab
-                        key={category}
-                        title={category}
-                        className="gap-2 grid xl:grid-cols-8 grid-rows-auto grid-cols-3"
-                      >
-                        {data[gd][category].map((item) => (
-                          <Card
-                            key={item.name}
-                            isPressable
-                            onPress={openGearModal(item, category)}
-                          >
-                            <CardBody
-                              className={`overflow-visible p-0 ${styles[category]} place-content-center`}
-                            >
-                              <Image
-                                shadow="sm"
-                                radius="lg"
-                                removeWrapper
-                                alt={item.name}
-                                className="object-cover h-[75px] w-[75px] place-self-center"
-                                src={item.imagePath}
-                              />
-                              <CardFooter className="text-small justify-between text-black">
-                                <b>{item.name}</b>
-                              </CardFooter>
-                            </CardBody>
-                          </Card>
-                        ))}
-                      </Tab>
-                    );
-                  })}
-                </Tabs>
-              </CardBody>
-            </Card>
-          </Tab>
-        ))}
-      </Tabs>
+
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Select Slot
+                Select Gear
               </ModalHeader>
               <ModalBody>
-                <p>
-                  {selectedGear?.name}
-                  <div className="gap-2 grid grid-cols-6 grid-rows-2">
-                    {equippedGear.map((item, index) => {
-                      return (
-                        <Button
-                          onPress={putGearInSlot(onClose)(selectedGear!, index)}
-                          key={`${index}-${item.name}`}
-                        >
-                          <Image
-                            shadow="sm"
-                            radius="lg"
-                            removeWrapper
-                            alt={item.name}
-                            className="object-cover place-self-center"
-                            src={item.imagePath}
-                          />
-                        </Button>
-                      );
-                    })}
-                  </div>
-                </p>
+                <Tabs aria-label="Categories" className="grid">
+                  {Object.keys(data).map((gd) => (
+                    <Tab key={gd} title={gd}>
+                      <Card>
+                        <CardBody>
+                          <Tabs aria-label="Rarities">
+                            {Object.keys(data[gd]).map((category) => {
+                              if (data[gd][category].length === 0) {
+                                return;
+                              }
+                              return (
+                                <Tab
+                                  key={category}
+                                  title={category}
+                                  className="gap-2 grid grid-rows-auto grid-cols-5"
+                                >
+                                  {data[gd][category].map((item) => (
+                                    <Card
+                                      key={item.name}
+                                      isPressable
+                                      onPress={putGearInSlot(onClose)(
+                                        item,
+                                        category,
+                                        selectedSlot!
+                                      )}
+                                    >
+                                      <CardBody
+                                        className={`overflow-visible p-0 ${styles[category]} place-content-center`}
+                                      >
+                                        <Image
+                                          shadow="sm"
+                                          radius="lg"
+                                          removeWrapper
+                                          alt={item.name}
+                                          className="object-cover h-[75px] w-[75px] place-self-center"
+                                          src={item.imagePath}
+                                        />
+                                        <CardFooter className="text-black p-0.5 text-xs">
+                                          <p>{item.name}</p>
+                                        </CardFooter>
+                                      </CardBody>
+                                    </Card>
+                                  ))}
+                                </Tab>
+                              );
+                            })}
+                          </Tabs>
+                        </CardBody>
+                      </Card>
+                    </Tab>
+                  ))}
+                </Tabs>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
