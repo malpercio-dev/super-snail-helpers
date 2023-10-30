@@ -17,6 +17,7 @@ import {
 } from "@nextui-org/react";
 import styles from "./styles.module.css";
 import { PressEvent } from "@react-types/shared";
+import { createParser, useQueryState } from "next-usequerystate";
 
 interface Gear {
   imagePath: string;
@@ -51,23 +52,44 @@ const NoEquip: Gear = {
   color: "white",
 };
 
+const textEncoder = new TextEncoder();
+const textDecoder = new TextDecoder();
+
+const equippedGearParser = createParser<EquippedGear>({
+  parse(value: string): EquippedGear {
+    const string = atob(value);
+    return JSON.parse(string);
+  },
+  serialize(value: EquippedGear): string {
+    const string = JSON.stringify(value);
+    return btoa(string);
+  },
+});
+
 export default function Home() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selectedGear, setSelectedGear] = useState<Gear>();
-  const [equippedGear, setEquippedGear] = useState<EquippedGear>([
-    NoEquip,
-    NoEquip,
-    NoEquip,
-    NoEquip,
-    NoEquip,
-    NoEquip,
-    NoEquip,
-    NoEquip,
-    NoEquip,
-    NoEquip,
-    NoEquip,
-    NoEquip,
-  ]);
+  const [equippedGear, setEquippedGear] = useQueryState(
+    "equippedGear",
+    equippedGearParser
+      .withOptions({
+        history: "replace",
+      })
+      .withDefault([
+        NoEquip,
+        NoEquip,
+        NoEquip,
+        NoEquip,
+        NoEquip,
+        NoEquip,
+        NoEquip,
+        NoEquip,
+        NoEquip,
+        NoEquip,
+        NoEquip,
+        NoEquip,
+      ])
+  );
   const [data, setData] = useState<GearData>({});
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -91,7 +113,7 @@ export default function Home() {
   const openGearModal = (gear: Gear, category: string) => (e: PressEvent) => {
     setSelectedGear({
       color: category,
-      ...gear
+      ...gear,
     });
     onOpen();
   };
