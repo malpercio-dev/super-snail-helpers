@@ -240,22 +240,21 @@ export default function Gear() {
           return (
             <div
               key={`${index}-${item.name}`}
-              className={`mb-10 h-[50px] w-[50px] h-[75px] md:w-[75px] ${
+              className={`mb-10 rounded-xl h-[50px] w-[50px] md:h-[75px] md:w-[75px] ${
                 item.color ? styles[item.color] : ""
               }`}
             >
               <Button
                 onPress={openGearModal(index)}
-                className="h-[50px] w-[50px] md:h-[75px] md:w-[75px]"
+                className={`h-[50px] w-[50px] md:h-[75px] md:w-[75px] ${
+                  item.color ? styles[item.color] : ""
+                }`}
                 isIconOnly
               >
                 <Image
                   shadow="none"
                   radius="none"
                   alt={item.name}
-                  className={`object-cover place-self-center ${
-                    item.color ? styles[item.color] : ""
-                  }`}
                   src={item.imagePath}
                 />
               </Button>
@@ -322,7 +321,11 @@ export default function Gear() {
       <Button onPress={openInventoryModal}>Update Inventory</Button>
 
       {/* Gear Slot Modal */}
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} scrollBehavior="inside">
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        scrollBehavior="inside"
+      >
         {showGearModal ? (
           <ModalContent>
             {(onClose) => (
@@ -339,7 +342,9 @@ export default function Gear() {
                         radius="lg"
                         removeWrapper
                         alt={equippedGear[selectedSlot].name}
-                        className={`object-cover h-[75px] w-[75px] place-self-center ${styles[equippedGear[selectedSlot].color!]}`}
+                        className={`object-cover h-[75px] w-[75px] place-self-center ${
+                          styles[equippedGear[selectedSlot].color!]
+                        }`}
                         src={equippedGear[selectedSlot].imagePath}
                       />
                     </div>
