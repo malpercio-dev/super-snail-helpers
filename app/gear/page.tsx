@@ -322,7 +322,7 @@ export default function Gear() {
       <Button onPress={openInventoryModal}>Update Inventory</Button>
 
       {/* Gear Slot Modal */}
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} scrollBehavior="inside">
         {showGearModal ? (
           <ModalContent>
             {(onClose) => (
