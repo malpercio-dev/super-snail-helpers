@@ -291,7 +291,7 @@
       },
       {
         "imagePath": "/media/gear/realm/orange/71px-Indv_Power_Armor.webp",
-        "name": "Indv Power Armor"
+        "name": "Individual Power Armor"
       },
       {
         "imagePath": "/media/gear/realm/orange/72px-Gear_Ring.webp",
@@ -299,7 +299,7 @@
       },
       {
         "imagePath": "/media/gear/realm/orange/72px-Indv_High-explosive_Rifle.webp",
-        "name": "Indv High-explosive Rifle"
+        "name": "Individual High-explosive Rifle"
       },
       {
         "imagePath": "/media/gear/realm/orange/72px-Iron_Track.webp",
@@ -337,65 +337,65 @@
     "red": [
       {
         "imagePath": "/media/gear/realm/red/Bullet_Storm.webp",
-        "name": "t Storm"
+        "name": "Bullet Storm"
       },
       {
         "imagePath": "/media/gear/realm/red/Crown_of_Eternal_Daylight.webp",
-        "name": " of Eternal Daylight"
+        "name": "Crown of Eternal Daylight"
       },
       {
         "imagePath": "/media/gear/realm/red/Deepsea_Helmet.webp",
-        "name": "ea Helmet"
+        "name": "Deepsea Helmet"
       },
       {
         "imagePath": "/media/gear/realm/red/Lion_King's_Sword.webp",
-        "name": "King's Sword"
+        "name": "Lion King's Sword"
       },
       {
         "imagePath": "/media/gear/realm/red/Overlord's_Hook.webp",
-        "name": "ord's Hook"
+        "name": "Overlord's Hook"
       },
       {
         "imagePath": "/media/gear/realm/red/Sky_Piercer.webp",
-        "name": "iercer"
+        "name": "Sky Piercer"
       },
       {
         "imagePath": "/media/gear/realm/red/Sword_Futsuno.webp",
-        "name": " Futsuno"
+        "name": "Sword Futsuno"
       },
       {
         "imagePath": "/media/gear/realm/red/The_Great_Collector.webp",
-        "name": "reat Collector"
+        "name": "The Great Collector"
       },
       {
         "imagePath": "/media/gear/realm/red/The_Great_Engineer.webp",
-        "name": "reat Engineer"
+        "name": "The Great Engineer"
       },
       {
         "imagePath": "/media/gear/realm/red/The_Great_Scientist.webp",
-        "name": "reat Scientist"
+        "name": "The Great Scientist"
       },
       {
         "imagePath": "/media/gear/realm/red/Tremendous_Support.webp",
-        "name": "ndous Support"
+        "name": "Tremendous Support"
       },
       {
         "imagePath": "/media/gear/realm/red/Warmongers_Gun.webp",
-        "name": "ngers Gun"
+        "name": "Warmonger's Gun"
       }
     ],
     "red+": [
       {
         "imagePath": "/media/gear/realm/redp/The_Great_Collector.webp",
-        "name": "reat Collector"
+        "name": "The Great Collector"
       },
       {
         "imagePath": "/media/gear/realm/redp/The_Great_Engineer.webp",
-        "name": "reat Engineer"
+        "name": "The Great Engineer"
       },
       {
         "imagePath": "/media/gear/realm/redp/The_Great_Scientist.webp",
-        "name": "reat Scientist"
+        "name": "The Great Scientist"
       }
     ]
   },
