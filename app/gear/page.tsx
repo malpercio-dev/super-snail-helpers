@@ -265,12 +265,55 @@ export default function Gear() {
       <Divider className="my-4" />
       <h2>Inventory</h2>
       {inventory ? (
-        <Tabs aria-label="Categories" className="grid">
+        <Tabs
+          aria-label="Categories"
+          size="lg"
+          classNames={{
+            tab: "max-w-fit px-0 h-[20px] w-[20px] md:h-[40px] md:w-[40px]",
+          }}
+        >
           {Object.keys(inventory).map((gd) => (
-            <Tab key={`inv-${gd}`} title={gd}>
+            <Tab
+              key={`inv-${gd}`}
+              title={
+                gd === "realm" ? (
+                  <Image
+                    src="/media/icons/Globe.webp"
+                    className="h-[20px] w-[20px] md:h-[40px] md:w-[40px]"
+                    height="40"
+                    width="40"
+                  />
+                ) : gd === "form" ? (
+                  <span className="h-[20px] w-[20px] md:h-[40px] md:w-[40px] md:text-[30px]">
+                    🐌
+                  </span>
+                ) : gd === "instrument" ? (
+                  <span className="h-[20px] w-[20px] md:h-[40px] md:w-[40px] md:text-[30px]">
+                    ⚔
+                  </span>
+                ) : gd === "armor" ? (
+                  <span className="h-[20px] w-[20px] md:h-[40px] md:w-[40px] md:text-[30px]">
+                    🛡
+                  </span>
+                ) : gd === "material" ? (
+                  <span className="h-[20px] w-[20px] md:h-[40px] md:w-[40px] md:text-[30px]">
+                    🔨
+                  </span>
+                ) : (
+                  gd
+                )
+              }
+            >
               <Card>
                 <CardBody>
-                  <Tabs aria-label="Rarities">
+                  <Tabs
+                    aria-label="Rarities"
+                    size="lg"
+                    classNames={{
+                      tab: "max-w-fit h-[20px] w-[20px] md:h-[40px] md:w-[40px]",
+                      panel: "gap-2 grid grid-rows-auto grid-cols-5",
+                    }}
+                  >
                     {Object.keys(inventory[gd]).map((category) => {
                       if (inventory[gd][category].length === 0) {
                         return;
@@ -278,8 +321,13 @@ export default function Gear() {
                       return (
                         <Tab
                           key={`inv-${category}`}
-                          title={category}
-                          className="gap-2 grid grid-rows-auto grid-cols-5"
+                          title={
+                            <div
+                              className={`align-top rounded-xl h-[15px] w-[15px] md:h-[30px] md:w-[30px] md:pt-[2px] text-[10px] md:text-[20px] ${styles[category]} `}
+                            >
+                              {category === "red+" ? <span>➕</span> : ""}
+                            </div>
+                          }
                         >
                           {inventory[gd][category].map((item) =>
                             parseInt(item.count) > 0 ? (
@@ -348,12 +396,56 @@ export default function Gear() {
                         src={equippedGear[selectedSlot].imagePath}
                       />
                     </div>
-                    <Tabs aria-label="Categories" className="grid">
+                    <Tabs
+                      aria-label="Categories"
+                      size="lg"
+                      classNames={{
+                        tab: "max-w-fit px-0 h-[20px] w-[20px] md:h-[40px] md:w-[40px]",
+                      }}
+                    >
                       {Object.keys(data).map((gd) => (
-                        <Tab key={gd} title={gd}>
+                        <Tab
+                          key={gd}
+                          title={
+                            gd === "realm" ? (
+                              <Image
+                                src="/media/icons/Globe.webp"
+                                className="h-[20px] w-[20px] md:h-[40px] md:w-[40px]"
+                                height="40"
+                                width="40"
+                              />
+                            ) : gd === "form" ? (
+                              <span className="h-[20px] w-[20px] md:h-[40px] md:w-[40px] md:text-[30px]">
+                                🐌
+                              </span>
+                            ) : gd === "instrument" ? (
+                              <span className="h-[20px] w-[20px] md:h-[40px] md:w-[40px] md:text-[30px]">
+                                ⚔
+                              </span>
+                            ) : gd === "armor" ? (
+                              <span className="h-[20px] w-[20px] md:h-[40px] md:w-[40px] md:text-[30px]">
+                                🛡
+                              </span>
+                            ) : gd === "material" ? (
+                              <span className="h-[20px] w-[20px] md:h-[40px] md:w-[40px] md:text-[30px]">
+                                🔨
+                              </span>
+                            ) : (
+                              gd
+                            )
+                          }
+                        >
                           <Card>
                             <CardBody>
-                              <Tabs aria-label="Rarities">
+                              <Tabs
+                                aria-label="Rarities"
+                                size="lg"
+                                classNames={{
+                                  tab: "max-w-fit h-[20px] w-[20px] md:h-[40px] md:w-[40px]",
+                                  panel:
+                                    "gap-2 grid grid-rows-auto grid-cols-5",
+                                }}
+                              >
                                 {Object.keys(data[gd]).map((category) => {
                                   if (data[gd][category].length === 0) {
                                     return;
@@ -361,7 +453,17 @@ export default function Gear() {
                                   return (
                                     <Tab
                                       key={category}
-                                      title={category}
+                                      title={
+                                        <div
+                                          className={`align-top rounded-xl h-[15px] w-[15px] md:h-[30px] md:w-[30px] md:pt-[2px] text-[10px] md:text-[20px] ${styles[category]} `}
+                                        >
+                                          {category === "red+" ? (
+                                            <span>➕</span>
+                                          ) : (
+                                            ""
+                                          )}
+                                        </div>
+                                      }
                                       className="gap-2 grid grid-rows-auto grid-cols-5"
                                     >
                                       {data[gd][category].map((item) => (
