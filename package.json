@@ -8,9 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "db:push": "drizzle-kit push:sqlite",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "postinstall": "patch-package"
   },
   "dependencies": {
+    "@auth/drizzle-adapter": "^0.3.5",
+    "@heroicons/react": "^2.0.18",
     "@libsql/client": "^0.3.6",
     "@nextui-org/button": "2.0.18",
     "@nextui-org/code": "2.0.16",
@@ -39,8 +42,10 @@
     "framer-motion": "^10.16.2",
     "intl-messageformat": "^10.5.0",
     "next": "13.4.19",
+    "next-auth": "^4.24.4",
     "next-themes": "^0.2.1",
     "next-usequerystate": "^1.9.1",
+    "patch-package": "^8.0.0",
     "postcss": "8.4.29",
     "react": "18.2.0",
     "react-dom": "18.2.0",

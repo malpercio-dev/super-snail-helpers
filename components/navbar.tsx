@@ -1,3 +1,4 @@
+"use client";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -7,10 +8,9 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
-import { Button } from "@nextui-org/button";
-import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
-import { Input } from "@nextui-org/input";
+
+import { useSession, signIn, signOut } from "next-auth/react";
 
 import { link as linkStyles } from "@nextui-org/theme";
 
@@ -23,19 +23,19 @@ import {
   TwitterIcon,
   GithubIcon,
   DiscordIcon,
-  HeartFilledIcon,
 } from "@/components/icons";
 
 import { Logo } from "@/components/icons";
 
 export const Navbar = () => {
+  const { data: session } = useSession();
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
-            <p className="font-bold text-inherit">Malpercio</p>
+            <p className="font-bold text-inherit">{session ? session.user?.name ?? 'Malpercio' : 'Malpercio'}</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -61,6 +61,15 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
+          {session ? (
+            <Link onPress={() => signOut()} aria-label="Sign Out" className="w-[75px]">
+              <p className="text-default-500">Sign Out</p>
+            </Link>
+          ) : (
+            <Link onPress={() => signIn()} aria-label="Sign In" className="w-[75px]">
+              <p className="text-default-500">Sign In</p>
+            </Link>
+          )}
           <Link isExternal href={siteConfig.links.twitter} aria-label="Twitter">
             <TwitterIcon className="text-default-500" />
           </Link>
@@ -72,18 +81,6 @@ export const Navbar = () => {
           </Link>
           <ThemeSwitch />
         </NavbarItem>
-        {/* <NavbarItem className="hidden md:flex">
-					<Button
-            isExternal
-						as={Link}
-						className="text-sm font-normal text-default-600 bg-default-100"
-						href={siteConfig.links.sponsor}
-						startContent={<HeartFilledIcon className="text-danger" />}
-						variant="flat"
-					>
-						Sponsor
-					</Button>
-				</NavbarItem> */}
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
