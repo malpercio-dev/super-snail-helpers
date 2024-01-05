@@ -97,6 +97,7 @@ export default function Gear() {
   ]);
   const [inventory, setInventory] = useState<InventoryData>();
   const [equippedGearId, setEquippedGearId] = useQueryState("egid");
+  const [inventoryId, _] = useQueryState("iid");
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
@@ -252,6 +253,7 @@ export default function Gear() {
                   item.color ? styles[item.color] : ""
                 }`}
                 isIconOnly
+                isDisabled={!session}
               >
                 <Image
                   shadow="none"
@@ -269,7 +271,23 @@ export default function Gear() {
       ) : (
         <></>
       )}
-
+      {equippedGearId ? (
+        <Link href={`/inventory?egid=${equippedGearId}&iid=${inventoryId}`}>
+          View Inventory
+        </Link>
+      ) : (
+        <></>
+      )}
+      {!session && equippedGearId ? (
+        <p>
+          <Link onPress={() => signIn()} aria-label="Sign In">
+            <p>Sign In</p>
+          </Link>{" "}
+          in order to edit and save gear to your profile.
+        </p>
+      ) : (
+        <></>
+      )}
       {/* Gear Slot Modal */}
       <Modal
         isOpen={isOpen}
