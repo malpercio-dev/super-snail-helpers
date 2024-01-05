@@ -18,7 +18,53 @@ interface GearData {
 }
 
 export async function GET(): Promise<NextResponse> {
-  const allGear: GearData = {};
+  const allGear: GearData = {
+    realm: {
+      white: [],
+      green: [],
+      blue: [],
+      purple: [],
+      orange: [],
+      red: [],
+      ['red+']: [],
+    },
+    form: {
+      white: [],
+      green: [],
+      blue: [],
+      purple: [],
+      orange: [],
+      red: [],
+      ['red+']: [],
+    },
+    instrument: {
+      white: [],
+      green: [],
+      blue: [],
+      purple: [],
+      orange: [],
+      red: [],
+      ['red+']: [],
+    },
+    armor: {
+      white: [],
+      green: [],
+      blue: [],
+      purple: [],
+      orange: [],
+      red: [],
+      ['red+']: [],
+    },
+    material: {
+      white: [],
+      green: [],
+      blue: [],
+      purple: [],
+      orange: [],
+      red: [],
+      ['red+']: [],
+    }
+  };
   const dbGear = await db.select().from(schema.gear);
   dbGear.forEach((gear) => {
     if (!allGear[gear.category]) allGear[gear.category] = {};
@@ -28,7 +74,3 @@ export async function GET(): Promise<NextResponse> {
   return NextResponse.json(allGear);
 }
 
-// export async function POST(request: NextRequest): Promise<NextResponse> {
-//   await doTheThing();
-//   return NextResponse.json({ ok: true });
-// }
