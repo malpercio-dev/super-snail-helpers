@@ -248,7 +248,7 @@ export default function Gear() {
     return <div>Loading...</div>;
   }
 
-  return !session && (!equippedGearId || !profileId) ? (
+  return !session && !equippedGearId && !profileId ? (
     <>
       Please{" "}
       <Link onPress={() => signIn()} aria-label="Sign In">
