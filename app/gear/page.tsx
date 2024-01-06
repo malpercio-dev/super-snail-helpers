@@ -22,6 +22,7 @@ import { PressEvent } from "@react-types/shared";
 import { useQueryState } from "next-usequerystate";
 import { useSession, signIn } from "next-auth/react";
 import convertInventoryApiResponses from "@/lib/convertInventoryApiResponses";
+import { Input } from "@nextui-org/input";
 
 interface Gear {
   id: string;
@@ -310,7 +311,19 @@ export default function Gear() {
       ) : (
         <></>
       )}
-      {/* Gear Slot Modal */}
+
+      {session ? (
+        <>
+          <p>Use the following link to share your gear with other snails:</p>
+          <Input
+            disabled
+            defaultValue={`https://super-snail-helpers.malpercio.dev/gear?profileId=${session.user.id}`}
+          ></Input>
+        </>
+      ) : (
+        <></>
+      )}
+
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
