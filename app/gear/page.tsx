@@ -254,7 +254,7 @@ export default function Gear() {
       <Link onPress={() => signIn()} aria-label="Sign In">
         <p>Sign In</p>
       </Link>{" "}
-      or visit another person's profile to see equipped gear!
+      or visit another persons profile to see equipped gear!
     </>
   ) : (
     <>
