@@ -22,20 +22,19 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import { TwitterIcon, GithubIcon, DiscordIcon } from "@/components/icons";
 
 import { Logo } from "@/components/icons";
+import { useQueryState } from "next-usequerystate";
+import { useEffect, useState } from "react";
 
 export const Navbar = () => {
   const { data: session } = useSession();
+  const [profileId, _] = useQueryState("profileId");
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
-            <p className="font-bold text-inherit">
-              {session
-                ? session.user?.name ?? "Malpercio's Super Snail Helpers"
-                : "Malpercio's Super Snail Helpers"}
-            </p>
+            <p className="font-bold text-inherit">Malpercio's Super Snail Helpers</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -47,7 +46,7 @@ export const Navbar = () => {
                   "data-[active=true]:text-primary data-[active=true]:font-medium"
                 )}
                 color="foreground"
-                href={item.href}
+                href={`${item.href}?profileId=${profileId}`}
               >
                 {item.label}
               </NextLink>
@@ -109,7 +108,7 @@ export const Navbar = () => {
                   "data-[active=true]:text-primary data-[active=true]:font-medium"
                 )}
                 color="foreground"
-                href={item.href}
+                href={`${item.href}?profileId=${profileId}`}
               >
                 {item.label}
               </NextLink>
