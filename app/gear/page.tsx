@@ -128,8 +128,8 @@ export default function Gear() {
           // This will activate the closest `error.js` Error Boundary
           throw new Error("Failed to fetch myGear");
         }
-        const myEquippedGear: EquippedGear = await profileGear.json();
-        setEquippedGear(myEquippedGear ?? equippedGear);
+        const profileEquippedGear: EquippedGear = await profileGear.json();
+        setEquippedGear(profileEquippedGear ?? equippedGear);
         setEquippedGearId(null);
       } else if (session) {
         const myGear = await fetch("/api/my/gear");
@@ -283,6 +283,13 @@ export default function Gear() {
                   alt={item.name}
                   src={item.imagePath}
                 />
+                {item.rarity === "red+" ? (
+                  <span className="absolute z-10 text-xl font-extrabold top-0 right-1">
+                    +1
+                  </span>
+                ) : (
+                  <></>
+                )}
               </Button>
             </div>
           );
@@ -411,7 +418,11 @@ export default function Gear() {
                                         className={`align-top rounded-xl h-[15px] w-[15px] pt-[0px] text-[10px] md:h-[30px] md:w-[30px] md:pt-[2px] md:text-[20px] ${styles[category]}`}
                                       >
                                         {category === "red+" ? (
-                                          <span className={`absolute top-[-4px] left-0 right-0 bottom-0 md:bottom-[-4px] md:top-0`}>➕</span>
+                                          <span
+                                            className={`absolute top-[-4px] left-0 right-0 bottom-0 md:bottom-[-4px] md:top-0`}
+                                          >
+                                            ➕
+                                          </span>
                                         ) : (
                                           ""
                                         )}
