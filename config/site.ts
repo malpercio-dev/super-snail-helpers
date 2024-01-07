@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Malpercio's Super Snail Helpers",
+  name: "Super Snail Helpers",
   description: "Let's snail together.",
   navItems: [
     {
