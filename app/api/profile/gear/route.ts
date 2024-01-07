@@ -10,6 +10,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       name: schema.gear.name,
       imagePath: schema.gear.imagePath,
       color: schema.gear.rarity,
+      rarity: schema.gear.rarity,
     })
     .from(schema.equippedGears)
     .innerJoin(schema.gear, eq(schema.equippedGears.gearId, schema.gear.id))
