@@ -293,11 +293,20 @@ export default function Inventory() {
                           key={`inv-tab-${category}`}
                           title={
                             <div
-                              className={`align-top rounded-xl h-[15px] w-[15px] md:h-[30px] md:w-[30px] md:pt-[2px] text-[10px] md:text-[20px] ${styles[category]} `}
+                              className={`align-top rounded-xl h-[15px] w-[15px] pt-[0px] text-[10px] md:h-[30px] md:w-[30px] md:pt-[2px] md:text-[20px] ${styles[category]}`}
                             >
-                              {category === "red+" ? <span>➕</span> : ""}
+                              {category === "red+" ? (
+                                <span
+                                  className={`absolute top-[-4px] left-0 right-0 bottom-0 md:bottom-[-4px] md:top-0`}
+                                >
+                                  ➕
+                                </span>
+                              ) : (
+                                ""
+                              )}
                             </div>
                           }
+                          className="gap-2 flex flex-row flex-wrap"
                         >
                           {inventory[gd][category].map((item) =>
                             parseInt(item.count) > 0 ? (
@@ -392,62 +401,112 @@ export default function Inventory() {
               </ModalHeader>
               <ModalBody>
                 <Tabs aria-label="Categories" className="grid">
-                  {Object.keys(modalData).map((gd) => (
-                    <Tab key={`inv-modal-${gd}`} title={gd}>
-                      <Card>
-                        <CardBody>
-                          <Tabs aria-label="Rarities">
-                            {Object.keys(modalData![gd]).map((category) => {
-                              if (modalData![gd][category].length === 0) {
-                                return;
-                              }
-                              return (
-                                <Tab
-                                  key={`inv-modal-${category}`}
-                                  title={category}
-                                  className="gap-2 grid grid-rows-auto grid-cols-5"
-                                >
-                                  {modalData![gd][category].map((item) => (
-                                    <Card key={`inv-modal-${item.name}`}>
-                                      <CardBody
-                                        className={`overflow-visible p-0 ${styles[category]} place-content-center`}
+                  {Object.keys(modalData)
+                    .filter((gd) => gd !== "NULL")
+                    .map((gd) => (
+                      <Tab
+                        key={`inv-modal-${gd}`}
+                        title={
+                          gd === "realm" ? (
+                            <Image
+                              src="/media/icons/Globe.webp"
+                              className="h-[20px] w-[20px] md:h-[40px] md:w-[40px]"
+                              height="40"
+                              width="40"
+                              alt="realm"
+                            />
+                          ) : gd === "form" ? (
+                            <span className="h-[20px] w-[20px] md:h-[40px] md:w-[40px] md:text-[30px]">
+                              🐌
+                            </span>
+                          ) : gd === "instrument" ? (
+                            <span className="h-[20px] w-[20px] md:h-[40px] md:w-[40px] md:text-[30px]">
+                              ⚔
+                            </span>
+                          ) : gd === "armor" ? (
+                            <span className="h-[20px] w-[20px] md:h-[40px] md:w-[40px] md:text-[30px]">
+                              🛡
+                            </span>
+                          ) : gd === "material" ? (
+                            <span className="h-[20px] w-[20px] md:h-[40px] md:w-[40px] md:text-[30px]">
+                              🔨
+                            </span>
+                          ) : (
+                            gd
+                          )
+                        }
+                      >
+                        <Card>
+                          <CardBody>
+                            <Tabs
+                              aria-label="Rarities"
+                              size="lg"
+                              classNames={{
+                                tab: "max-w-fit h-[20px] w-[20px] md:h-[40px] md:w-[40px]",
+                                panel: "gap-2 grid grid-rows-auto grid-cols-5",
+                              }}
+                            >
+                              {Object.keys(modalData![gd]).map((category) => {
+                                if (modalData![gd][category].length === 0) {
+                                  return;
+                                }
+                                return (
+                                  <Tab
+                                    key={`inv-modal-${category}`}
+                                    title={
+                                      <div
+                                        className={`align-top rounded-xl h-[15px] w-[15px] md:h-[30px] md:w-[30px] md:pt-[2px] text-[10px] md:text-[20px] ${styles[category]}`}
                                       >
-                                        <Image
-                                          shadow="sm"
-                                          radius="lg"
-                                          removeWrapper
-                                          alt={item.name}
-                                          className="object-cover h-[75px] w-[75px] place-self-center"
-                                          src={item.imagePath}
-                                        />
-                                        <Input
-                                          type="number"
-                                          defaultValue={item.count}
-                                          onValueChange={(value) => {
-                                            if (
-                                              !isNaN(parseInt(value)) &&
-                                              parseInt(value) < 0
-                                            )
+                                        {category === "red+" ? (
+                                          <span>➕</span>
+                                        ) : (
+                                          ""
+                                        )}
+                                      </div>
+                                    }
+                                    className="gap-2 grid grid-rows-auto grid-cols-5"
+                                  >
+                                    {modalData![gd][category].map((item) => (
+                                      <Card key={`inv-modal-${item.name}`}>
+                                        <CardBody
+                                          className={`overflow-visible p-0 ${styles[category]} place-content-center`}
+                                        >
+                                          <Image
+                                            shadow="sm"
+                                            radius="lg"
+                                            removeWrapper
+                                            alt={item.name}
+                                            className="object-cover h-[75px] w-[75px] place-self-center"
+                                            src={item.imagePath}
+                                          />
+                                          <Input
+                                            type="number"
+                                            defaultValue={item.count}
+                                            onValueChange={(value) => {
+                                              if (
+                                                !isNaN(parseInt(value)) &&
+                                                parseInt(value) < 0
+                                              )
+                                                return;
+                                              item.count =
+                                                parseInt(value).toString();
                                               return;
-                                            item.count =
-                                              parseInt(value).toString();
-                                            return;
-                                          }}
-                                        />
-                                        <CardFooter className="text-black p-0.5 text-xs">
-                                          <p>{item.name}</p>
-                                        </CardFooter>
-                                      </CardBody>
-                                    </Card>
-                                  ))}
-                                </Tab>
-                              );
-                            })}
-                          </Tabs>
-                        </CardBody>
-                      </Card>
-                    </Tab>
-                  ))}
+                                            }}
+                                          />
+                                          <CardFooter className="text-black p-0.5 text-xs">
+                                            <p>{item.name}</p>
+                                          </CardFooter>
+                                        </CardBody>
+                                      </Card>
+                                    ))}
+                                  </Tab>
+                                );
+                              })}
+                            </Tabs>
+                          </CardBody>
+                        </Card>
+                      </Tab>
+                    ))}
                 </Tabs>
               </ModalBody>
               <ModalFooter>
