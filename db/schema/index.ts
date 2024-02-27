@@ -4,10 +4,14 @@ import {
   primaryKey,
   sqliteTable,
   text,
+  unique,
 } from "drizzle-orm/sqlite-core";
+import { uuidv7 } from "uuidv7";
 
 export const gear = sqliteTable("gear", {
-  id: text("id").primaryKey().default(""),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => uuidv7()),
   name: text("name").notNull(),
   imagePath: text("imagePath").notNull(),
   category: text("category").notNull(),
@@ -15,13 +19,43 @@ export const gear = sqliteTable("gear", {
 });
 
 export const equippedGear = sqliteTable("equippedGear", {
-  id: text("id").primaryKey().default(""),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => uuidv7()),
   gear: text("gear", { mode: "json" }).notNull(),
 });
 
 export const inventoryGear = sqliteTable("inventoryGear", {
-  id: text("id").primaryKey().default(""),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => uuidv7()),
   inventory: text("inventory", { mode: "json" }).notNull(),
+});
+
+export const equippedGears = sqliteTable(
+  "equippedGears",
+  {
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    gearId: text("gearId")
+      .notNull()
+      .references(() => gear.id, { onDelete: "cascade" }),
+    slot: integer("slot").notNull().default(0),
+  },
+  (t) => ({
+    unique: unique().on(t.userId, t.slot),
+  })
+);
+
+export const inventoryGears = sqliteTable("inventoryGears", {
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  gearId: text("gearId")
+    .notNull()
+    .references(() => gear.id, { onDelete: "cascade" }),
+  count: integer("count").notNull().default(0),
 });
 
 export const users = sqliteTable("user", {
@@ -77,3 +111,5 @@ export const verificationTokens = sqliteTable(
 export type EquippedGear = typeof equippedGear.$inferSelect;
 export type InventoryGear = typeof inventoryGear.$inferSelect;
 export type Gear = typeof gear.$inferSelect;
+
+export type EquippedGearsInsert = typeof equippedGears.$inferInsert;
