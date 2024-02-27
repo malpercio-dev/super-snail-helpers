@@ -20,24 +20,6 @@ export const gear = sqliteTable("gear", {
   updatedAt: text("updatedAt"),
 });
 
-export const equippedGear = sqliteTable("equippedGear", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => uuidv7()),
-  gear: text("gear", { mode: "json" }).notNull(),
-  createdAt: text("createdAt").$defaultFn(() => new Date().toISOString()),
-  updatedAt: text("updatedAt"),
-});
-
-export const inventoryGear = sqliteTable("inventoryGear", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => uuidv7()),
-  inventory: text("inventory", { mode: "json" }).notNull(),
-  createdAt: text("createdAt").$defaultFn(() => new Date().toISOString()),
-  updatedAt: text("updatedAt"),
-});
-
 export const equippedGears = sqliteTable(
   "equippedGears",
   {
@@ -163,8 +145,6 @@ export const verificationTokens = sqliteTable(
   })
 );
 
-export type EquippedGear = typeof equippedGear.$inferSelect;
-export type InventoryGear = typeof inventoryGear.$inferSelect;
 export type Gear = typeof gear.$inferSelect;
 export type Server = typeof server.$inferInsert;
 
