@@ -20,6 +20,7 @@ import {
 import styles from "./styles.module.css";
 import { PressEvent } from "@react-types/shared";
 import { useQueryState } from "next-usequerystate";
+import { useSession } from "next-auth/react";
 
 interface Gear {
   id: string;
@@ -77,10 +78,11 @@ const NoEquip: Gear = {
   imagePath: "/media/gear/Unequipped.png",
   color: "white",
   category: "N/A",
-  rarity: "N/A"
+  rarity: "N/A",
 };
 
 export default function Gear() {
+  const { data: session } = useSession();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selectedSlot, setSelectedSlot] = useState<number>(0);
   const [equippedGear, setEquippedGear] = useState([
@@ -127,7 +129,8 @@ export default function Gear() {
       }
 
       if (inventoryId) {
-        const inventoryRes = await fetch(`/inventory?iid=${inventoryId}`);
+        console.log('fetching inventory');
+        const inventoryRes = await fetch(`/api/inventory?iid=${inventoryId}`);
         if (!inventoryRes.ok) {
           // This will activate the closest `error.js` Error Boundary
           throw new Error("Failed to fetch iid");
@@ -150,6 +153,15 @@ export default function Gear() {
         );
         setInventory(defaultInventory);
       }
+
+      const myGear = await fetch("/api/my/gear");
+      if (!myGear.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error("Failed to fetch myGear");
+      }
+      const myEquippedGear: EquippedGear = await myGear.json();
+      setEquippedGear(myEquippedGear);
+      setEquippedGearId(null);
       setIsLoading(false);
     };
 
@@ -159,22 +171,43 @@ export default function Gear() {
     });
   }, [equippedGearId, inventoryId]);
 
-  const saveGearToApi = async (
-    equippedGear: ApiEquippedGear
-  ): Promise<ApiEquippedGear> => {
-    const response = await fetch("/equippedGear", {
+  const claimEquippedGear = async () => {
+    await fetch("/equippedGear/claim", {
       method: "PUT",
       body: JSON.stringify(equippedGear),
     });
+  };
 
-    if (!response.ok) {
-      // This will activate the closest `error.js` Error Boundary
-      throw new Error("Failed to post equippedGear");
+  const saveGearToApi = async (
+    equippedGear: ApiEquippedGear
+  ): Promise<ApiEquippedGear> => {
+    if (session) {
+      const response = await fetch("/api/my/gear", {
+        method: "PUT",
+        body: JSON.stringify(equippedGear),
+      });
+      if (!response.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error("Failed to post my gear");
+      }
+
+      const data = (await response.json()) as ApiEquippedGear;
+      return data;
+    } else {
+      const response = await fetch("/equippedGear", {
+        method: "PUT",
+        body: JSON.stringify(equippedGear),
+      });
+
+      if (!response.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error("Failed to post equippedGear");
+      }
+
+      const data = (await response.json()) as ApiEquippedGear;
+      setEquippedGearId(data.id!);
+      return data;
     }
-
-    const data = (await response.json()) as ApiEquippedGear;
-    setEquippedGearId(data.id!);
-    return data;
   };
 
   const openGearModal = (slot: number) => (_: PressEvent) => {
@@ -232,7 +265,7 @@ export default function Gear() {
       inventory: inventory!,
       id: inventoryId ?? undefined,
     };
-    const response = await fetch("/inventory", {
+    const response = await fetch("/api/inventory", {
       method: "PUT",
       body: JSON.stringify(inventoryGear),
     });
@@ -290,9 +323,9 @@ export default function Gear() {
             tab: "max-w-fit px-0 h-[20px] w-[20px] md:h-[40px] md:w-[40px]",
           }}
         >
-          {Object.keys(inventory).map((gd) => (
+          {Object.keys(inventory).map((gd, idx) => (
             <Tab
-              key={`inv-${gd}`}
+              key={`inv-${gd}-${idx}`}
               title={
                 gd === "realm" ? (
                   <Image
@@ -300,6 +333,7 @@ export default function Gear() {
                     className="h-[20px] w-[20px] md:h-[40px] md:w-[40px]"
                     height="40"
                     width="40"
+                    alt="realm"
                   />
                 ) : gd === "form" ? (
                   <span className="h-[20px] w-[20px] md:h-[40px] md:w-[40px] md:text-[30px]">
@@ -332,13 +366,13 @@ export default function Gear() {
                       panel: "gap-2 flex flex-row flex-wrap",
                     }}
                   >
-                    {Object.keys(inventory[gd]).map((category) => {
+                    {Object.keys(inventory[gd]).map((category, idx) => {
                       if (inventory[gd][category].length === 0) {
                         return;
                       }
                       return (
                         <Tab
-                          key={`inv-${category}`}
+                          key={`inv-${category}-${idx}`}
                           title={
                             <div
                               className={`align-top rounded-xl h-[15px] w-[15px] md:h-[30px] md:w-[30px] md:pt-[2px] text-[10px] md:text-[20px] ${styles[category]} `}
@@ -347,9 +381,9 @@ export default function Gear() {
                             </div>
                           }
                         >
-                          {inventory[gd][category].map((item) =>
+                          {inventory[gd][category].map((item, idx) =>
                             parseInt(item.count) > 0 ? (
-                              <Card key={`inv-${item.name}`}>
+                              <Card key={`inv-${item.name}-${idx}`}>
                                 <CardBody className={`p-0 grow-0 w-[75px]`}>
                                   <Image
                                     shadow="sm"
@@ -387,6 +421,11 @@ export default function Gear() {
       )}
 
       <Button onPress={openInventoryModal}>Update Inventory</Button>
+      {session && equippedGearId ? (
+        <Button onPress={claimEquippedGear}>Claim Equipped Gear</Button>
+      ) : (
+        <></>
+      )}
 
       {/* Gear Slot Modal */}
       <Modal
@@ -433,6 +472,7 @@ export default function Gear() {
                                 className="h-[20px] w-[20px] md:h-[40px] md:w-[40px]"
                                 height="40"
                                 width="40"
+                                alt="realm"
                               />
                             ) : gd === "form" ? (
                               <span className="h-[20px] w-[20px] md:h-[40px] md:w-[40px] md:text-[30px]">

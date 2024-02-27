@@ -1,7 +1,7 @@
 "use server";
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../db";
-import * as schema from "../../db/schema";
+import { db } from "../../../db";
+import * as schema from "../../../db/schema";
 import { uuidv7 } from "uuidv7";
 import { eq } from "drizzle-orm";
 
