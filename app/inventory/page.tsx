@@ -15,7 +15,7 @@ import {
   ModalFooter,
   Button,
   Input,
-  Link
+  Link,
 } from "@nextui-org/react";
 import styles from "./styles.module.css";
 import { PressEvent } from "@react-types/shared";
@@ -58,6 +58,7 @@ export default function Inventory() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [inventory, setInventory] = useState<InventoryData>();
   const [inventoryId, setInventoryId] = useQueryState("iid");
+  const [equippedGearId, _] = useQueryState("egid");
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<GearData>({});
   const [modalData, setModalData] = useState<InventoryData>({});
@@ -313,15 +314,28 @@ export default function Inventory() {
       ) : (
         <p>No inventory saved!</p>
       )}
-
-      <Button onPress={openInventoryModal}>Update Inventory</Button>
+      {session ? (
+        <Button onPress={openInventoryModal}>Update Inventory</Button>
+      ) : (
+        <></>
+      )}
       {session && inventoryId ? (
         <Button onPress={claimInventoryGear}>Claim Inventory</Button>
       ) : (
         <></>
       )}
+      {equippedGearId ? <Link href={`/gear?egid=${equippedGearId}&iid=${inventoryId}`}>View Gear</Link> : <></>}
+      {!session && inventoryId ? (
+        <p>
+          <Link onPress={() => signIn()} aria-label="Sign In">
+            <p>Sign In</p>
+          </Link>{" "}
+          in order to edit and save inventory to your profile.
+        </p>
+      ) : (
+        <></>
+      )}
 
-      {/* Gear Slot Modal */}
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
