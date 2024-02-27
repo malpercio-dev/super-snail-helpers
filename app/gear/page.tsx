@@ -465,6 +465,13 @@ export default function Gear() {
                                                   : ""
                                               }`}
                                             />
+                                            {item.rarity === "red+" ? (
+                                              <span className="absolute z-10 text-xl md:text-2xl font-extrabold left-[37px] bottom-[42px] md:left-[55px] md:bottom-[65px]">
+                                                {`+${item.count}`}
+                                              </span>
+                                            ) : (
+                                              <></>
+                                            )}
                                           </div>
                                         </CardBody>
                                       </Card>
