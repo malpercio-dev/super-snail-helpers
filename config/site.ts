@@ -16,6 +16,10 @@ export const siteConfig = {
       label: "Inventory",
       href: "/inventory",
     },
+    {
+      label: "Chat Colors",
+      href: "/chat-color",
+    },
   ],
   navMenuItems: [
     {
@@ -29,6 +33,10 @@ export const siteConfig = {
     {
       label: "Inventory",
       href: "/inventory",
+    },
+    {
+      label: "Chat Colors",
+      href: "/chat-color",
     },
   ],
   links: {

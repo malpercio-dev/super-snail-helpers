@@ -353,7 +353,7 @@ export default function Inventory() {
                                 </div>
                               </div>
                             ) : (
-                              <></>
+                              <div key={`inv-${item.name}`}></div>
                             )
                           )}
                         </Tab>
@@ -488,6 +488,7 @@ export default function Inventory() {
                                   >
                                     {modalData![gd][category].map((item) => (
                                       <div
+                                        key={`inv-modal-${item.name}`}
                                         className={cn(
                                           "inline-flex w-full max-w-md items-center",
                                           "rounded-lg gap-2 p-4 border-2 border-transparent",
@@ -495,7 +496,6 @@ export default function Inventory() {
                                         )}
                                       >
                                         <Checkbox
-                                          key={`inv-modal-${item.name}`}
                                           aria-label={item.name}
                                           classNames={{
                                             base: cn(
