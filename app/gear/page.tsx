@@ -311,7 +311,7 @@ export default function Gear() {
                     size="lg"
                     classNames={{
                       tab: "max-w-fit h-[20px] w-[20px] md:h-[40px] md:w-[40px]",
-                      panel: "gap-2 grid grid-rows-auto grid-cols-5",
+                      panel: "gap-2 flex flex-row flex-wrap",
                     }}
                   >
                     {Object.keys(inventory[gd]).map((category) => {
@@ -332,20 +332,22 @@ export default function Gear() {
                           {inventory[gd][category].map((item) =>
                             parseInt(item.count) > 0 ? (
                               <Card key={`inv-${item.name}`}>
-                                <CardBody
-                                  className={`overflow-visible p-0 ${styles[category]} place-content-center`}
-                                >
+                                <CardBody className={`p-0 grow-0 w-[75px]`}>
                                   <Image
                                     shadow="sm"
                                     radius="lg"
                                     removeWrapper
                                     alt={item.name}
-                                    className="object-cover h-[75px] w-[75px] place-self-center"
+                                    className={`h-[50px] w-[50px] md:h-[75px] md:w-[75px] place-self-center ${styles[category]}`}
                                     src={item.imagePath}
                                   />
-                                  <p>Owned: {item.count ? item.count : 0}</p>
-                                  <CardFooter className="text-black p-0.5 text-xs">
-                                    <p>{item.name}</p>
+                                  <CardFooter className="bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
+                                    <b className="text-black text-tiny">
+                                      {item.name}
+                                    </b>
+                                    <p className="text-black text-tiny">
+                                      {item.count ? item.count : 0}
+                                    </p>
                                   </CardFooter>
                                 </CardBody>
                               </Card>
@@ -464,7 +466,7 @@ export default function Gear() {
                                           )}
                                         </div>
                                       }
-                                      className="gap-2 grid grid-rows-auto grid-cols-5"
+                                      className="gap-2 flex flex-row flex-wrap"
                                     >
                                       {data[gd][category].map((item) => (
                                         <Card
@@ -476,19 +478,19 @@ export default function Gear() {
                                             selectedSlot
                                           )}
                                         >
-                                          <CardBody
-                                            className={`overflow-visible p-0 ${styles[category]} place-content-center`}
-                                          >
+                                          <CardBody className={`p-0 grow-0 w-[75px]`}>
                                             <Image
                                               shadow="sm"
                                               radius="lg"
                                               removeWrapper
                                               alt={item.name}
-                                              className="object-cover h-[75px] w-[75px] place-self-center"
+                                              className={`h-[50px] w-[50px] md:h-[75px] md:w-[75px] place-self-center ${styles[category]}`}
                                               src={item.imagePath}
                                             />
-                                            <CardFooter className="text-black p-0.5 text-xs">
-                                              <p>{item.name}</p>
+                                            <CardFooter className="bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between p-1 h-[60px]">
+                                              <b className="text-black text-tiny">
+                                                {item.name}
+                                              </b>
                                             </CardFooter>
                                           </CardBody>
                                         </Card>
