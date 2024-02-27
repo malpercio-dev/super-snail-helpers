@@ -10,15 +10,7 @@ export const siteConfig = {
     },
     {
       label: "Profile",
-      href: "/profile",
-    },
-    {
-      label: "Gear",
-      href: "/gear",
-    },
-    {
-      label: "Inventory",
-      href: "/inventory",
+      href: "/profile/overview",
     },
     {
       label: "Chat Colors",
@@ -32,15 +24,7 @@ export const siteConfig = {
     },
     {
       label: "Profile",
-      href: "/profile",
-    },
-    {
-      label: "Gear",
-      href: "/gear",
-    },
-    {
-      label: "Inventory",
-      href: "/inventory",
+      href: "/profile/overview",
     },
     {
       label: "Chat Colors",

@@ -140,7 +140,7 @@ export default function Gear() {
       // handle the error as needed
       console.error("An error occurred while fetching the data: ", e);
     });
-  }, [profileId, equippedGear, session]);
+  }, [profileId, session]);
 
   const saveGearToApi = async (
     equippedGear: ApiEquippedGear

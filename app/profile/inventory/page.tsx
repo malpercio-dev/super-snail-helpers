@@ -124,7 +124,7 @@ export default function Inventory() {
       // handle the error as needed
       console.error("An error occurred while fetching the data: ", e);
     });
-  }, [profileId, createDefaultInventory]);
+  }, [profileId]);
 
 
   const openInventoryModal = (_: PressEvent) => {
