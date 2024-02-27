@@ -227,7 +227,7 @@ export default function Inventory() {
       <Link onPress={() => signIn()} aria-label="Sign In">
         <p>Sign In</p>
       </Link>{" "}
-      or visit another person's profile to see inventory!
+      or visit another persons profile to see inventory!
     </>
   ) : (
     <>
