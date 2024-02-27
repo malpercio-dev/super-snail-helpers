@@ -179,7 +179,7 @@ export default function Gear() {
         color: category,
         ...gear,
       };
-      const apiGear = await saveGearToApi({ gear: modifiedEquippedGear });
+      const apiGear = await saveGearToApi({ gear: modifiedEquippedGear, id: equippedGearId ?? undefined });
       setEquippedGear(apiGear.gear);
       onClose();
     };
@@ -188,7 +188,7 @@ export default function Gear() {
     (onClose: () => void) => (slot: number) => async (_: PressEvent) => {
       const modifiedEquippedGear = [...equippedGear] as EquippedGear;
       modifiedEquippedGear[slot] = NoEquip;
-      const apiGear = await saveGearToApi({ gear: modifiedEquippedGear });
+      const apiGear = await saveGearToApi({ gear: modifiedEquippedGear, id: equippedGearId ?? undefined });
       setEquippedGear(apiGear.gear);
       onClose();
     };
@@ -200,7 +200,7 @@ export default function Gear() {
     }
 
   const saveInventoryToApi = (onClose: () => void) => async (_: PressEvent) => {
-    const inventoryGear = { inventory };
+    const inventoryGear: ApiInventoryGear = { inventory, id: inventoryId ?? undefined };
     const response = await fetch("/inventory", {
       method: "PUT",
       body: JSON.stringify(inventoryGear),
