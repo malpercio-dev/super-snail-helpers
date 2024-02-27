@@ -366,6 +366,18 @@ export default function Inventory() {
         <></>
       )}
 
+      {session ? (
+        <>
+          <p>Use the following link to share your inventory with other snails:</p>
+          <Input
+            disabled
+            defaultValue={`https://super-snail-helpers.malpercio.dev/inventory?profileId=${session.user.id}`}
+          ></Input>
+        </>
+      ) : (
+        <></>
+      )}
+
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
