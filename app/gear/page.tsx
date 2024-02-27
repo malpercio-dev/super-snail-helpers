@@ -20,11 +20,13 @@ import {
 import styles from "./styles.module.css";
 import { PressEvent } from "@react-types/shared";
 import { useQueryState } from "next-usequerystate";
-import gearData from "../../public/data/gear.json";
 
 interface Gear {
+  id: string;
   imagePath: string;
   name: string;
+  category: string;
+  rarity: string;
   color?: string;
 }
 
@@ -70,21 +72,13 @@ type ApiInventoryGear = {
 };
 
 const NoEquip: Gear = {
+  id: "NoEquip",
   name: "Nothing Equipped!",
   imagePath: "/media/gear/Unequipped.png",
   color: "white",
+  category: "N/A",
+  rarity: "N/A"
 };
-const data = gearData as GearData;
-
-const defaultInventory: InventoryData = JSON.parse(JSON.stringify(data));
-Object.keys(defaultInventory).forEach((category) =>
-  Object.keys(defaultInventory[category]).forEach((rarity) =>
-    defaultInventory[category][rarity].forEach((gear) => {
-      gear.count = "0";
-      gear.color = rarity;
-    })
-  )
-);
 
 export default function Gear() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -104,13 +98,22 @@ export default function Gear() {
     NoEquip,
   ]);
   const [equippedGearId, setEquippedGearId] = useQueryState("egid");
-  const [inventory, setInventory] = useState<InventoryData>(defaultInventory);
+  const [inventory, setInventory] = useState<InventoryData>();
   const [inventoryId, setInventoryId] = useQueryState("iid");
   const [isLoading, setIsLoading] = useState(true);
   const [showInventoryModal, setShowInventoryModal] = useState(false);
   const [showGearModal, setShowGearModal] = useState(false);
+  const [data, setData] = useState<GearData>({});
   useEffect(() => {
     const fetchData = async () => {
+      const res = await fetch("/allGear");
+      if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error("Failed to fetch allGear");
+      }
+      const gear: GearData = await res.json();
+      setData(gear);
+
       if (equippedGearId) {
         const equippedGearRes = await fetch(
           `/equippedGear?egid=${equippedGearId}`
@@ -131,6 +134,21 @@ export default function Gear() {
         }
         const inventoryGear: ApiInventoryGear = await inventoryRes.json();
         setInventory(inventoryGear.inventory);
+      }
+
+      if (!inventory) {
+        const defaultInventory: InventoryData = JSON.parse(
+          JSON.stringify(gear)
+        );
+        Object.keys(defaultInventory).forEach((category) =>
+          Object.keys(defaultInventory[category]).forEach((rarity) =>
+            defaultInventory[category][rarity].forEach((gear) => {
+              gear.count = "0";
+              gear.color = rarity;
+            })
+          )
+        );
+        setInventory(defaultInventory);
       }
       setIsLoading(false);
     };
@@ -211,7 +229,7 @@ export default function Gear() {
 
   const saveInventoryToApi = (onClose: () => void) => async (_: PressEvent) => {
     const inventoryGear: ApiInventoryGear = {
-      inventory,
+      inventory: inventory!,
       id: inventoryId ?? undefined,
     };
     const response = await fetch("/inventory", {
@@ -478,7 +496,9 @@ export default function Gear() {
                                             selectedSlot
                                           )}
                                         >
-                                          <CardBody className={`p-0 grow-0 w-[75px]`}>
+                                          <CardBody
+                                            className={`p-0 grow-0 w-[75px]`}
+                                          >
                                             <Image
                                               shadow="sm"
                                               radius="lg"
@@ -566,8 +586,8 @@ export default function Gear() {
                         <Card>
                           <CardBody>
                             <Tabs aria-label="Rarities">
-                              {Object.keys(inventory[gd]).map((category) => {
-                                if (inventory[gd][category].length === 0) {
+                              {Object.keys(inventory![gd]).map((category) => {
+                                if (inventory![gd][category].length === 0) {
                                   return;
                                 }
                                 return (
@@ -576,7 +596,7 @@ export default function Gear() {
                                     title={category}
                                     className="gap-2 grid grid-rows-auto grid-cols-5"
                                   >
-                                    {inventory[gd][category].map((item) => (
+                                    {inventory![gd][category].map((item) => (
                                       <Card key={`inv-modal-${item.name}`}>
                                         <CardBody
                                           className={`overflow-visible p-0 ${styles[category]} place-content-center`}
@@ -593,7 +613,6 @@ export default function Gear() {
                                             type="number"
                                             defaultValue={item.count}
                                             onValueChange={(value) => {
-                                              console.log(value);
                                               if (
                                                 !isNaN(parseInt(value)) &&
                                                 parseInt(value) < 0
