@@ -7,20 +7,69 @@ import {
   CardBody,
   Image,
   CardFooter,
+  useDisclosure,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
 } from "@nextui-org/react";
 import styles from "./styles.module.css";
+import { PressEvent } from "@react-types/shared";
+
+interface Gear {
+  imagePath: string;
+  name: string;
+  color?: string;
+}
 
 interface GearData {
   [key: string]: {
-    [key: string]: {
-      imagePath: string;
-      name: string;
-    }[];
+    [key: string]: Gear[];
   };
 }
 
+type EquippedGear = [
+  Gear,
+  Gear,
+  Gear,
+  Gear,
+  Gear,
+  Gear,
+  Gear,
+  Gear,
+  Gear,
+  Gear,
+  Gear,
+  Gear
+];
+
+const NoEquip: Gear = {
+  name: "Nothing Equipped!",
+  imagePath: "/media/gear/Unequipped.png",
+  color: "white",
+};
+
 export default function Home() {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [selectedGear, setSelectedGear] = useState<Gear>();
+  const [equippedGear, setEquippedGear] = useState<EquippedGear>([
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+  ]);
   const [data, setData] = useState<GearData>({});
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch("/data/gear.json");
@@ -30,6 +79,7 @@ export default function Home() {
       }
       const gear: GearData = await res.json();
       setData(gear);
+      setIsLoading(false);
     };
 
     fetchData().catch((e) => {
@@ -38,9 +88,49 @@ export default function Home() {
     });
   }, []);
 
+  const openGearModal = (gear: Gear, category: string) => (e: PressEvent) => {
+    setSelectedGear({
+      color: category,
+      ...gear
+    });
+    onOpen();
+  };
+
+  const putGearInSlot =
+    (onClose: () => void) => (gear: Gear, slot: number) => (e: PressEvent) => {
+      console.log(gear);
+      console.log(slot);
+      const modifiedEquippedGear: EquippedGear = [...equippedGear];
+      modifiedEquippedGear[slot] = gear;
+      setEquippedGear(modifiedEquippedGear);
+      onClose();
+    };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="flex w-full flex-col">
-      <Tabs aria-label="Categories">
+    <>
+      <div className="gap-2 grid grid-cols-6 grid-rows-2 mb-5">
+        {equippedGear.map((item, index) => {
+          return (
+            <div className="">
+              <Image
+                shadow="sm"
+                radius="lg"
+                removeWrapper
+                alt={item.name}
+                className={`object-cover place-self-center ${
+                  item.color ? styles[item.color] : ""
+                }`}
+                src={item.imagePath}
+              />
+            </div>
+          );
+        })}
+      </div>
+      <Tabs aria-label="Categories" className="grid">
         {Object.keys(data).map((gd) => (
           <Tab key={gd} title={gd}>
             <Card>
@@ -57,7 +147,11 @@ export default function Home() {
                         className="gap-2 grid xl:grid-cols-8 grid-rows-auto grid-cols-3"
                       >
                         {data[gd][category].map((item) => (
-                          <Card key={item.name} isPressable>
+                          <Card
+                            key={item.name}
+                            isPressable
+                            onPress={openGearModal(item, category)}
+                          >
                             <CardBody
                               className={`overflow-visible p-0 ${styles[category]} place-content-center`}
                             >
@@ -84,28 +178,45 @@ export default function Home() {
           </Tab>
         ))}
       </Tabs>
-      {/* {Object.keys(gear).map((gd) => (
-        <>
-          <h2>{gd}</h2>
-          <>
-            {Object.keys(gear[gd]).map((category) => (
-              <>
-                <h3>{category}</h3>
-                {gear[gd][category].map((item) => (
-                  <>
-                    <Image
-                      src={item.imagePath}
-                      alt={item.name}
-                      width="50"
-                      height="50"
-                    />
-                  </>
-                ))}
-              </>
-            ))}
-          </>
-        </>
-      ))} */}
-    </div>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Select Slot
+              </ModalHeader>
+              <ModalBody>
+                <p>
+                  {selectedGear?.name}
+                  <div className="gap-2 grid grid-cols-6 grid-rows-2">
+                    {equippedGear.map((item, index) => {
+                      return (
+                        <Button
+                          onPress={putGearInSlot(onClose)(selectedGear!, index)}
+                        >
+                          <Image
+                            shadow="sm"
+                            radius="lg"
+                            removeWrapper
+                            alt={item.name}
+                            className="object-cover place-self-center"
+                            src={item.imagePath}
+                          />
+                        </Button>
+                      );
+                    })}
+                  </div>
+                </p>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
   );
 }
