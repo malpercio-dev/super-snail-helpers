@@ -87,12 +87,8 @@ Object.keys(defaultInventory).forEach((category) =>
 );
 
 export default function Gear() {
-  const {
-    isOpen,
-    onOpen,
-    onOpenChange,
-  } = useDisclosure();
-  const [selectedSlot, setSelectedSlot] = useState<number>();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [selectedSlot, setSelectedSlot] = useState<number>(0);
   const [equippedGear, setEquippedGear] = useState([
     NoEquip,
     NoEquip,
@@ -179,28 +175,45 @@ export default function Gear() {
         color: category,
         ...gear,
       };
-      const apiGear = await saveGearToApi({ gear: modifiedEquippedGear, id: equippedGearId ?? undefined });
+      const apiGear = await saveGearToApi({
+        gear: modifiedEquippedGear,
+        id: equippedGearId ?? undefined,
+      });
       setEquippedGear(apiGear.gear);
-      onClose();
+      if (selectedSlot >= 11) {
+        onClose();
+        return;
+      }
+      setSelectedSlot(selectedSlot + 1);
     };
 
   const clearSlot =
     (onClose: () => void) => (slot: number) => async (_: PressEvent) => {
       const modifiedEquippedGear = [...equippedGear] as EquippedGear;
       modifiedEquippedGear[slot] = NoEquip;
-      const apiGear = await saveGearToApi({ gear: modifiedEquippedGear, id: equippedGearId ?? undefined });
+      const apiGear = await saveGearToApi({
+        gear: modifiedEquippedGear,
+        id: equippedGearId ?? undefined,
+      });
       setEquippedGear(apiGear.gear);
-      onClose();
+      if (selectedSlot >= 11) {
+        onClose();
+        return;
+      }
+      setSelectedSlot(selectedSlot + 1);
     };
 
-    const openInventoryModal = (_: PressEvent) => {
-      setShowGearModal(false);
-      setShowInventoryModal(true);
-      onOpen();
-    }
+  const openInventoryModal = (_: PressEvent) => {
+    setShowGearModal(false);
+    setShowInventoryModal(true);
+    onOpen();
+  };
 
   const saveInventoryToApi = (onClose: () => void) => async (_: PressEvent) => {
-    const inventoryGear: ApiInventoryGear = { inventory, id: inventoryId ?? undefined };
+    const inventoryGear: ApiInventoryGear = {
+      inventory,
+      id: inventoryId ?? undefined,
+    };
     const response = await fetch("/inventory", {
       method: "PUT",
       body: JSON.stringify(inventoryGear),
@@ -309,10 +322,7 @@ export default function Gear() {
       <Button onPress={openInventoryModal}>Update Inventory</Button>
 
       {/* Gear Slot Modal */}
-      <Modal
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
-      >
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         {showGearModal ? (
           <ModalContent>
             {(onClose) => (
@@ -321,67 +331,111 @@ export default function Gear() {
                   Select Gear
                 </ModalHeader>
                 <ModalBody>
-                  <Tabs aria-label="Categories" className="grid">
-                    {Object.keys(data).map((gd) => (
-                      <Tab key={gd} title={gd}>
-                        <Card>
-                          <CardBody>
-                            <Tabs aria-label="Rarities">
-                              {Object.keys(data[gd]).map((category) => {
-                                if (data[gd][category].length === 0) {
-                                  return;
-                                }
-                                return (
-                                  <Tab
-                                    key={category}
-                                    title={category}
-                                    className="gap-2 grid grid-rows-auto grid-cols-5"
-                                  >
-                                    {data[gd][category].map((item) => (
-                                      <Card
-                                        key={item.name}
-                                        isPressable
-                                        onPress={putGearInSlot(onClose)(
-                                          item,
-                                          category,
-                                          selectedSlot!
-                                        )}
-                                      >
-                                        <CardBody
-                                          className={`overflow-visible p-0 ${styles[category]} place-content-center`}
+                  <>
+                    <div>
+                      <p>Currently Equipped</p>
+                      <Image
+                        shadow="sm"
+                        radius="lg"
+                        removeWrapper
+                        alt={equippedGear[selectedSlot].name}
+                        className={`object-cover h-[75px] w-[75px] place-self-center ${styles[equippedGear[selectedSlot].color!]}`}
+                        src={equippedGear[selectedSlot].imagePath}
+                      />
+                    </div>
+                    <Tabs aria-label="Categories" className="grid">
+                      {Object.keys(data).map((gd) => (
+                        <Tab key={gd} title={gd}>
+                          <Card>
+                            <CardBody>
+                              <Tabs aria-label="Rarities">
+                                {Object.keys(data[gd]).map((category) => {
+                                  if (data[gd][category].length === 0) {
+                                    return;
+                                  }
+                                  return (
+                                    <Tab
+                                      key={category}
+                                      title={category}
+                                      className="gap-2 grid grid-rows-auto grid-cols-5"
+                                    >
+                                      {data[gd][category].map((item) => (
+                                        <Card
+                                          key={item.name}
+                                          isPressable
+                                          onPress={putGearInSlot(onClose)(
+                                            item,
+                                            category,
+                                            selectedSlot
+                                          )}
                                         >
-                                          <Image
-                                            shadow="sm"
-                                            radius="lg"
-                                            removeWrapper
-                                            alt={item.name}
-                                            className="object-cover h-[75px] w-[75px] place-self-center"
-                                            src={item.imagePath}
-                                          />
-                                          <CardFooter className="text-black p-0.5 text-xs">
-                                            <p>{item.name}</p>
-                                          </CardFooter>
-                                        </CardBody>
-                                      </Card>
-                                    ))}
-                                  </Tab>
-                                );
-                              })}
-                            </Tabs>
-                          </CardBody>
-                        </Card>
-                      </Tab>
-                    ))}
-                  </Tabs>
+                                          <CardBody
+                                            className={`overflow-visible p-0 ${styles[category]} place-content-center`}
+                                          >
+                                            <Image
+                                              shadow="sm"
+                                              radius="lg"
+                                              removeWrapper
+                                              alt={item.name}
+                                              className="object-cover h-[75px] w-[75px] place-self-center"
+                                              src={item.imagePath}
+                                            />
+                                            <CardFooter className="text-black p-0.5 text-xs">
+                                              <p>{item.name}</p>
+                                            </CardFooter>
+                                          </CardBody>
+                                        </Card>
+                                      ))}
+                                    </Tab>
+                                  );
+                                })}
+                              </Tabs>
+                            </CardBody>
+                          </Card>
+                        </Tab>
+                      ))}
+                    </Tabs>
+                  </>
                 </ModalBody>
                 <ModalFooter>
+                  {selectedSlot >= 0 ? (
+                    <Button
+                      color="primary"
+                      variant="light"
+                      onPress={() => {
+                        if (selectedSlot < 0) return;
+                        setSelectedSlot(selectedSlot - 1);
+                        return;
+                      }}
+                    >
+                      Previous Slot
+                    </Button>
+                  ) : (
+                    <></>
+                  )}
+                  {selectedSlot <= 10 ? (
+                    <Button
+                      color="primary"
+                      variant="light"
+                      onPress={() => {
+                        if (selectedSlot > 11) return;
+                        setSelectedSlot(selectedSlot + 1);
+                        return;
+                      }}
+                    >
+                      Next Slot
+                    </Button>
+                  ) : (
+                    <></>
+                  )}
+
                   <Button color="danger" variant="light" onPress={onClose}>
                     Close
                   </Button>
                   <Button
                     color="danger"
                     variant="light"
-                    onPress={clearSlot(onClose)(selectedSlot!)}
+                    onPress={clearSlot(onClose)(selectedSlot)}
                   >
                     Clear Slot
                   </Button>
