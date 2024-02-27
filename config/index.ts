@@ -16,7 +16,10 @@ const env = createEnv({
       }),
     NODE_ENV: z.enum(["development", "production"]),
     HOST_URL: z.string().min(1),
-    // TURSO_API_KEY: z.string().min(1),
+    NEXTAUTH_SECRET: z.string().min(1),
+    NEXTAUTH_URL: z.string().min(1),
+    DISCORD_CLIENT_ID: z.string().min(1),
+    DISCORD_CLIENT_SECRET: z.string().min(1),
   },
   runtimeEnv: {
     LOG_LEVEL: process.env.LOG_LEVEL,
@@ -25,6 +28,10 @@ const env = createEnv({
     DATABASE_AUTH_TOKEN: process.env.DATABASE_AUTH_TOKEN,
     NODE_ENV: process.env.NODE_ENV,
     HOST_URL: process.env.HOST_URL,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
+    DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
   },
 });
 
