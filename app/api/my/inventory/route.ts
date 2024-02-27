@@ -54,6 +54,7 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
         gearId: item.id,
         imagePath: item.imagePath,
         count: item.count,
+        updatedAt: new Date().toISOString(),
       }));
     });
   });
@@ -88,6 +89,7 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
       target: [schema.inventoryGears.userId, schema.inventoryGears.gearId],
       set: {
         count: sql`excluded.count`,
+        updatedAt: new Date().toISOString(),
       },
     });
   const dbInventoryGear = await db

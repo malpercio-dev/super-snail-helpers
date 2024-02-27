@@ -1,4 +1,5 @@
 import { AdapterAccount } from "@auth/core/adapters";
+import { sql } from "drizzle-orm";
 import {
   integer,
   primaryKey,
@@ -16,6 +17,8 @@ export const gear = sqliteTable("gear", {
   imagePath: text("imagePath").notNull(),
   category: text("category").notNull(),
   rarity: text("rarity").notNull(),
+  createdAt: text("createdAt").$defaultFn(() => new Date().toISOString()),
+  updatedAt: text("updatedAt"),
 });
 
 export const equippedGear = sqliteTable("equippedGear", {
@@ -23,6 +26,8 @@ export const equippedGear = sqliteTable("equippedGear", {
     .primaryKey()
     .$defaultFn(() => uuidv7()),
   gear: text("gear", { mode: "json" }).notNull(),
+  createdAt: text("createdAt").$defaultFn(() => new Date().toISOString()),
+  updatedAt: text("updatedAt"),
 });
 
 export const inventoryGear = sqliteTable("inventoryGear", {
@@ -30,14 +35,16 @@ export const inventoryGear = sqliteTable("inventoryGear", {
     .primaryKey()
     .$defaultFn(() => uuidv7()),
   inventory: text("inventory", { mode: "json" }).notNull(),
+  createdAt: text("createdAt").$defaultFn(() => new Date().toISOString()),
+  updatedAt: text("updatedAt"),
 });
 
 export const equippedGears = sqliteTable(
   "equippedGears",
   {
     id: text("id")
-    .primaryKey()
-    .$defaultFn(() => uuidv7()),
+      .primaryKey()
+      .$defaultFn(() => uuidv7()),
     userId: text("userId")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
@@ -45,6 +52,9 @@ export const equippedGears = sqliteTable(
       .notNull()
       .references(() => gear.id, { onDelete: "cascade" }),
     slot: integer("slot").notNull().default(0),
+    plusses: integer("plusses").default(0),
+    createdAt: text("createdAt").$defaultFn(() => new Date().toISOString()),
+    updatedAt: text("updatedAt"),
   },
   (t) => ({
     unique: unique().on(t.userId, t.slot),
@@ -55,8 +65,8 @@ export const inventoryGears = sqliteTable(
   "inventoryGears",
   {
     id: text("id")
-    .primaryKey()
-    .$defaultFn(() => uuidv7()),
+      .primaryKey()
+      .$defaultFn(() => uuidv7()),
     userId: text("userId")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
@@ -64,6 +74,8 @@ export const inventoryGears = sqliteTable(
       .notNull()
       .references(() => gear.id, { onDelete: "cascade" }),
     count: integer("count").notNull().default(0),
+    createdAt: text("createdAt").$defaultFn(() => new Date().toISOString()),
+    updatedAt: text("updatedAt"),
   },
   (t) => ({
     unique: unique().on(t.userId, t.gearId),
@@ -76,6 +88,7 @@ export const users = sqliteTable("user", {
   email: text("email").notNull(),
   emailVerified: integer("emailVerified", { mode: "timestamp_ms" }),
   image: text("image"),
+  createdAt: text("createdAt").$defaultFn(() => new Date().toISOString()),
 });
 
 export const accounts = sqliteTable(
@@ -94,6 +107,7 @@ export const accounts = sqliteTable(
     scope: text("scope"),
     id_token: text("id_token"),
     session_state: text("session_state"),
+    createdAt: text("createdAt").$defaultFn(() => new Date().toISOString()),
   },
   (account) => ({
     compoundKey: primaryKey(account.provider, account.providerAccountId),
@@ -106,6 +120,7 @@ export const sessions = sqliteTable("session", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
+  createdAt: text("createdAt").$defaultFn(() => new Date().toISOString()),
 });
 
 export const verificationTokens = sqliteTable(
@@ -114,6 +129,7 @@ export const verificationTokens = sqliteTable(
     identifier: text("identifier").notNull(),
     token: text("token").notNull(),
     expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
+    createdAt: text("createdAt").$defaultFn(() => new Date().toISOString()),
   },
   (vt) => ({
     compoundKey: primaryKey(vt.identifier, vt.token),

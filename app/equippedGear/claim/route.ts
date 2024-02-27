@@ -33,11 +33,13 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
           userId: session.user.id,
           gearId: gear.id,
           slot: index,
+          updatedAt: new Date().toISOString(),
         })
         .onConflictDoUpdate({
           target: [schema.equippedGears.userId, schema.equippedGears.slot],
           set: {
             gearId: gear.id,
+            updatedAt: new Date().toISOString(),
           },
         });
     })

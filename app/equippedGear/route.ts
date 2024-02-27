@@ -19,6 +19,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 export async function PUT(request: NextRequest): Promise<NextResponse> {
   const equippedGear = (await request.json()) as schema.EquippedGear;
   if (!equippedGear.id) equippedGear.id = uuidv7();
+  if (!equippedGear.updatedAt)
+    equippedGear.updatedAt = new Date().toISOString();
   const dbEquippedGear = await db
     .insert(schema.equippedGear)
     .values(equippedGear)

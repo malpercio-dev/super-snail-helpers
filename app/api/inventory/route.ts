@@ -10,7 +10,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   const inventoryGear = await db
     .select()
     .from(schema.inventoryGear)
-    .where(eq(schema.inventoryGear.id, id)).limit(1);
+    .where(eq(schema.inventoryGear.id, id))
+    .limit(1);
 
   return NextResponse.json(inventoryGear[0]);
 }
@@ -19,6 +20,8 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
   {
     const inventoryGear = (await request.json()) as schema.InventoryGear;
     if (!inventoryGear.id) inventoryGear.id = uuidv7();
+    if (!inventoryGear.updatedAt)
+      inventoryGear.updatedAt = new Date().toISOString();
     const dbInventoryGear = await db
       .insert(schema.inventoryGear)
       .values(inventoryGear)
@@ -26,6 +29,7 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
         target: schema.inventoryGear.id,
         set: {
           inventory: inventoryGear.inventory,
+          updatedAt: new Date().toISOString(),
         },
       })
       .returning();

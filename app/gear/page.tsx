@@ -15,6 +15,7 @@ import {
   ModalFooter,
   Button,
   Link,
+  cn,
 } from "@nextui-org/react";
 
 import styles from "./styles.module.css";
@@ -31,7 +32,9 @@ interface Gear {
   category: string;
   rarity: string;
   color?: string;
+  plusses?: number;
 }
+
 interface InventoryGear extends Gear {
   count: number;
 }
@@ -202,11 +205,12 @@ export default function Gear() {
 
   const putGearInSlot =
     (onClose: () => void) =>
-    (gear: Gear, category: string, slot: number) =>
+    (gear: Gear, category: string, slot: number, plusses = 0) =>
     async (_: PressEvent) => {
       const modifiedEquippedGear = [...equippedGear] as EquippedGear;
       modifiedEquippedGear[slot] = {
         color: category,
+        plusses,
         ...gear,
       };
       const apiGear = await saveGearToApi({
@@ -276,6 +280,13 @@ export default function Gear() {
                   alt={item.name}
                   src={item.imagePath}
                 />
+                {item.rarity === "red+" ? (
+                  <span className="absolute z-10 text-xl md:text-2xl font-extrabold left-[20px] bottom-[25px] md:left-[40px] md:bottom-[45px]">
+                    {`+${item.plusses}`}
+                  </span>
+                ) : (
+                  <></>
+                )}
               </Button>
             </div>
           );
@@ -341,6 +352,13 @@ export default function Gear() {
                       }`}
                       src={equippedGear[selectedSlot].imagePath}
                     />
+                    {equippedGear[selectedSlot].rarity === "red+" ? (
+                      <span className="relative z-10 text-xl md:text-2xl font-extrabold left-[45px] bottom-[80px] md:left-[40px] md:bottom-[80px]">
+                        {`+${equippedGear[selectedSlot].plusses}`}
+                      </span>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                   <Tabs
                     aria-label="Categories"
@@ -389,7 +407,7 @@ export default function Gear() {
                               size="lg"
                               classNames={{
                                 tab: "max-w-fit h-[20px] w-[20px] md:h-[40px] md:w-[40px]",
-                                panel: "gap-2 grid grid-rows-auto grid-cols-5",
+                                panel: "gap-2 flex flex-row flex-wrap",
                               }}
                             >
                               {Object.keys(inventory![gd]).map((category) => {
@@ -419,25 +437,35 @@ export default function Gear() {
                                         onPress={putGearInSlot(onClose)(
                                           item,
                                           category,
-                                          selectedSlot
+                                          selectedSlot,
+                                          item.rarity === "red+"
+                                            ? item.count
+                                            : 0
                                         )}
                                       >
                                         <CardBody
-                                          className={`p-0 grow-0 w-[75px]`}
+                                          className={cn(
+                                            "p-0 inline-flex flex flex-row gap-2",
+                                            "rounded-lg gap-2 p-4",
+                                            "w-full"
+                                          )}
                                         >
-                                          <Image
-                                            shadow="sm"
-                                            radius="lg"
-                                            removeWrapper
-                                            alt={item.name}
-                                            className={`h-[50px] w-[50px] md:h-[75px] md:w-[75px] place-self-center ${styles[category]}`}
-                                            src={item.imagePath}
-                                          />
-                                          <CardFooter className="bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between p-1 h-[60px]">
-                                            <b className="text-black text-tiny">
-                                              {item.name}
-                                            </b>
-                                          </CardFooter>
+                                          <div
+                                            className={`max-w[50px] md:max-w-[75px] h-[50px] md:h-[75px]`}
+                                          >
+                                            <Image
+                                              shadow="sm"
+                                              radius="lg"
+                                              removeWrapper
+                                              alt={item.name}
+                                              src={item.imagePath}
+                                              className={`max-w-[50px] md:max-w-[75px] h-[50px] md:h-[75px] ${
+                                                item.rarity
+                                                  ? styles[item.rarity]
+                                                  : ""
+                                              }`}
+                                            />
+                                          </div>
                                         </CardBody>
                                       </Card>
                                     ))}

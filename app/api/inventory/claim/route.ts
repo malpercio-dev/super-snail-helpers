@@ -37,6 +37,7 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
               userId: session.user.id,
               gearId: gear.id,
               count: item.count,
+              updatedAt: new Date().toISOString(),
             })
             .onConflictDoUpdate({
               target: [
@@ -45,6 +46,7 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
               ],
               set: {
                 count: item.count,
+                updatedAt: new Date().toISOString(),
               },
             });
         });

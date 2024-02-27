@@ -15,6 +15,7 @@ export async function GET(_: NextRequest): Promise<NextResponse> {
       imagePath: schema.gear.imagePath,
       color: schema.gear.rarity,
       rarity: schema.gear.rarity,
+      plusses: schema.equippedGears.plusses,
     })
     .from(schema.equippedGears)
     .innerJoin(schema.gear, eq(schema.equippedGears.gearId, schema.gear.id))
@@ -27,17 +28,23 @@ export async function GET(_: NextRequest): Promise<NextResponse> {
   return NextResponse.json(dbEquippedGear);
 }
 
+interface GearPlus extends schema.Gear {
+  plusses: number;
+}
+
 export async function PUT(request: NextRequest): Promise<NextResponse> {
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ no: true }, { status: 401 });
   const equippedGearReq = (await request.json()) as schema.EquippedGear;
-  const equippedGear = equippedGearReq.gear as schema.Gear[];
+  const equippedGear = equippedGearReq.gear as GearPlus[];
   const equippedGears: schema.EquippedGearsInsert[] = equippedGear.map(
     (eg, index) => ({
       userId: session.user.id,
       gearId: eg.id,
       imagePath: eg.imagePath,
       slot: index,
+      plusses: eg.plusses,
+      updatedAt: new Date().toISOString(),
     })
   );
   const dbGear = await db.select().from(schema.gear);
@@ -55,6 +62,8 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
       target: [schema.equippedGears.userId, schema.equippedGears.slot],
       set: {
         gearId: sql`excluded.gearId`,
+        plusses: sql`excluded.plusses`,
+        updatedAt: new Date().toISOString(),
       },
     });
   const dbEquippedGear = await db
@@ -63,6 +72,7 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
       imagePath: schema.gear.imagePath,
       color: schema.gear.rarity,
       rarity: schema.gear.rarity,
+      plusses: schema.equippedGears.plusses,
     })
     .from(schema.equippedGears)
     .innerJoin(schema.gear, eq(schema.equippedGears.gearId, schema.gear.id))
