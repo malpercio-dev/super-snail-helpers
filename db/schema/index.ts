@@ -1,5 +1,4 @@
 import { AdapterAccount } from "@auth/core/adapters";
-import { sql } from "drizzle-orm";
 import {
   integer,
   primaryKey,
@@ -82,6 +81,34 @@ export const inventoryGears = sqliteTable(
   })
 );
 
+export const snailProfile = sqliteTable("snailProfile", {
+  id: text("id")
+    .notNull()
+    .primaryKey()
+    .$defaultFn(() => uuidv7()),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  serverId: text("serverId").references(() => server.id, {
+    onDelete: "set null",
+  }),
+});
+
+export const server = sqliteTable(
+  "server",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => uuidv7()),
+    group: text("group").notNull(),
+    server: text("server").notNull(),
+  },
+  (t) => ({
+    unique: unique().on(t.group, t.server),
+  })
+);
+
 export const users = sqliteTable("user", {
   id: text("id").notNull().primaryKey(),
   name: text("name"),
@@ -139,6 +166,7 @@ export const verificationTokens = sqliteTable(
 export type EquippedGear = typeof equippedGear.$inferSelect;
 export type InventoryGear = typeof inventoryGear.$inferSelect;
 export type Gear = typeof gear.$inferSelect;
+export type Server = typeof server.$inferInsert;
 
 export type EquippedGearsInsert = typeof equippedGears.$inferInsert;
 export type InventoryGearsInsert = typeof inventoryGears.$inferInsert;
