@@ -3,7 +3,7 @@ import * as schema from "@/db/schema";
 import { NextRequest, NextResponse } from "next/server";
 
 const loadServers = async () => {
-  const servers: schema.Server[] = [];
+  const servers: schema.ServerInsert[] = [];
 
   for (let index = 0; index < 14; index++) {
     servers.push({

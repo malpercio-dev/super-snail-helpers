@@ -1,11 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import * as schema from "@/db/schema";
-import { eq, ne } from "drizzle-orm";
-
-interface InventoryGear extends schema.Gear {
-  count?: number;
-}
+import { eq, ne, and } from "drizzle-orm";
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
   const id = request.nextUrl.searchParams.get("profileId")!;
@@ -21,8 +17,12 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     })
     .from(schema.inventoryGears)
     .innerJoin(schema.gear, eq(schema.inventoryGears.gearId, schema.gear.id))
-    .where(eq(schema.inventoryGears.userId, id))
-    .where(ne(schema.inventoryGears.count, 0));
+    .where(
+      and(
+        eq(schema.inventoryGears.userId, id),
+        ne(schema.inventoryGears.count, 0)
+      )
+    );
 
   if (dbInventoryGear.length <= 0)
     return NextResponse.json(null, { status: 404 });

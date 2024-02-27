@@ -63,19 +63,6 @@ export default function Inventory() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<GearData>({});
   const [modalData, setModalData] = useState<InventoryData>({});
-  
-  const createDefaultInventory = (): InventoryData => {
-    const defaultInventory: InventoryData = JSON.parse(JSON.stringify(data));
-    Object.keys(defaultInventory).forEach((category) =>
-      Object.keys(defaultInventory[category]).forEach((rarity) =>
-        defaultInventory[category][rarity].forEach((gear) => {
-          gear.count = 0;
-          gear.color = rarity;
-        })
-      )
-    );
-    return defaultInventory;
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,6 +72,21 @@ export default function Inventory() {
       }
       const gear: GearData = await res.json();
       setData(gear);
+
+      const createDefaultInventory = (): InventoryData => {
+        const defaultInventory: InventoryData = JSON.parse(
+          JSON.stringify(gear)
+        );
+        Object.keys(defaultInventory).forEach((category) =>
+          Object.keys(defaultInventory[category]).forEach((rarity) =>
+            defaultInventory[category][rarity].forEach((gear) => {
+              gear.count = 0;
+              gear.color = rarity;
+            })
+          )
+        );
+        return defaultInventory;
+      };
 
       if (profileId) {
         const response = await fetch(`/api/profile?profileId=${profileId}`);
@@ -124,8 +126,7 @@ export default function Inventory() {
       // handle the error as needed
       console.error("An error occurred while fetching the data: ", e);
     });
-  }, [profileId]);
-
+  }, []);
 
   const openInventoryModal = (_: PressEvent) => {
     const modalData = structuredClone(data) as InventoryData;
@@ -161,9 +162,6 @@ export default function Inventory() {
 
       const data = (await response.json()) as InventoryGear[];
       let finalData = convertInventoryApiResponses(data);
-      if (finalData === null) {
-        finalData = createDefaultInventory();
-      }
       setInventory(finalData);
       onClose();
       return data;
@@ -184,20 +182,6 @@ export default function Inventory() {
     const data = (await response.json()) as ApiInventoryGear;
     setInventory(data.inventory);
     onClose();
-    return data;
-  };
-
-  const claimInventoryGear = async () => {
-    const response = await fetch("/api/inventory/claim", {
-      method: "PUT",
-      body: JSON.stringify(inventory),
-    });
-    const data = (await response.json()) as InventoryGear[];
-    let finalData = convertInventoryApiResponses(data);
-    if (finalData === null) {
-      finalData = createDefaultInventory();
-    }
-    setInventory(finalData);
     return data;
   };
 

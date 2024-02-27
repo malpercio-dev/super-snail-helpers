@@ -1,5 +1,7 @@
 import { AdapterAccount } from "@auth/core/adapters";
 import {
+  AnySQLiteColumn,
+  foreignKey,
   integer,
   primaryKey,
   sqliteTable,
@@ -63,20 +65,6 @@ export const inventoryGears = sqliteTable(
   })
 );
 
-export const snailProfile = sqliteTable("snailProfile", {
-  id: text("id")
-    .notNull()
-    .primaryKey()
-    .$defaultFn(() => uuidv7()),
-  userId: text("userId")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  name: text("name").notNull(),
-  serverId: text("serverId").references(() => server.id, {
-    onDelete: "set null",
-  }),
-});
-
 export const server = sqliteTable(
   "server",
   {
@@ -88,6 +76,44 @@ export const server = sqliteTable(
   },
   (t) => ({
     unique: unique().on(t.group, t.server),
+  })
+);
+
+export const club = sqliteTable("club", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => uuidv7()),
+  serverId: text("serverId"),
+  name: text("name").notNull(),
+});
+
+export const clubMember = sqliteTable(
+  "clubMember",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => uuidv7()),
+    clubId: text("clubId"),
+    snailProfileId: text("snailProfileId"),
+  },
+  (t) => ({
+    unique: unique().on(t.snailProfileId),
+  })
+);
+
+export const snailProfile = sqliteTable(
+  "snailProfile",
+  {
+    id: text("id")
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => uuidv7()),
+    userId: text("userId").notNull(),
+    name: text("name").notNull(),
+    serverId: text("serverId"),
+  },
+  (t) => ({
+    unique: unique().on(t.userId, t.serverId),
   })
 );
 
@@ -119,7 +145,9 @@ export const accounts = sqliteTable(
     createdAt: text("createdAt").$defaultFn(() => new Date().toISOString()),
   },
   (account) => ({
-    compoundKey: primaryKey(account.provider, account.providerAccountId),
+    compoundKey: primaryKey({
+      columns: [account.provider, account.providerAccountId],
+    }),
   })
 );
 
@@ -141,12 +169,16 @@ export const verificationTokens = sqliteTable(
     createdAt: text("createdAt").$defaultFn(() => new Date().toISOString()),
   },
   (vt) => ({
-    compoundKey: primaryKey(vt.identifier, vt.token),
+    compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   })
 );
 
 export type Gear = typeof gear.$inferSelect;
-export type Server = typeof server.$inferInsert;
+export type Server = typeof server.$inferSelect;
+export type Club = typeof club.$inferSelect;
+export type SnailProfile = typeof snailProfile.$inferSelect;
 
 export type EquippedGearsInsert = typeof equippedGears.$inferInsert;
 export type InventoryGearsInsert = typeof inventoryGears.$inferInsert;
+export type SnailProfileInsert = typeof snailProfile.$inferInsert;
+export type ServerInsert = typeof server.$inferInsert;

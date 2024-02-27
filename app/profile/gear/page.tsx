@@ -113,7 +113,7 @@ export default function Gear() {
           throw new Error("Failed to fetch myGear");
         }
         const myEquippedGear: EquippedGear = await profileGear.json();
-        setEquippedGear(myEquippedGear ?? equippedGear);
+        setEquippedGear((e) => myEquippedGear ?? e);
       } else if (session) {
         const myGear = await fetch("/api/my/gear");
         if (!myGear.ok && myGear.status !== 404) {
@@ -121,7 +121,7 @@ export default function Gear() {
           throw new Error("Failed to fetch myGear");
         }
         const myEquippedGear: EquippedGear = await myGear.json();
-        setEquippedGear(myEquippedGear ?? equippedGear);
+        setEquippedGear((e) => myEquippedGear ?? e);
       }
 
       if (session) {

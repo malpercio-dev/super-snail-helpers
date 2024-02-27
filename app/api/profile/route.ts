@@ -9,6 +9,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     .select({
       id: schema.users.id,
       name: schema.users.name,
+      image: schema.users.image,
     })
     .from(schema.users)
     .where(eq(schema.users.id, id))

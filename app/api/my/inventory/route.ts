@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { db } from "@/db";
 import * as schema from "@/db/schema";
-import { eq, ne, sql } from "drizzle-orm";
+import { eq, ne, sql, and } from "drizzle-orm";
 
 interface InventoryGear extends schema.Gear {
   count?: number;
@@ -30,8 +30,12 @@ export async function GET(_: NextRequest): Promise<NextResponse> {
     })
     .from(schema.inventoryGears)
     .innerJoin(schema.gear, eq(schema.inventoryGears.gearId, schema.gear.id))
-    .where(eq(schema.inventoryGears.userId, session.user.id))
-    .where(ne(schema.inventoryGears.count, 0));
+    .where(
+      and(
+        eq(schema.inventoryGears.userId, session.user.id),
+        ne(schema.inventoryGears.count, 0)
+      )
+    );
 
   if (dbInventoryGear.length <= 0)
     return NextResponse.json(null, { status: 404 });
@@ -103,8 +107,12 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
     })
     .from(schema.inventoryGears)
     .innerJoin(schema.gear, eq(schema.inventoryGears.gearId, schema.gear.id))
-    .where(eq(schema.inventoryGears.userId, session.user.id))
-    .where(ne(schema.inventoryGears.count, 0));
+    .where(
+      and(
+        eq(schema.inventoryGears.userId, session.user.id),
+        ne(schema.inventoryGears.count, 0)
+      )
+    );
 
   return NextResponse.json(dbInventoryGear);
 }

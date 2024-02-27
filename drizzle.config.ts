@@ -18,4 +18,5 @@ export default {
   verbose: true,
   strict: true,
   tablesFilter: ["!libsql_wasm_func_table"],
+  out: 'sql'
 } satisfies Config;

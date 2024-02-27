@@ -8,7 +8,6 @@ import { db } from "@/db";
 const scopes = ["identify", "email"].join(" ");
 
 export const authOptions = {
-  // @ts-expect-error
   adapter: DrizzleAdapter(db),
   providers: [
     DiscordProvider({

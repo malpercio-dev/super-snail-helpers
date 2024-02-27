@@ -10,7 +10,10 @@ declare module "next-auth" {
       id: string;
 
       /** The user's name. */
-      name?: string;
+      name: string;
+
+      /** URL of the user's avatar. */
+      image: string;
     };
   }
   interface Profile {

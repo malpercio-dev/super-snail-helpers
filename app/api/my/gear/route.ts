@@ -5,6 +5,36 @@ import { db } from "@/db";
 import * as schema from "@/db/schema";
 import { eq, sql } from "drizzle-orm";
 
+interface Gear {
+  id: string;
+  imagePath: string;
+  name: string;
+  category: string;
+  rarity: string;
+  color?: string;
+  plusses?: number;
+}
+
+type EquippedGear = [
+  Gear,
+  Gear,
+  Gear,
+  Gear,
+  Gear,
+  Gear,
+  Gear,
+  Gear,
+  Gear,
+  Gear,
+  Gear,
+  Gear
+];
+
+type ApiEquippedGear = {
+  id?: string;
+  gear: EquippedGear;
+};
+
 export async function GET(_: NextRequest): Promise<NextResponse> {
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ no: true }, { status: 401 });
@@ -28,14 +58,14 @@ export async function GET(_: NextRequest): Promise<NextResponse> {
   return NextResponse.json(dbEquippedGear);
 }
 
-interface GearPlus extends schema.Gear {
+interface GearPlus extends Gear {
   plusses: number;
 }
 
 export async function PUT(request: NextRequest): Promise<NextResponse> {
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ no: true }, { status: 401 });
-  const equippedGearReq = (await request.json()) as schema.EquippedGear;
+  const equippedGearReq = (await request.json()) as ApiEquippedGear;
   const equippedGear = equippedGearReq.gear as GearPlus[];
   const equippedGears: schema.EquippedGearsInsert[] = equippedGear.map(
     (eg, index) => ({

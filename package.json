@@ -39,12 +39,13 @@
     "autoprefixer": "10.4.15",
     "bufferutil": "^4.0.8",
     "clsx": "^2.0.0",
-    "drizzle-orm": "^0.28.6",
+    "drizzle-orm": "^0.29.3",
     "encoding": "^0.1.13",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "framer-motion": "^10.16.2",
     "intl-messageformat": "^10.5.0",
+    "lodash.debounce": "^4.0.8",
     "next": "13.4.19",
     "next-auth": "^4.24.4",
     "next-themes": "^0.2.1",
@@ -61,12 +62,13 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/lodash.debounce": "^4.0.9",
     "@types/pako": "^2.0.2",
     "axios": "^1.6.5",
     "better-sqlite3": "^9.0.0",
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.3.1",
-    "drizzle-kit": "^0.19.13",
+    "drizzle-kit": "^0.20.14",
     "tsx": "^4.7.0"
   }
 }
