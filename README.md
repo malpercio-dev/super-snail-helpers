@@ -1,6 +1,6 @@
 # Malpercio's Super Snail Helpers
 
-This is the source code for [Malpercio's Super Snail Helpers](https://super-snail-helpers.vercel.app), a site to provide useful tools and helpers for the mobile idle game, Super Snail.
+This is the source code for [Malpercio's Super Snail Helpers](https://super-snail-helpers.malpercio.dev), a site to provide useful tools and helpers for the mobile idle game, Super Snail.
 
 ## Technologies Used
 
@@ -28,4 +28,4 @@ npm run dev
 
 ## License
 
-Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
+Licensed under the [MIT license](https://github.com/malpercio-dev/super-snail-helpers/blob/main/LICENSE).
