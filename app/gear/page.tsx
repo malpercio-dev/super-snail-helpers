@@ -47,6 +47,11 @@ type EquippedGear = [
   Gear
 ];
 
+type ApiEquippedGear = {
+  id?: string;
+  gear: EquippedGear;
+};
+
 const NoEquip: Gear = {
   name: "Nothing Equipped!",
   imagePath: "/media/gear/Unequipped.png",
@@ -63,52 +68,24 @@ function convertUint8ArrayToBinaryString(u8Array: Uint8Array) {
   return b_str;
 }
 
-const equippedGearParser = createParser<EquippedGear>({
-  parse(value: string): EquippedGear {
-    let rawfile = atob(value);
-    var bytes = [];
-    for (var fileidx = 0; fileidx < rawfile.length; fileidx++) {
-      var abyte = rawfile.charCodeAt(fileidx) & 0xff;
-      bytes.push(abyte);
-    }
-    var plain = Pako.inflate(new Uint8Array(bytes));
-    var enc = "";
-    for (var i = 0; i < plain.length; i++) {
-      enc += String.fromCharCode(plain[i]);
-    }
-    return JSON.parse(enc);
-  },
-  serialize(value: EquippedGear): string {
-    const compress = Pako.deflate(JSON.stringify(value));
-    const string = convertUint8ArrayToBinaryString(compress);
-    return btoa(string);
-  },
-});
-
 export default function Home() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selectedSlot, setSelectedSlot] = useState<number>();
-  const [equippedGear, setEquippedGear] = useQueryState(
-    "equippedGear",
-    equippedGearParser
-      .withOptions({
-        history: "replace",
-      })
-      .withDefault([
-        NoEquip,
-        NoEquip,
-        NoEquip,
-        NoEquip,
-        NoEquip,
-        NoEquip,
-        NoEquip,
-        NoEquip,
-        NoEquip,
-        NoEquip,
-        NoEquip,
-        NoEquip,
-      ])
-  );
+  const [equippedGear, setEquippedGear] = useState([
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+    NoEquip,
+  ]);
+  const [equippedGearId, setEquippedGearId] = useQueryState("egid");
   const [data, setData] = useState<GearData>({});
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -116,10 +93,22 @@ export default function Home() {
       const res = await fetch("/data/gear.json");
       if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
-        throw new Error("Failed to fetch data");
+        throw new Error("Failed to fetch gear.json");
       }
       const gear: GearData = await res.json();
       setData(gear);
+
+      if (equippedGearId) {
+        const equippedGearRes = await fetch(
+          `/equippedGear?egid=${equippedGearId}`
+        );
+        if (!equippedGearRes.ok) {
+          // This will activate the closest `error.js` Error Boundary
+          throw new Error("Failed to fetch egid");
+        }
+        const equippedGear: ApiEquippedGear = await equippedGearRes.json();
+        setEquippedGear(equippedGear.gear);
+      }
       setIsLoading(false);
     };
 
@@ -129,6 +118,25 @@ export default function Home() {
     });
   }, []);
 
+  const saveGearToApi = async (
+    equippedGear: ApiEquippedGear
+  ): Promise<ApiEquippedGear> => {
+    const response = await fetch("/equippedGear", {
+      method: "PUT",
+      body: JSON.stringify(equippedGear),
+    });
+
+    if (!response.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error("Failed to post equippedGear");
+    }
+
+    const data = (await response.json()) as ApiEquippedGear;
+    console.log(data);
+    setEquippedGearId(data.id!);
+    return data as ApiEquippedGear;
+  };
+
   const openGearModal = (slot: number) => (e: PressEvent) => {
     setSelectedSlot(slot);
     onOpen();
@@ -137,13 +145,23 @@ export default function Home() {
   const putGearInSlot =
     (onClose: () => void) =>
     (gear: Gear, category: string, slot: number) =>
-    (e: PressEvent) => {
-      const modifiedEquippedGear: EquippedGear = [...equippedGear];
+    async (e: PressEvent) => {
+      const modifiedEquippedGear = [...equippedGear] as EquippedGear;
       modifiedEquippedGear[slot] = {
         color: category,
         ...gear,
       };
-      setEquippedGear(modifiedEquippedGear);
+      const apiGear = await saveGearToApi({ gear: modifiedEquippedGear });
+      setEquippedGear(apiGear.gear);
+      onClose();
+    };
+
+  const clearSlot =
+    (onClose: () => void) => (slot: number) => async (e: PressEvent) => {
+      const modifiedEquippedGear = [...equippedGear] as EquippedGear;
+      modifiedEquippedGear[slot] = NoEquip;
+      const apiGear = await saveGearToApi({ gear: modifiedEquippedGear });
+      setEquippedGear(apiGear.gear);
       onClose();
     };
 
@@ -246,6 +264,13 @@ export default function Home() {
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
+                </Button>
+                <Button
+                  color="danger"
+                  variant="light"
+                  onPress={clearSlot(onClose)(selectedSlot!)}
+                >
+                  Clear Slot
                 </Button>
               </ModalFooter>
             </>
