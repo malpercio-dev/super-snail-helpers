@@ -27,6 +27,6 @@ export const siteConfig = {
     twitter: "https://twitter.com/SuperSnailUS",
     docs: "https://supersnail.wiki.gg/wiki/Super_Snail_Wiki",
     discord: "https://discord.gg/Hc4sRPsmmQ",
-    sponsor: "https://patreon.com/malpercio-dev",
+    sponsor: "https://www.patreon.com/malpercio_dev",
   },
 };
