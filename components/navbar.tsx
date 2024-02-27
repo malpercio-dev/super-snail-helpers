@@ -19,11 +19,7 @@ import NextLink from "next/link";
 import clsx from "clsx";
 
 import { ThemeSwitch } from "@/components/theme-switch";
-import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-} from "@/components/icons";
+import { TwitterIcon, GithubIcon, DiscordIcon } from "@/components/icons";
 
 import { Logo } from "@/components/icons";
 
@@ -35,7 +31,11 @@ export const Navbar = () => {
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
-            <p className="font-bold text-inherit">{session ? session.user?.name ?? 'Malpercio' : 'Malpercio'}</p>
+            <p className="font-bold text-inherit">
+              {session
+                ? session.user?.name ?? "Malpercio's Super Snail Helpers"
+                : "Malpercio's Super Snail Helpers"}
+            </p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -62,11 +62,19 @@ export const Navbar = () => {
       >
         <NavbarItem className="hidden sm:flex gap-2">
           {session ? (
-            <Link onPress={() => signOut()} aria-label="Sign Out" className="w-[75px]">
+            <Link
+              onPress={() => signOut()}
+              aria-label="Sign Out"
+              className="w-[75px]"
+            >
               <p className="text-default-500">Sign Out</p>
             </Link>
           ) : (
-            <Link onPress={() => signIn()} aria-label="Sign In" className="w-[75px]">
+            <Link
+              onPress={() => signIn()}
+              aria-label="Sign In"
+              className="w-[75px]"
+            >
               <p className="text-default-500">Sign In</p>
             </Link>
           )}

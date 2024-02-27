@@ -14,11 +14,13 @@ import {
   ModalBody,
   ModalFooter,
   Button,
+  Link,
 } from "@nextui-org/react";
+
 import styles from "./styles.module.css";
 import { PressEvent } from "@react-types/shared";
 import { useQueryState } from "next-usequerystate";
-import { useSession } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import convertInventoryApiResponses from "@/lib/convertInventoryApiResponses";
 
 interface Gear {
@@ -108,7 +110,7 @@ export default function Gear() {
         }
         const equippedGear: ApiEquippedGear = await equippedGearRes.json();
         setEquippedGear(equippedGear.gear);
-      } else {
+      } else if (session) {
         const myGear = await fetch("/api/my/gear");
         if (!myGear.ok && myGear.status !== 404) {
           // This will activate the closest `error.js` Error Boundary
@@ -119,14 +121,15 @@ export default function Gear() {
         setEquippedGearId(null);
       }
 
-      const myInventory = await fetch("/api/my/inventory");
-      if (!myInventory.ok && myInventory.status !== 404) {
-        throw new Error("Failed to fetch myInventory");
+      if (session) {
+        const myInventory = await fetch("/api/my/inventory");
+        if (!myInventory.ok && myInventory.status !== 404) {
+          throw new Error("Failed to fetch myInventory");
+        }
+        const myInventoryGear: InventoryGear[] = await myInventory.json();
+        let finalData = convertInventoryApiResponses(myInventoryGear);
+        setInventory(finalData);
       }
-      const myInventoryGear: InventoryGear[] = await myInventory.json();
-      let finalData = convertInventoryApiResponses(myInventoryGear);
-      setInventory(finalData);
-
       setIsLoading(false);
     };
 
@@ -159,7 +162,7 @@ export default function Gear() {
       const data = (await response.json()) as EquippedGear;
       setEquippedGear(data);
       return {
-        gear: data
+        gear: data,
       };
     } else {
       const response = await fetch("/equippedGear", {
@@ -224,7 +227,15 @@ export default function Gear() {
     return <div>Loading...</div>;
   }
 
-  return (
+  return !session && !equippedGearId ? (
+    <>
+      Please{" "}
+      <Link onPress={() => signIn()} aria-label="Sign In">
+        <p>Sign In</p>
+      </Link>{" "}
+      or visit another person's profile to see equipped gear!
+    </>
+  ) : (
     <>
       <div className="gap-2 grid grid-cols-6 grid-rows-2">
         {equippedGear.map((item, index) => {

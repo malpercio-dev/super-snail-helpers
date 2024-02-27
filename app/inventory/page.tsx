@@ -15,11 +15,12 @@ import {
   ModalFooter,
   Button,
   Input,
+  Link
 } from "@nextui-org/react";
 import styles from "./styles.module.css";
 import { PressEvent } from "@react-types/shared";
 import { useQueryState } from "next-usequerystate";
-import { useSession } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import convertInventoryApiResponses from "@/lib/convertInventoryApiResponses";
 
 interface Gear {
@@ -80,7 +81,7 @@ export default function Inventory() {
           inventory = createDefaultInventory();
         }
         setInventory(inventory);
-      } else {
+      } else if (session) {
         const myInventory = await fetch("/api/my/inventory");
         if (!myInventory.ok && myInventory.status !== 404) {
           throw new Error("Failed to fetch myInventory");
@@ -197,7 +198,15 @@ export default function Inventory() {
     return <div>Loading...</div>;
   }
 
-  return (
+  return !session && !inventoryId ? (
+    <>
+      Please{" "}
+      <Link onPress={() => signIn()} aria-label="Sign In">
+        <p>Sign In</p>
+      </Link>{" "}
+      or visit another person's profile to see inventory!
+    </>
+  ) : (
     <>
       <h2>Inventory</h2>
       {inventory ? (
