@@ -312,37 +312,46 @@ export default function Inventory() {
                         >
                           {inventory[gd][category].map((item) =>
                             item.count > 0 ? (
-                              <Card key={`inv-${item.name}`}>
-                                <CardBody className={`p-0 grow-0 w-[75px]`}>
+                              <div
+                                key={`inv-${item.name}`}
+                                className={cn(
+                                  "p-0 inline-flex flex flex-row gap-2",
+                                  "rounded-lg gap-2 p-4",
+                                  "w-full md:w-1/5"
+                                )}
+                              >
+                                <div
+                                  className={`max-w[50px] md:max-w-[75px] h-[50px] md:h-[75px]`}
+                                >
                                   <Image
                                     shadow="sm"
                                     radius="lg"
                                     removeWrapper
                                     alt={item.name}
-                                    className={`h-[50px] w-[50px] md:h-[75px] md:w-[75px] place-self-center ${styles[category]}`}
                                     src={item.imagePath}
+                                    className={`max-w-[50px] md:max-w-[75px] h-[50px] md:h-[75px] ${
+                                      item.rarity ? styles[item.rarity] : ""
+                                    }`}
                                   />
                                   {item.rarity === "red+" ? (
-                                    <span className="absolute z-10 text-xl font-extrabold top-0 right-1">
+                                    <span className="relative z-10 text-xl font-extrabold top-[-50px] left-[20px] md:top-[-75px] md:left-[40px]">
                                       +{item.count}
                                     </span>
                                   ) : (
                                     <></>
                                   )}
-                                  <CardFooter className="bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
-                                    <b className="text-black text-tiny">
-                                      {item.name}
-                                    </b>
-                                    {item.category === "material" ? (
-                                      <p className="text-black text-tiny">
-                                        {item.count ? item.count : 0}
-                                      </p>
-                                    ) : (
-                                      <></>
-                                    )}
-                                  </CardFooter>
-                                </CardBody>
-                              </Card>
+                                </div>
+                                <div className="self-center text-left">
+                                  <p className="text-xs">{item.name}</p>
+                                  {item.category === "material" ? (
+                                    <p className="text-xs">
+                                      {item.count ? item.count : 0}
+                                    </p>
+                                  ) : (
+                                    <></>
+                                  )}
+                                </div>
+                              </div>
                             ) : (
                               <></>
                             )
@@ -523,7 +532,9 @@ export default function Inventory() {
                                               }`}
                                               src={item.imagePath}
                                             />
-                                            <div className="text-xs text-right">{item.name}</div>
+                                            <div className="text-xs text-right">
+                                              {item.name}
+                                            </div>
                                           </div>
                                         </Checkbox>
                                         {item.rarity === "red+" ? (
