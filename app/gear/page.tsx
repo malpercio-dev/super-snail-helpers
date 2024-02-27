@@ -395,7 +395,7 @@ export default function Gear() {
                               aria-label="Rarities"
                               size="lg"
                               classNames={{
-                                tab: "max-w-fit h-[20px] w-[20px] md:h-[40px] md:w-[40px]",
+                                tab: "max-w-fit px-0 py-0 h-[20px] w-[20px] md:h-[40px] md:w-[40px]",
                                 panel: "gap-2 grid grid-rows-auto grid-cols-5",
                               }}
                             >
@@ -405,13 +405,13 @@ export default function Gear() {
                                 }
                                 return (
                                   <Tab
-                                    key={category}
+                                    key={`gear-modal-${category}`}
                                     title={
                                       <div
-                                        className={`align-top rounded-xl h-[15px] w-[15px] md:h-[30px] md:w-[30px] md:pt-[2px] text-[10px] md:text-[20px] ${styles[category]} `}
+                                        className={`align-top rounded-xl h-[15px] w-[15px] pt-[0px] text-[10px] md:h-[30px] md:w-[30px] md:pt-[2px] md:text-[20px] ${styles[category]}`}
                                       >
                                         {category === "red+" ? (
-                                          <span>➕</span>
+                                          <span className={`absolute top-[-4px] left-0 right-0 bottom-0 md:bottom-[-4px] md:top-0`}>➕</span>
                                         ) : (
                                           ""
                                         )}

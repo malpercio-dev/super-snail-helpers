@@ -1,18 +1,10 @@
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { db } from "@/db";
 import * as schema from "@/db/schema";
-import { eq, ne, sql } from "drizzle-orm";
+import { eq, ne } from "drizzle-orm";
 
 interface InventoryGear extends schema.Gear {
   count?: number;
-}
-
-interface ClientInventoryData {
-  [key: string]: {
-    [key: string]: InventoryGear[];
-  };
 }
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
