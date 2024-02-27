@@ -65,16 +65,16 @@ function convertUint8ArrayToBinaryString(u8Array: Uint8Array) {
 
 const equippedGearParser = createParser<EquippedGear>({
   parse(value: string): EquippedGear {
-    let rawfile = (atob(value));
+    let rawfile = atob(value);
     var bytes = [];
     for (var fileidx = 0; fileidx < rawfile.length; fileidx++) {
-        var abyte = rawfile.charCodeAt(fileidx) & 0xff;
-        bytes.push(abyte);
+      var abyte = rawfile.charCodeAt(fileidx) & 0xff;
+      bytes.push(abyte);
     }
     var plain = Pako.inflate(new Uint8Array(bytes));
     var enc = "";
-    for (var i = 0; i < plain.length; i++) {         
-         enc += String.fromCharCode(plain[i]);
+    for (var i = 0; i < plain.length; i++) {
+      enc += String.fromCharCode(plain[i]);
     }
     return JSON.parse(enc);
   },
