@@ -97,7 +97,9 @@ export default function Gear() {
   ]);
   const [inventory, setInventory] = useState<InventoryData>();
   const [equippedGearId, setEquippedGearId] = useQueryState("egid");
-  const [inventoryId, _] = useQueryState("iid");
+  const [inventoryId, _setInventoryId] = useQueryState("iid");
+  const [profileId, _setProfileId] = useQueryState("profileId");
+  const [profileName, setProfileName] = useState(session ? "your" : undefined);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
@@ -111,6 +113,24 @@ export default function Gear() {
         }
         const equippedGear: ApiEquippedGear = await equippedGearRes.json();
         setEquippedGear(equippedGear.gear);
+      } else if (profileId) {
+        const response = await fetch(`/api/profile?profileId=${profileId}`);
+        if (response.ok) {
+          const data = await response.json();
+          console.log("setting profile name");
+          setProfileName(`${data.name}'s`);
+        }
+
+        const profileGear = await fetch(
+          `/api/profile/gear?profileId=${profileId}`
+        );
+        if (!profileGear.ok && profileGear.status !== 404) {
+          // This will activate the closest `error.js` Error Boundary
+          throw new Error("Failed to fetch myGear");
+        }
+        const myEquippedGear: EquippedGear = await profileGear.json();
+        setEquippedGear(myEquippedGear ?? equippedGear);
+        setEquippedGearId(null);
       } else if (session) {
         const myGear = await fetch("/api/my/gear");
         if (!myGear.ok && myGear.status !== 404) {
@@ -138,7 +158,7 @@ export default function Gear() {
       // handle the error as needed
       console.error("An error occurred while fetching the data: ", e);
     });
-  }, [equippedGearId]);
+  }, [equippedGearId, profileId]);
 
   const claimEquippedGear = async () => {
     await fetch("/equippedGear/claim", {
@@ -238,6 +258,8 @@ export default function Gear() {
     </>
   ) : (
     <>
+      <p>Viewing {profileName} gear.</p>
+      <br />
       <div className="gap-2 grid grid-cols-6 grid-rows-2">
         {equippedGear.map((item, index) => {
           return (
@@ -253,7 +275,7 @@ export default function Gear() {
                   item.color ? styles[item.color] : ""
                 }`}
                 isIconOnly
-                isDisabled={!session}
+                isDisabled={!!profileId || !session}
               >
                 <Image
                   shadow="none"

@@ -59,6 +59,8 @@ export default function Inventory() {
   const [inventory, setInventory] = useState<InventoryData>();
   const [inventoryId, setInventoryId] = useQueryState("iid");
   const [equippedGearId, _] = useQueryState("egid");
+  const [profileId, _setProfileId] = useQueryState("profileId");
+  const [profileName, setProfileName] = useState(session ? "your" : undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<GearData>({});
   const [modalData, setModalData] = useState<InventoryData>({});
@@ -82,6 +84,27 @@ export default function Inventory() {
           inventory = createDefaultInventory();
         }
         setInventory(inventory);
+      } else if (profileId) {
+        const response = await fetch(`/api/profile?profileId=${profileId}`);
+        if (response.ok) {
+          const data = await response.json();
+          console.log("setting profile name");
+          setProfileName(`${data.name}'s`);
+        }
+
+        const myInventory = await fetch(
+          `/api/profile/inventory?profileId=${profileId}`
+        );
+        if (!myInventory.ok && myInventory.status !== 404) {
+          throw new Error("Failed to fetch myInventory");
+        }
+        const myInventoryGear: InventoryGear[] = await myInventory.json();
+        let finalData = convertInventoryApiResponses(myInventoryGear);
+        if (!finalData) {
+          finalData = createDefaultInventory();
+        }
+        setInventoryId(null);
+        setInventory(finalData);
       } else if (session) {
         const myInventory = await fetch("/api/my/inventory");
         if (!myInventory.ok && myInventory.status !== 404) {
@@ -102,7 +125,7 @@ export default function Inventory() {
       // handle the error as needed
       console.error("An error occurred while fetching the data: ", e);
     });
-  }, [inventoryId]);
+  }, [inventoryId, profileId]);
 
   const createDefaultInventory = (): InventoryData => {
     const defaultInventory: InventoryData = JSON.parse(JSON.stringify(data));
@@ -209,7 +232,8 @@ export default function Inventory() {
     </>
   ) : (
     <>
-      <h2>Inventory</h2>
+      <p>Viewing {profileName} inventory.</p>
+      <br />
       {inventory ? (
         <Tabs
           aria-label="Categories"
@@ -314,7 +338,7 @@ export default function Inventory() {
       ) : (
         <p>No inventory saved!</p>
       )}
-      {session ? (
+      {!profileId && session ? (
         <Button onPress={openInventoryModal}>Update Inventory</Button>
       ) : (
         <></>
@@ -324,7 +348,13 @@ export default function Inventory() {
       ) : (
         <></>
       )}
-      {equippedGearId ? <Link href={`/gear?egid=${equippedGearId}&iid=${inventoryId}`}>View Gear</Link> : <></>}
+      {equippedGearId ? (
+        <Link href={`/gear?egid=${equippedGearId}&iid=${inventoryId}`}>
+          View Gear
+        </Link>
+      ) : (
+        <></>
+      )}
       {!session && inventoryId ? (
         <p>
           <Link onPress={() => signIn()} aria-label="Sign In">
