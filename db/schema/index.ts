@@ -35,6 +35,9 @@ export const inventoryGear = sqliteTable("inventoryGear", {
 export const equippedGears = sqliteTable(
   "equippedGears",
   {
+    id: text("id")
+    .primaryKey()
+    .$defaultFn(() => uuidv7()),
     userId: text("userId")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
@@ -48,15 +51,24 @@ export const equippedGears = sqliteTable(
   })
 );
 
-export const inventoryGears = sqliteTable("inventoryGears", {
-  userId: text("userId")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  gearId: text("gearId")
-    .notNull()
-    .references(() => gear.id, { onDelete: "cascade" }),
-  count: integer("count").notNull().default(0),
-});
+export const inventoryGears = sqliteTable(
+  "inventoryGears",
+  {
+    id: text("id")
+    .primaryKey()
+    .$defaultFn(() => uuidv7()),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    gearId: text("gearId")
+      .notNull()
+      .references(() => gear.id, { onDelete: "cascade" }),
+    count: integer("count").notNull().default(0),
+  },
+  (t) => ({
+    unique: unique().on(t.userId, t.gearId),
+  })
+);
 
 export const users = sqliteTable("user", {
   id: text("id").notNull().primaryKey(),
@@ -113,3 +125,4 @@ export type InventoryGear = typeof inventoryGear.$inferSelect;
 export type Gear = typeof gear.$inferSelect;
 
 export type EquippedGearsInsert = typeof equippedGears.$inferInsert;
+export type InventoryGearsInsert = typeof inventoryGears.$inferInsert;

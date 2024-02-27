@@ -12,6 +12,10 @@ export const siteConfig = {
       label: "Gear",
       href: "/gear",
     },
+    {
+      label: "Inventory",
+      href: "/inventory",
+    },
   ],
   navMenuItems: [
     {
@@ -21,7 +25,12 @@ export const siteConfig = {
     {
       label: "Gear",
       href: "/gear",
-    },],
+    },
+    {
+      label: "Inventory",
+      href: "/inventory",
+    },
+  ],
   links: {
     github: "https://github.com/malpercio-dev/super-snail-helpers",
     twitter: "https://twitter.com/SuperSnailUS",

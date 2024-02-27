@@ -17,6 +17,7 @@ export async function GET(_: NextRequest): Promise<NextResponse> {
     })
     .from(schema.equippedGears)
     .innerJoin(schema.gear, eq(schema.equippedGears.gearId, schema.gear.id))
+    .where(eq(schema.equippedGears.userId, session.user.id))
     .orderBy(schema.equippedGears.slot);
 
   if (dbEquippedGear.length <= 0)
@@ -34,6 +35,7 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
     (eg, index) => ({
       userId: session.user.id,
       gearId: eg.id,
+      imagePath: eg.imagePath,
       slot: index,
     })
   );
@@ -68,6 +70,7 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
     })
     .from(schema.equippedGears)
     .innerJoin(schema.gear, eq(schema.equippedGears.gearId, schema.gear.id))
+    .where(eq(schema.equippedGears.userId, session.user.id))
     .orderBy(schema.equippedGears.slot);
 
   return NextResponse.json(dbEquippedGear);
