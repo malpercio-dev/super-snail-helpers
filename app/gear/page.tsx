@@ -137,7 +137,7 @@ export default function Home() {
       <div className="gap-2 grid grid-cols-6 grid-rows-2 mb-5">
         {equippedGear.map((item, index) => {
           return (
-            <div className="">
+            <div key={`${index}-${item.name}`}>
               <Image
                 shadow="sm"
                 radius="lg"
@@ -215,6 +215,7 @@ export default function Home() {
                       return (
                         <Button
                           onPress={putGearInSlot(onClose)(selectedGear!, index)}
+                          key={`${index}-${item.name}`}
                         >
                           <Image
                             shadow="sm"
