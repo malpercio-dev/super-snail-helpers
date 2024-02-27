@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { db } from "@/db";
 import * as schema from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 export async function GET(_: NextRequest): Promise<NextResponse> {
   const session = await getServerSession(authOptions);
@@ -21,7 +21,7 @@ export async function GET(_: NextRequest): Promise<NextResponse> {
     .orderBy(schema.equippedGears.slot);
 
   if (dbEquippedGear.length <= 0)
-    return NextResponse.json({ no: true }, { status: 404 });
+    return NextResponse.json(null, { status: 404 });
 
   return NextResponse.json(dbEquippedGear);
 }
@@ -47,21 +47,15 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
     if (!gearId) return;
     eg.gearId = gearId;
   });
-  console.log("equippedGears", equippedGears);
-  await Promise.all(
-    equippedGears.map(async (equippedGear) => {
-      await db
-        .insert(schema.equippedGears)
-        .values(equippedGear)
-        .onConflictDoUpdate({
-          target: [schema.equippedGears.userId, schema.equippedGears.slot],
-          set: {
-            gearId: equippedGear.gearId,
-          },
-        })
-        .onConflictDoNothing();
-    })
-  );
+  await db
+    .insert(schema.equippedGears)
+    .values(equippedGears)
+    .onConflictDoUpdate({
+      target: [schema.equippedGears.userId, schema.equippedGears.slot],
+      set: {
+        gearId: sql`excluded.gearId`,
+      },
+    });
   const dbEquippedGear = await db
     .select({
       name: schema.gear.name,

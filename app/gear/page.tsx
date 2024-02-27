@@ -19,6 +19,7 @@ import styles from "./styles.module.css";
 import { PressEvent } from "@react-types/shared";
 import { useQueryState } from "next-usequerystate";
 import { useSession } from "next-auth/react";
+import convertInventoryApiResponses from "@/lib/convertInventoryApiResponses";
 
 interface Gear {
   id: string;
@@ -32,6 +33,16 @@ interface Gear {
 interface GearData {
   [key: string]: {
     [key: string]: Gear[];
+  };
+}
+
+interface InventoryGear extends Gear {
+  count: string;
+}
+
+interface InventoryData {
+  [key: string]: {
+    [key: string]: InventoryGear[];
   };
 }
 
@@ -82,19 +93,11 @@ export default function Gear() {
     NoEquip,
     NoEquip,
   ]);
+  const [inventory, setInventory] = useState<InventoryData>();
   const [equippedGearId, setEquippedGearId] = useQueryState("egid");
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<GearData>({});
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("/allGear");
-      if (!res.ok) {
-        // This will activate the closest `error.js` Error Boundary
-        throw new Error("Failed to fetch allGear");
-      }
-      const gear: GearData = await res.json();
-      setData(gear);
-
       if (equippedGearId) {
         const equippedGearRes = await fetch(
           `/equippedGear?egid=${equippedGearId}`
@@ -105,16 +108,25 @@ export default function Gear() {
         }
         const equippedGear: ApiEquippedGear = await equippedGearRes.json();
         setEquippedGear(equippedGear.gear);
+      } else {
+        const myGear = await fetch("/api/my/gear");
+        if (!myGear.ok && myGear.status !== 404) {
+          // This will activate the closest `error.js` Error Boundary
+          throw new Error("Failed to fetch myGear");
+        }
+        const myEquippedGear: EquippedGear = await myGear.json();
+        setEquippedGear(myEquippedGear ?? equippedGear);
+        setEquippedGearId(null);
       }
 
-      const myGear = await fetch("/api/my/gear");
-      if (!myGear.ok) {
-        // This will activate the closest `error.js` Error Boundary
-        throw new Error("Failed to fetch myGear");
+      const myInventory = await fetch("/api/my/inventory");
+      if (!myInventory.ok && myInventory.status !== 404) {
+        throw new Error("Failed to fetch myInventory");
       }
-      const myEquippedGear: EquippedGear = await myGear.json();
-      setEquippedGear(myEquippedGear);
-      setEquippedGearId(null);
+      const myInventoryGear: InventoryGear[] = await myInventory.json();
+      let finalData = convertInventoryApiResponses(myInventoryGear);
+      setInventory(finalData);
+
       setIsLoading(false);
     };
 
@@ -144,8 +156,11 @@ export default function Gear() {
         throw new Error("Failed to post my gear");
       }
 
-      const data = (await response.json()) as ApiEquippedGear;
-      return data;
+      const data = (await response.json()) as EquippedGear;
+      setEquippedGear(data);
+      return {
+        gear: data
+      };
     } else {
       const response = await fetch("/equippedGear", {
         method: "PUT",
@@ -278,7 +293,7 @@ export default function Gear() {
                       tab: "max-w-fit px-0 h-[20px] w-[20px] md:h-[40px] md:w-[40px]",
                     }}
                   >
-                    {Object.keys(data).map((gd) => (
+                    {Object.keys(inventory!).map((gd) => (
                       <Tab
                         key={gd}
                         title={
@@ -321,8 +336,8 @@ export default function Gear() {
                                 panel: "gap-2 grid grid-rows-auto grid-cols-5",
                               }}
                             >
-                              {Object.keys(data[gd]).map((category) => {
-                                if (data[gd][category].length === 0) {
+                              {Object.keys(inventory![gd]).map((category) => {
+                                if (inventory![gd][category].length === 0) {
                                   return;
                                 }
                                 return (
@@ -341,7 +356,7 @@ export default function Gear() {
                                     }
                                     className="gap-2 flex flex-row flex-wrap"
                                   >
-                                    {data[gd][category].map((item) => (
+                                    {inventory![gd][category].map((item) => (
                                       <Card
                                         key={item.name}
                                         isPressable

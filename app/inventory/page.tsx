@@ -20,67 +20,7 @@ import styles from "./styles.module.css";
 import { PressEvent } from "@react-types/shared";
 import { useQueryState } from "next-usequerystate";
 import { useSession } from "next-auth/react";
-
-/**
- * @description
- * Takes an Array<V>, and a grouping function,
- * and returns a Map of the array grouped by the grouping function.
- *
- * @param list An array of type V.
- * @param keyGetter A Function that takes the the Array type V as an input, and returns a value of type K.
- *                  K is generally intended to be a property key of V.
- *
- * @returns Map of the array grouped by the grouping function.
- */
-//export function groupBy<K, V>(list: Array<V>, keyGetter: (input: V) => K): Map<K, Array<V>> {
-//    const map = new Map<K, Array<V>>();
-function groupBy<K, V>(
-  list: V[],
-  keyGetter: (input: V) => K
-): Map<K, Array<V>> {
-  const map = new Map();
-  console.log(list);
-  if (!list || !(list instanceof Array) || list.length <= 0) return map;
-  list.forEach((item) => {
-    const key = keyGetter(item);
-    const collection = map.get(key);
-    if (!collection) {
-      map.set(key, [item]);
-    } else {
-      collection.push(item);
-    }
-  });
-  return map;
-}
-
-/**
- * Simple object check.
- * @param item
- * @returns {boolean}
- */
-export function isObject(item: any): boolean {
-  return item && typeof item === "object" && !Array.isArray(item);
-}
-
-/**
- * Deep merge two objects.
- * @param target
- * @param ...sources
- */
-export function mergeDeep(target: any, source: any) {
-  let output = Object.assign({}, target);
-  if (isObject(target) && isObject(source)) {
-    Object.keys(source).forEach((key) => {
-      if (isObject(source[key])) {
-        if (!(key in target)) Object.assign(output, { [key]: source[key] });
-        else output[key] = mergeDeep(target[key], source[key]);
-      } else {
-        Object.assign(output, { [key]: source[key] });
-      }
-    });
-  }
-  return output;
-}
+import convertInventoryApiResponses from "@/lib/convertInventoryApiResponses";
 
 interface Gear {
   id: string;
@@ -143,11 +83,10 @@ export default function Inventory() {
       } else {
         const myInventory = await fetch("/api/my/inventory");
         if (!myInventory.ok && myInventory.status !== 404) {
-          console.log(myInventory.status);
           throw new Error("Failed to fetch myInventory");
         }
         const myInventoryGear: InventoryGear[] = await myInventory.json();
-        let finalData = convertApiResponses(myInventoryGear);
+        let finalData = convertInventoryApiResponses(myInventoryGear);
         if (!finalData) {
           finalData = createDefaultInventory();
         }
@@ -189,20 +128,16 @@ export default function Inventory() {
             i.count = "0";
             return;
           }
-          console.log(`updating ${i.id} to have count ${inventoryItem.count}`);
           i.count = inventoryItem.count;
         })
       )
     );
     setModalData(modalData);
-    console.log(modalData);
     onOpen();
   };
 
   const saveInventoryToApi = (onClose: () => void) => async (_: PressEvent) => {
     if (session) {
-      console.log("saving");
-      console.log(modalData);
       const response = await fetch("/api/my/inventory", {
         method: "PUT",
         body: JSON.stringify(modalData!),
@@ -213,7 +148,7 @@ export default function Inventory() {
       }
 
       const data = (await response.json()) as InventoryGear[];
-      let finalData = convertApiResponses(data);
+      let finalData = convertInventoryApiResponses(data);
       if (finalData === null) {
         finalData = createDefaultInventory();
       }
@@ -249,81 +184,13 @@ export default function Inventory() {
       body: JSON.stringify(inventory),
     });
     const data = (await response.json()) as InventoryGear[];
-    let finalData = convertApiResponses(data);
+    let finalData = convertInventoryApiResponses(data);
     if (finalData === null) {
       finalData = createDefaultInventory();
     }
     setInventoryId(null);
     setInventory(finalData);
     return data;
-  };
-
-  const convertApiResponses = (data: InventoryGear[]): InventoryData | null => {
-    const finalData: InventoryData = {
-      realm: {
-        white: [],
-        green: [],
-        blue: [],
-        purple: [],
-        orange: [],
-        red: [],
-        ["red+"]: [],
-      },
-      form: {
-        white: [],
-        green: [],
-        blue: [],
-        purple: [],
-        orange: [],
-        red: [],
-        ["red+"]: [],
-      },
-      instrument: {
-        white: [],
-        green: [],
-        blue: [],
-        purple: [],
-        orange: [],
-        red: [],
-        ["red+"]: [],
-      },
-      armor: {
-        white: [],
-        green: [],
-        blue: [],
-        purple: [],
-        orange: [],
-        red: [],
-        ["red+"]: [],
-      },
-      material: {
-        white: [],
-        green: [],
-        blue: [],
-        purple: [],
-        orange: [],
-        red: [],
-        ["red+"]: [],
-      },
-    };
-    const groupedByCategory = groupBy(data, (k) => k.category);
-    if (groupedByCategory.size <= 0) return null;
-    Array.from(groupedByCategory.keys()).forEach((category) => {
-      if (!finalData[category]) {
-        finalData[category] = {};
-      }
-
-      const categoryGroupedByRarity = groupBy(
-        groupedByCategory.get(category)!,
-        (k) => k.rarity
-      );
-
-      Array.from(categoryGroupedByRarity.keys()).forEach((rarity) => {
-        finalData[category][rarity] = categoryGroupedByRarity.get(rarity)!;
-      });
-    });
-    console.log(finalData);
-    return finalData;
   };
 
   if (isLoading) {
@@ -498,8 +365,6 @@ export default function Inventory() {
                                               return;
                                             item.count =
                                               parseInt(value).toString();
-                                            console.log(item);
-                                            console.log(modalData);
                                             return;
                                           }}
                                         />

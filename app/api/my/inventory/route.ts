@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { db } from "@/db";
 import * as schema from "@/db/schema";
-import { eq, ne } from "drizzle-orm";
+import { eq, ne, sql } from "drizzle-orm";
 
 interface InventoryGear extends schema.Gear {
   count?: number;
@@ -62,7 +62,6 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
     .select()
     .from(schema.inventoryGears)
     .where(eq(schema.inventoryGears.userId, session.user.id));
-  console.log("got gears", inventoryGears);
   inventoryGears.forEach((ig) => {
     if (ig.gearId) return;
     const thing: { imagePath: string } = ig as unknown as { imagePath: string };
@@ -70,32 +69,27 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
     if (!gearId) return;
     ig.gearId = gearId;
   });
-  await Promise.all(
-    inventoryGears.map(async (inventoryGear) => {
-      const foundInventory = dbInventory.find(
-        (dbi) => dbi.gearId === inventoryGear.gearId
-      );
-      if (foundInventory) {
-        console.log("found a match!");
-        console.log(foundInventory);
-        console.log(inventoryGear);
-      }
-      if (
-        !foundInventory &&
-        (inventoryGear.count === undefined || inventoryGear.count <= 0)
-      )
-        return;
-      await db
-        .insert(schema.inventoryGears)
-        .values(inventoryGear)
-        .onConflictDoUpdate({
-          target: [schema.inventoryGears.userId, schema.inventoryGears.gearId],
-          set: {
-            count: inventoryGear.count,
-          },
-        });
-    })
-  );
+  const gearsToUpdate = inventoryGears.filter((inventoryGear) => {
+    const foundInventory = dbInventory.find(
+      (dbi) => dbi.gearId === inventoryGear.gearId
+    );
+    if (
+      !foundInventory &&
+      (inventoryGear.count === undefined || inventoryGear.count <= 0)
+    )
+      return false;
+    return true;
+  });
+
+  await db
+    .insert(schema.inventoryGears)
+    .values(gearsToUpdate)
+    .onConflictDoUpdate({
+      target: [schema.inventoryGears.userId, schema.inventoryGears.gearId],
+      set: {
+        count: sql`excluded.count`,
+      },
+    });
   const dbInventoryGear = await db
     .select({
       id: schema.gear.id,
