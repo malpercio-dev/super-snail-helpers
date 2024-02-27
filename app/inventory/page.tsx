@@ -88,8 +88,7 @@ export default function Inventory() {
         const response = await fetch(`/api/profile?profileId=${profileId}`);
         if (response.ok) {
           const data = await response.json();
-          console.log("setting profile name");
-          setProfileName(`${data.name}'s`);
+          setProfileName(`${data.name}s`);
         }
 
         const myInventory = await fetch(
