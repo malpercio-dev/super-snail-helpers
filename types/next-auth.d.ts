@@ -14,6 +14,9 @@ declare module "next-auth" {
 
       /** URL of the user's avatar. */
       image: string;
+
+      /** List of roles that the user belongs to. */
+      roles: string[];
     };
   }
   interface Profile {

@@ -1,6 +1,8 @@
 import { db } from "@/db";
 import * as schema from "@/db/schema";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "../../auth/[...nextauth]/route";
 
 const loadServers = async () => {
   const servers: schema.ServerInsert[] = [];
@@ -95,6 +97,9 @@ const loadServers = async () => {
 };
 
 export async function PUT(_: NextRequest): Promise<NextResponse> {
+  const session = await getServerSession(authOptions);
+  if (!session) return NextResponse.json({ no: true }, { status: 401 });
+  if (!session.user.roles.includes('admin')) return NextResponse.json({ no: true }, { status: 403 });
   await loadServers();
 
   return NextResponse.json({});

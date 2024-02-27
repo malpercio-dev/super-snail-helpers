@@ -117,6 +117,11 @@ export const snailProfile = sqliteTable(
   })
 );
 
+export const userRoles = sqliteTable("userRoles", {
+  userId: text("id").notNull().primaryKey(),
+  roles: text("roles")
+});
+
 export const users = sqliteTable("user", {
   id: text("id").notNull().primaryKey(),
   name: text("name"),
