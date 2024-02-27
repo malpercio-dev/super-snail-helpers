@@ -110,7 +110,9 @@ export const Navbar = () => {
                   "data-[active=true]:text-primary data-[active=true]:font-medium"
                 )}
                 color="foreground"
-                href={`${item.href}?profileId=${profileId}`}
+                href={`${item.href}${
+                  profileId ? `?profileId=${profileId}` : ``
+                }`}
               >
                 {item.label}
               </NextLink>
