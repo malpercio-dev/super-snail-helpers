@@ -16,6 +16,8 @@ import {
   Button,
   Input,
   Link,
+  Checkbox,
+  cn,
 } from "@nextui-org/react";
 import styles from "./styles.module.css";
 import { PressEvent } from "@react-types/shared";
@@ -39,7 +41,7 @@ interface GearData {
 }
 
 interface InventoryGear extends Gear {
-  count: string;
+  count: number;
 }
 
 interface InventoryData {
@@ -131,7 +133,7 @@ export default function Inventory() {
     Object.keys(defaultInventory).forEach((category) =>
       Object.keys(defaultInventory[category]).forEach((rarity) =>
         defaultInventory[category][rarity].forEach((gear) => {
-          gear.count = "0";
+          gear.count = 0;
           gear.color = rarity;
         })
       )
@@ -149,7 +151,7 @@ export default function Inventory() {
         modalData[c][r].forEach((i) => {
           const inventoryItem = flatInventory.find((ii) => ii.id === i.id);
           if (!inventoryItem) {
-            i.count = "0";
+            i.count = 0;
             return;
           }
           i.count = inventoryItem.count;
@@ -309,7 +311,7 @@ export default function Inventory() {
                           className="gap-2 flex flex-row flex-wrap"
                         >
                           {inventory[gd][category].map((item) =>
-                            parseInt(item.count) > 0 ? (
+                            item.count > 0 ? (
                               <Card key={`inv-${item.name}`}>
                                 <CardBody className={`p-0 grow-0 w-[75px]`}>
                                   <Image
@@ -320,13 +322,24 @@ export default function Inventory() {
                                     className={`h-[50px] w-[50px] md:h-[75px] md:w-[75px] place-self-center ${styles[category]}`}
                                     src={item.imagePath}
                                   />
+                                  {item.rarity === "red+" ? (
+                                    <span className="absolute z-10 text-xl font-extrabold top-0 right-1">
+                                      +{item.count}
+                                    </span>
+                                  ) : (
+                                    <></>
+                                  )}
                                   <CardFooter className="bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
                                     <b className="text-black text-tiny">
                                       {item.name}
                                     </b>
-                                    <p className="text-black text-tiny">
-                                      {item.count ? item.count : 0}
-                                    </p>
+                                    {item.category === "material" ? (
+                                      <p className="text-black text-tiny">
+                                        {item.count ? item.count : 0}
+                                      </p>
+                                    ) : (
+                                      <></>
+                                    )}
                                   </CardFooter>
                                 </CardBody>
                               </Card>
@@ -443,7 +456,6 @@ export default function Inventory() {
                               size="lg"
                               classNames={{
                                 tab: "max-w-fit h-[20px] w-[20px] md:h-[40px] md:w-[40px]",
-                                panel: "gap-2 grid grid-rows-auto grid-cols-5",
                               }}
                             >
                               {Object.keys(modalData![gd]).map((category) => {
@@ -464,40 +476,96 @@ export default function Inventory() {
                                         )}
                                       </div>
                                     }
-                                    className="gap-2 grid grid-rows-auto grid-cols-5"
                                   >
                                     {modalData![gd][category].map((item) => (
-                                      <Card key={`inv-modal-${item.name}`}>
-                                        <CardBody
-                                          className={`overflow-visible p-0 ${styles[category]} place-content-center`}
+                                      <div
+                                        className={cn(
+                                          "inline-flex w-full max-w-md items-center",
+                                          "rounded-lg gap-2 p-4 border-2 border-transparent",
+                                          "m-2 p-0.5 text-xs"
+                                        )}
+                                      >
+                                        <Checkbox
+                                          key={`inv-modal-${item.name}`}
+                                          aria-label={item.name}
+                                          classNames={{
+                                            base: cn(
+                                              "inline-flex w-full max-w-md bg-content1",
+                                              "hover:bg-content2 items-center",
+                                              "cursor-pointer rounded-lg gap-2 p-4 border-2 border-transparent",
+                                              "data-[selected=true]:border-primary",
+                                              "m-2 p-0.5"
+                                            ),
+                                            label: "w-full",
+                                          }}
+                                          defaultSelected={item.count >= 1}
+                                          onValueChange={(isSelected) => {
+                                            if (
+                                              isSelected &&
+                                              item.count === 0
+                                            ) {
+                                              item.count = 1;
+                                            } else {
+                                              item.count = 0;
+                                            }
+                                          }}
                                         >
-                                          <Image
-                                            shadow="sm"
-                                            radius="lg"
-                                            removeWrapper
-                                            alt={item.name}
-                                            className="object-cover h-[75px] w-[75px] place-self-center"
-                                            src={item.imagePath}
-                                          />
-                                          <Input
-                                            type="number"
-                                            defaultValue={item.count}
-                                            onValueChange={(value) => {
-                                              if (
-                                                !isNaN(parseInt(value)) &&
-                                                parseInt(value) < 0
-                                              )
+                                          <div className="w-full flex justify-between gap-2">
+                                            <Image
+                                              shadow="sm"
+                                              radius="lg"
+                                              removeWrapper
+                                              alt={item.name}
+                                              className={`h-[50px] w-[50px] md:h-[75px] md:w-[75px] ${
+                                                item.rarity
+                                                  ? styles[item.rarity]
+                                                  : ""
+                                              }`}
+                                              src={item.imagePath}
+                                            />
+                                            <div className="text-xs text-right">{item.name}</div>
+                                          </div>
+                                        </Checkbox>
+                                        {item.rarity === "red+" ? (
+                                          <div>
+                                            Upgrade Level:{" "}
+                                            <Input
+                                              type="number"
+                                              className="w-16"
+                                              defaultValue={item.count.toString()}
+                                              onValueChange={(value) => {
+                                                if (
+                                                  !isNaN(parseInt(value)) &&
+                                                  parseInt(value) < 0
+                                                )
+                                                  return;
+                                                item.count = parseInt(value);
                                                 return;
-                                              item.count =
-                                                parseInt(value).toString();
-                                              return;
-                                            }}
-                                          />
-                                          <CardFooter className="text-black p-0.5 text-xs">
-                                            <p>{item.name}</p>
-                                          </CardFooter>
-                                        </CardBody>
-                                      </Card>
+                                              }}
+                                            />
+                                          </div>
+                                        ) : item.category === "material" ? (
+                                          <div>
+                                            Owned:{" "}
+                                            <Input
+                                              type="number"
+                                              className="w-16"
+                                              defaultValue={item.count.toString()}
+                                              onValueChange={(value) => {
+                                                if (
+                                                  !isNaN(parseInt(value)) &&
+                                                  parseInt(value) < 0
+                                                )
+                                                  return;
+                                                item.count = parseInt(value);
+                                                return;
+                                              }}
+                                            />
+                                          </div>
+                                        ) : (
+                                          <></>
+                                        )}
+                                      </div>
                                     ))}
                                   </Tab>
                                 );

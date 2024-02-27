@@ -10,7 +10,7 @@ interface Gear {
 }
 
 interface InventoryGear extends Gear {
-  count: string;
+  count: number;
 }
 
 interface InventoryData {
