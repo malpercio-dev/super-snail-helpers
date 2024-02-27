@@ -40,7 +40,6 @@
     "next": "13.4.19",
     "next-themes": "^0.2.1",
     "next-usequerystate": "^1.9.1",
-    "pako": "^2.1.0",
     "postcss": "8.4.29",
     "react": "18.2.0",
     "react-dom": "18.2.0",
