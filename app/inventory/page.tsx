@@ -221,7 +221,7 @@ export default function Inventory() {
     return <div>Loading...</div>;
   }
 
-  return !session && !inventoryId ? (
+  return !session && (!inventoryId || !profileId) ? (
     <>
       Please{" "}
       <Link onPress={() => signIn()} aria-label="Sign In">
