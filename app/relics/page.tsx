@@ -334,7 +334,7 @@ export default function Relics() {
           <TableRow key={relic.id}>
             <TableCell>
               <User
-                name={<Link href={`/relics/${relic.id}`}>{relic.name}</Link>}
+                name={<Link href={`/relics/${relic.name}`}>{relic.name}</Link>}
                 avatarProps={{
                   src: `/media/relics${relic.imagePath}`,
                   imgProps: {

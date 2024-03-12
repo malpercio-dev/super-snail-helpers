@@ -12,19 +12,19 @@ export async function GET(
     await db
       .select()
       .from(schema.relic)
-      .where(eq(schema.relic.id, params.slug))
+      .where(eq(schema.relic.name, params.slug))
       .limit(1)
   )[0];
 
   const relicStats = await db
     .select()
     .from(schema.relicStat)
-    .where(eq(schema.relicStat.relicId, params.slug));
+    .where(eq(schema.relicStat.relicId, relic.id));
 
   const relicSpecials = await db
     .select()
     .from(schema.relicSpecial)
-    .where(eq(schema.relicSpecial.relicId, params.slug));
+    .where(eq(schema.relicSpecial.relicId, relic.id));
 
   return NextResponse.json({
     ...relic,
