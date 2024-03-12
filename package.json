@@ -30,6 +30,7 @@
     "@nextui-org/theme": "2.1.17",
     "@react-aria/ssr": "^3.7.1",
     "@react-aria/visually-hidden": "^3.8.3",
+    "@react-stately/data": "^3.11.2",
     "@t3-oss/env-core": "^0.7.1",
     "@t3-oss/env-nextjs": "^0.7.1",
     "@types/node": "20.5.7",
@@ -69,6 +70,7 @@
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.3.1",
     "drizzle-kit": "^0.20.14",
+    "image-downloader": "^4.3.0",
     "tsx": "^4.7.0"
   }
 }

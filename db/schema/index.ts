@@ -9,6 +9,56 @@ import {
   unique,
 } from "drizzle-orm/sqlite-core";
 import { uuidv7 } from "uuidv7";
+import { number } from "zod";
+
+export const relic = sqliteTable(
+  "relic",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => uuidv7()),
+    name: text("name").notNull(),
+    imagePath: text("imagePath"),
+    wikiPageUrl: text("wikiPageUrl"),
+    affct: text("affct").notNull(),
+    grade: text("grade").notNull(),
+  },
+  (t) => ({
+    unique: unique().on(t.name),
+  })
+);
+
+export const relicStat = sqliteTable(
+  "relicStats",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => uuidv7()),
+    relicId: text("relicId")
+      .notNull()
+      .references(() => relic.id, { onDelete: "cascade" }),
+    stars: text("stars").notNull(),
+    fame: integer("fame").notNull(),
+    art: integer("art").notNull(),
+    faith: integer("faith").notNull(),
+    civ: integer("civ").notNull(),
+    tech: integer("tech").notNull(),
+  },
+  (t) => ({
+    unique: unique().on(t.relicId, t.stars),
+  })
+);
+
+export const relicSpecial = sqliteTable("relicSpecial", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => uuidv7()),
+  relicId: text("relicId")
+    .notNull()
+    .references(() => relic.id, { onDelete: "cascade" }),
+  stars: text("stars").notNull(),
+  special: text("special").notNull(),
+});
 
 export const gear = sqliteTable("gear", {
   id: text("id")
@@ -119,7 +169,7 @@ export const snailProfile = sqliteTable(
 
 export const userRoles = sqliteTable("userRoles", {
   userId: text("id").notNull().primaryKey(),
-  roles: text("roles")
+  roles: text("roles"),
 });
 
 export const users = sqliteTable("user", {
@@ -182,8 +232,12 @@ export type Gear = typeof gear.$inferSelect;
 export type Server = typeof server.$inferSelect;
 export type Club = typeof club.$inferSelect;
 export type SnailProfile = typeof snailProfile.$inferSelect;
+export type Relic = typeof relic.$inferSelect;
 
 export type EquippedGearsInsert = typeof equippedGears.$inferInsert;
 export type InventoryGearsInsert = typeof inventoryGears.$inferInsert;
 export type SnailProfileInsert = typeof snailProfile.$inferInsert;
 export type ServerInsert = typeof server.$inferInsert;
+export type RelicInsert = typeof relic.$inferInsert;
+export type RelicStatInsert = typeof relicStat.$inferInsert;
+export type RelicSpecialInsert = typeof relicSpecial.$inferInsert;
