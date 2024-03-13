@@ -25,7 +25,7 @@ export const relic = sqliteTable(
   },
   (t) => ({
     unique: unique().on(t.name),
-  })
+  }),
 );
 
 export const relicStat = sqliteTable(
@@ -46,7 +46,7 @@ export const relicStat = sqliteTable(
   },
   (t) => ({
     unique: unique().on(t.relicId, t.stars),
-  })
+  }),
 );
 
 export const relicSpecial = sqliteTable("relicSpecial", {
@@ -91,7 +91,7 @@ export const equippedGears = sqliteTable(
   },
   (t) => ({
     unique: unique().on(t.userId, t.slot),
-  })
+  }),
 );
 
 export const inventoryGears = sqliteTable(
@@ -112,7 +112,7 @@ export const inventoryGears = sqliteTable(
   },
   (t) => ({
     unique: unique().on(t.userId, t.gearId),
-  })
+  }),
 );
 
 export const server = sqliteTable(
@@ -126,7 +126,7 @@ export const server = sqliteTable(
   },
   (t) => ({
     unique: unique().on(t.group, t.server),
-  })
+  }),
 );
 
 export const club = sqliteTable("club", {
@@ -148,7 +148,7 @@ export const clubMember = sqliteTable(
   },
   (t) => ({
     unique: unique().on(t.snailProfileId),
-  })
+  }),
 );
 
 export const snailProfile = sqliteTable(
@@ -164,7 +164,7 @@ export const snailProfile = sqliteTable(
   },
   (t) => ({
     unique: unique().on(t.userId, t.serverId),
-  })
+  }),
 );
 
 export const userRoles = sqliteTable("userRoles", {
@@ -203,7 +203,7 @@ export const accounts = sqliteTable(
     compoundKey: primaryKey({
       columns: [account.provider, account.providerAccountId],
     }),
-  })
+  }),
 );
 
 export const sessions = sqliteTable("session", {
@@ -225,7 +225,7 @@ export const verificationTokens = sqliteTable(
   },
   (vt) => ({
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
-  })
+  }),
 );
 
 export type Gear = typeof gear.$inferSelect;
@@ -233,6 +233,7 @@ export type Server = typeof server.$inferSelect;
 export type Club = typeof club.$inferSelect;
 export type SnailProfile = typeof snailProfile.$inferSelect;
 export type Relic = typeof relic.$inferSelect;
+export type RelicSpecial = typeof relicSpecial.$inferSelect;
 
 export type EquippedGearsInsert = typeof equippedGears.$inferInsert;
 export type InventoryGearsInsert = typeof inventoryGears.$inferInsert;

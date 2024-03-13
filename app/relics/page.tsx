@@ -124,7 +124,8 @@ const ChevronDownIcon = ({
 );
 
 interface MyRelic extends Relic {
-  [key: string]: number | string | null | undefined;
+  [key: string]: number | string | string[] | null | undefined;
+  specials: string[];
 }
 
 export default function Relics() {
@@ -170,8 +171,12 @@ export default function Relics() {
     let filteredRelics = [...relics.items];
 
     if (hasSearchFilter) {
-      filteredRelics = filteredRelics.filter((relic) =>
-        relic.name.toLowerCase().includes(filterValue.toLowerCase())
+      filteredRelics = filteredRelics.filter(
+        (relic) =>
+          relic.name.toLowerCase().includes(filterValue.toLowerCase()) ||
+          relic.specials.some((s) =>
+            s.toLowerCase().includes(filterValue.toLowerCase()),
+          ),
       );
     }
     if (
@@ -179,7 +184,7 @@ export default function Relics() {
       Array.from(gradeFilter).length !== gradeOptions.length
     ) {
       filteredRelics = filteredRelics.filter((relic) =>
-        Array.from(gradeFilter).includes(relic.grade)
+        Array.from(gradeFilter).includes(relic.grade),
       );
     }
     if (
@@ -187,7 +192,7 @@ export default function Relics() {
       Array.from(affctFilter).length !== affctOptions.length
     ) {
       filteredRelics = filteredRelics.filter((relic) =>
-        Array.from(affctFilter).includes(relic.affct)
+        Array.from(affctFilter).includes(relic.affct),
       );
     }
 
@@ -220,11 +225,11 @@ export default function Relics() {
   const topContent = useMemo(
     () => (
       <div className="flex flex-col gap-4">
-        <div className="flex justify-between gap-3 items-end">
+        <div className="flex items-end justify-between gap-3">
           <Input
             isClearable
             className="w-full sm:max-w-[44%]"
-            placeholder="Search by name..."
+            placeholder="Search by name or keyword..."
             startContent={<SearchIcon />}
             value={filterValue}
             onClear={() => onClear()}
@@ -279,7 +284,7 @@ export default function Relics() {
         </div>
       </div>
     ),
-    [filterValue, gradeFilter, affctFilter, onSearchChange, hasSearchFilter]
+    [filterValue, gradeFilter, affctFilter, onSearchChange, hasSearchFilter],
   );
 
   const bottomContent = useMemo(
@@ -296,7 +301,7 @@ export default function Relics() {
         />
       </div>
     ),
-    [page, pages]
+    [page, pages],
   );
 
   if (isLoading) {
