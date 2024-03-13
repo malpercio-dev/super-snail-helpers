@@ -124,8 +124,23 @@ const ChevronDownIcon = ({
 );
 
 interface MyRelic extends Relic {
-  [key: string]: number | string | string[] | null | undefined;
+  [key: string]:
+    | number
+    | string
+    | string[]
+    | {
+        id: string;
+        skill: string;
+        imagePath: string;
+      }[]
+    | null
+    | undefined;
   specials: string[];
+  skills: {
+    id: string;
+    skill: string;
+    imagePath: string;
+  }[];
 }
 
 export default function Relics() {
@@ -175,8 +190,11 @@ export default function Relics() {
         (relic) =>
           relic.name.toLowerCase().includes(filterValue.toLowerCase()) ||
           relic.specials.some((s) =>
-            s.toLowerCase().includes(filterValue.toLowerCase()),
-          ),
+            s.toLowerCase().includes(filterValue.toLowerCase())
+          ) ||
+          relic.skills.some((s) =>
+            s.skill.toLowerCase().includes(filterValue.toLowerCase())
+          )
       );
     }
     if (
@@ -184,7 +202,7 @@ export default function Relics() {
       Array.from(gradeFilter).length !== gradeOptions.length
     ) {
       filteredRelics = filteredRelics.filter((relic) =>
-        Array.from(gradeFilter).includes(relic.grade),
+        Array.from(gradeFilter).includes(relic.grade)
       );
     }
     if (
@@ -192,7 +210,7 @@ export default function Relics() {
       Array.from(affctFilter).length !== affctOptions.length
     ) {
       filteredRelics = filteredRelics.filter((relic) =>
-        Array.from(affctFilter).includes(relic.affct),
+        Array.from(affctFilter).includes(relic.affct)
       );
     }
 
@@ -284,7 +302,7 @@ export default function Relics() {
         </div>
       </div>
     ),
-    [filterValue, gradeFilter, affctFilter, onSearchChange, hasSearchFilter],
+    [filterValue, gradeFilter, affctFilter, onSearchChange, hasSearchFilter]
   );
 
   const bottomContent = useMemo(
@@ -301,7 +319,7 @@ export default function Relics() {
         />
       </div>
     ),
-    [page, pages],
+    [page, pages]
   );
 
   if (isLoading) {

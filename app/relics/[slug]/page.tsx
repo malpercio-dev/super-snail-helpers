@@ -31,6 +31,11 @@ type JsonRelic = {
     stars: string;
     special: string;
   }[];
+  skills: {
+    id: string;
+    skill: string;
+    imagePath: string;
+  }[]
 };
 
 export default function Relic({ params }: { params: { slug: string } }) {
@@ -112,6 +117,10 @@ export default function Relic({ params }: { params: { slug: string } }) {
       <p>
         Grade: <b>{relic?.grade}</b>
       </p>
+      <p>Stamps:</p>
+      {
+        relic?.skills.map((s) => (<p key={s.id}>{s.skill}</p>))
+      }
       <a
         href={`https://supersnail.wiki.gg${relic?.wikiPageUrl}`}
         target="_blank"

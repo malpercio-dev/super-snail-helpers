@@ -26,6 +26,11 @@ export async function GET(
     .from(schema.relicSpecial)
     .where(eq(schema.relicSpecial.relicId, relic.id));
 
+    const relicSkills = await db
+      .select()
+      .from(schema.relicSkill)
+      .where(eq(schema.relicSkill.relicId, relic.id));
+
   return NextResponse.json({
     ...relic,
     stats: Object.assign(
@@ -35,5 +40,6 @@ export async function GET(
       }))
     ),
     specials: relicSpecials,
+    skills: relicSkills
   });
 }

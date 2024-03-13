@@ -60,6 +60,15 @@ export const relicSpecial = sqliteTable("relicSpecial", {
   special: text("special").notNull(),
 });
 
+export const relicSkill = sqliteTable("relicSkill", {
+  id: text("id").primaryKey().$defaultFn(() => uuidv7()),
+  relicId: text("relicId")
+  .notNull()
+  .references(() => relic.id, { onDelete: "cascade" }),
+  skill: text("skill").notNull(),
+  imagePath: text("imagePath"),
+})
+
 export const gear = sqliteTable("gear", {
   id: text("id")
     .primaryKey()
@@ -242,3 +251,4 @@ export type ServerInsert = typeof server.$inferInsert;
 export type RelicInsert = typeof relic.$inferInsert;
 export type RelicStatInsert = typeof relicStat.$inferInsert;
 export type RelicSpecialInsert = typeof relicSpecial.$inferInsert;
+export type RelicSkillInsert = typeof relicSkill.$inferInsert;

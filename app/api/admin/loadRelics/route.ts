@@ -80,10 +80,13 @@ const loadRelics = async () => {
 
   const relicStatsToInsert: schema.RelicStatInsert[] = [];
   const relicSpecialsToInsert: schema.RelicSpecialInsert[] = [];
+  const relicSkillsToInsert: schema.RelicSkillInsert[] = [];
 
   for (const relic of relics) {
     const dbRelic = dbRelics.find((dbr) => dbr.name === relic.name);
     if (!dbRelic) throw new Error("no relic!");
+
+    // stats and specials
     for (const statKey of Object.keys(relic.stats)) {
       const stat = relic.stats[statKey];
       relicStatsToInsert.push({
@@ -95,6 +98,8 @@ const loadRelics = async () => {
         civ: parseInt(stat.civ),
         tech: parseInt(stat.tech),
       });
+
+      // specials
       for (const special of stat.special) {
         relicSpecialsToInsert.push({
           relicId: dbRelic.id,
@@ -102,6 +107,32 @@ const loadRelics = async () => {
           special: special,
         });
       }
+    }
+
+    // skills
+    for (const skill of relic.skills) {
+      if (skill.image) {
+        const fullPath = `${process.cwd()}/public/media/relics${skill.image}`;
+        const fileStat = await fs.stat(fullPath).catch(() => null);
+        if (!fileStat) {
+          const dirPath = path.parse(fullPath).dir;
+          await fs.mkdir(dirPath, { recursive: true });
+          await downloader
+            .image({
+              url: `https://supersnail.wiki.gg${skill.image}`,
+              dest: fullPath,
+            })
+            .then(({ filename }) => {
+              console.log("Saved to", filename); // saved to /path/to/dest/image.jpg
+            })
+            .catch((err) => console.error(err));
+        }
+      }
+      relicSkillsToInsert.push({
+        relicId: dbRelic.id,
+        skill: skill.skill,
+        imagePath: skill.image,
+      });
     }
   }
 
@@ -115,6 +146,13 @@ const loadRelics = async () => {
     await db
       .insert(schema.relicSpecial)
       .values(relicSpecialsToInsert.splice(0, 1000));
+  }
+
+  await db.delete(schema.relicSkill);
+  while (relicSkillsToInsert.length > 0) {
+    await db
+      .insert(schema.relicSkill)
+      .values(relicSkillsToInsert.splice(0, 1000));
   }
 };
 
