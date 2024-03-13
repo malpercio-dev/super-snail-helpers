@@ -4,7 +4,7 @@ import { db } from "@/db";
 import * as schema from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-interface RelicWithSpecial extends schema.Relic {
+interface RelicWithSpecial extends Omit<schema.Relic,'wikiPageUrl'> {
   specials: string[];
   skills: {
     skill: string;
@@ -13,27 +13,30 @@ interface RelicWithSpecial extends schema.Relic {
 
 export async function GET(_: NextRequest): Promise<NextResponse> {
   const relics = await db
-    .select({
-      relic: schema.relic,
-      relicSpecial: {
-        special: schema.relicSpecial.special,
-      },
-      relicSkill: {
-        skill: schema.relicSkill.skill,
-      },
-    })
+    .select()
     .from(schema.relic)
-    .innerJoin(
-      schema.relicSpecial,
-      eq(schema.relic.id, schema.relicSpecial.relicId)
-    )
-    .innerJoin(
-      schema.relicSkill,
-      eq(schema.relic.id, schema.relicSkill.relicId)
-    )
     .orderBy(schema.relic.id);
 
-  const result = relics.reduce<Record<string, RelicWithSpecial>>((acc, row) => {
+    const relicSpecials = await db
+    .select()
+    .from(schema.relicSpecial)
+    .orderBy(schema.relicSpecial.relicId);
+
+    const relicSkills = await db
+    .select()
+    .from(
+      schema.relicSkill)
+    .orderBy(schema.relicSkill.relicId);
+
+    const relicResults = relics.map(relic => ({
+      relic: relic,
+      relicSpecial: relicSpecials.filter(rs => rs.relicId === relic.id).map(rs => rs.special),
+      relicSkill: relicSkills.filter(rs => rs.relicId === relic.id).map(rs => ({
+        skill: rs.skill
+      }))
+    }))
+
+  const result = relicResults.reduce<Record<string, RelicWithSpecial>>((acc, row) => {
     const relic = row.relic;
     const specials = row.relicSpecial;
     const skills = row.relicSkill;
@@ -41,10 +44,10 @@ export async function GET(_: NextRequest): Promise<NextResponse> {
       acc[relic.id] = { ...relic, specials: [], skills: [] };
     }
     if (specials) {
-      acc[relic.id].specials.push(specials.special);
+      acc[relic.id].specials.push(...specials);
     }
     if (skills) {
-      acc[relic.id].skills.push(skills);
+      acc[relic.id].skills.push(...skills);
     }
     return acc;
   }, {});

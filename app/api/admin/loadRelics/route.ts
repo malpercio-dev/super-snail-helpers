@@ -58,8 +58,8 @@ const loadRelics = async () => {
       name: relic.name,
       imagePath: relic.imageUrl,
       wikiPageUrl: relic.pageUrl,
-      affct: relic.affct,
-      grade: relic.grade,
+      affct: relic.affct ?? "unknown",
+      grade: relic.grade ?? "unknown",
     });
   }
 
@@ -136,10 +136,12 @@ const loadRelics = async () => {
     }
   }
 
-  await db
-    .insert(schema.relicStat)
-    .values(relicStatsToInsert)
-    .onConflictDoNothing();
+  while (relicStatsToInsert.length > 0) {
+    await db
+      .insert(schema.relicStat)
+      .values(relicStatsToInsert.splice(0, 1000))
+      .onConflictDoNothing();
+  }
 
   await db.delete(schema.relicSpecial);
   while (relicSpecialsToInsert.length > 0) {

@@ -50,6 +50,9 @@ const gradeOptions = [
   {
     grade: "sss",
   },
+  {
+    grade: "unknown",
+  },
 ];
 
 const affctOptions = [
@@ -67,6 +70,9 @@ const affctOptions = [
   },
   {
     affct: "tech",
+  },
+  {
+    affct: "unknown",
   },
 ];
 
